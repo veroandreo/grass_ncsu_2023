@@ -1,0 +1,39 @@
+/*-- scss:defaults --*/
+
+// Colors
+$red:     #d9534f !default;
+$yellow:  #ffc107 !default;
+$green:   #5bb75b !default;
+$cyan:    #2fa4e7 !default;
+
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+
+// Button styling
+$btn-border-radius:           0em !default;
+$btn-border-radius-lg:        0em !default;
+$btn-border-radius-sm:        0em !default;
+
+// Fonts
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+
+/*-- scss:rules --*/
+
+
+// remove radius of the large buttons on the about page
+div.quarto-about-trestles .about-entity .about-link {
+  border-radius: 0;
+}
+
+// remove radius on the bootstrap "cards" element (more on that later)
+.card {
+  border-radius: 0;
+}
+
+.figure-caption {
+  font-size: 0.8rem;
+}

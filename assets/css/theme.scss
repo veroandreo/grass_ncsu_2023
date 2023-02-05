@@ -1,0 +1,28 @@
+/*-- scss:defaults --*/
+$code-block-padding-left: 0.1em;
+
+$link-color: #5bb75b;
+$sidebar-hl: #ff0000;
+$font-family-sans-serif: "Roboto", "sans-serif";
+$font-family-monospace: "Roboto Mono", "Courier", "monospace";
+$navbar-bg: #5bb75b;
+$footer-bg: #5bb75b;
+//$headings-font-weight: 300;
+
+$line-height-base: 1.7;
+
+/*-- scss:rules --*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /*margin: 10px 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  line-height: 20px; */
+  color: #5bb75b;
+  text-rendering: optimizelegibility;
+}

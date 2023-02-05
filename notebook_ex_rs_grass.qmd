@@ -1,0 +1,6 @@
+---
+title: "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R"
+editor: visual
+---
+
+bla

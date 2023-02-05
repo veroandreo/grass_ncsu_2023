@@ -1,0 +1,32 @@
+---
+title: "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R"
+editor: visual
+---
+
+Traditionally, species distribution models (SDM) use climatic data as predictors of habitat suitability for the target species. In this studio, we will explore the use of satellite data to derive relevant predictors. The satellite data processing, from download to analysis, will be performed using GRASS GIS software functionality. Then, we’ll read our predictors within R and perform SDM, visualize and analyze results there, to then exemplify how to write the output distribution maps back into GRASS.
+
+# Getting ready
+
+## Software
+
+In this studio we'll use x and y
+
+### Dependencies
+
+#### Python dependencies
+
+- sentinelsat
+- pandas
+
+#### R dependencies
+
+- rgrass
+- biomod
+
+## Data
+
+## References
+
+- https://github.com/veroandreo/foss4g2022_grass4rs
+- https://github.com/veroandreo/grass_opengeohub2021
+

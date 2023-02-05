@@ -1,0 +1,14 @@
+{
+  "hash": "d8df72377e1240c3098a9db53201d09e",
+  "result": {
+    "markdown": "---\ntitle: \"Using Satellite Data for Species Distribution Modeling with GRASS GIS and R\"\neditor: visual\n---\n\n\nbla\n\n\n::: {.cell}\n\n```{.r .cell-code}\n2-2\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n## [1] 0\n```\n:::\n:::\n\n::: {.cell}\n\n```{.python .cell-code}\n6-2\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n## 4\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

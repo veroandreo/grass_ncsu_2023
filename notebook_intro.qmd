@@ -1,0 +1,232 @@
+---
+title: "Introduction to GRASS GIS"
+#subtitle: "Create beautiful interactive slide decks with Reveal.js"
+author: "Veronica Andreo"
+date: '`r Sys.Date()`'
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    preview-links: auto
+    logo: assets/img/grass_gis.svg
+    #theme: assets/css/theme_slides.scss
+    #css: assets/css/xarigan-themer.css
+    footer: <https://grass.osgeo.org>
+    footnotes-hover: true
+resources:
+  - demo.pdf
+from: markdown+emoji
+---
+
+## Which GRASS?
+
+::: columns
+::: {.column width="65%" style="font-size: 0.8em"}
+-   **GRASS GIS** (Geographic Resources Analysis Support System), a FOSS suite used for geospatial data management and analysis, image processing, graphics and maps, spatial modeling, and visualization.
+
+-   Originally developed by the U.S. Army Construction Engineering Research Laboratories for land management and environmental planning (1982-1995).
+
+-   More history: <https://grass.osgeo.org/about/history/>
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="35%"}
+![](assets/img/grass_38_bday.png)
+:::
+:::
+
+---
+
+## A bit of (geek) GRASS GIS history...
+
+<iframe width="560" height="315" scrolling="no" src="//av.tib.eu/player/12963" frameborder="0" allowfullscreen></iframe>
+
+<br>
+
+In case you didn't notice, the video is narrated by William Shatner :rocket:
+
+---
+
+## GRASS GIS general stuff
+
+-   Free and open source, you can use, modify, improve, share
+-   Strong user community, commercial support
+-   Large amount of tools: 500+ [core modules](#modules), 300+ [addons](#addons)
+-   GUI and CLI interfaces
+-   Python API and libraries - new `grass.jupyter` library can be tried [online](https://mybinder.org/v2/gh/OSGeo/grass/c173461?urlpath=lab%2Ftree%2Fdoc%2Fnotebooks%2Fgrass_jupyter.ipynb)
+-   Connection with R, QGIS, WPS, etc.
+-   Different data types supported: [raster](https://grass.osgeo.org/grass-stable/manuals/rasterintro.html) (including [satellite imagery](https://grass.osgeo.org/grass-stable/manuals/imageryintro.html)), [3D raster or voxel](https://grass.osgeo.org/grass-stable/manuals/raster3dintro.html), [vector](https://grass.osgeo.org/grass-stable/manuals/vectorintro.html) and [space-time datasets](https://grass.osgeo.org/grass-stable/manuals/temporalintro.html)
+
+---
+
+### More than [500 core modules](https://grass.osgeo.org/grass-stable/manuals/full_index.html) <i class="fa-brands fa-github"></i>
+
+| Prefix                                                                   | Function class | Type of command         | Example                                                                                                                |
+|----------------|:-------------|:-------------|:----------------------------|
+| [g.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#g)   | general        | general data management | [g.rename](https://grass.osgeo.org/grass-stable/manuals/g.rename.html): renames map                                    |
+| [d.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#d)   | display        | graphical output        | [d.rast](https://grass.osgeo.org/grass-stable/manuals/d.rast.html): display raster map                                 |
+| [r.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#r)   | raster         | raster processing       | [r.mapcalc](https://grass.osgeo.org/grass-stable/manuals/r.mapcalc.html): map algebra                                  |
+| [v.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#r)   | vector         | vector processing       | [v.clean](https://grass.osgeo.org/grass-stable/manuals/v.clean.html): topological cleaning                             |
+| [i.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#i)   | imagery        | imagery processing      | [i.pca](https://grass.osgeo.org/grass-stable/manuals/i.pca.html): Principal Component Analysis                         |
+| [r3.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#r3) | voxel          | 3D raster processing    | [r3.stats](https://grass.osgeo.org/grass-stable/manuals/r3.stats.html): voxel statistics                               |
+| [db.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#db) | database       | database management     | [db.select](https://grass.osgeo.org/grass-stable/manuals/db.select.html): select value(s) from table                   |
+| [ps.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#ps) | postscript     | PostScript map creation | [ps.map](https://grass.osgeo.org/grass-stable/manuals/ps.map.html): PostScript map creation                            |
+| [t.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#t)   | temporal       | space-time datasets     | [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggregate.html): raster time series aggregation |
+
+---
+
+## More than [300 add-ons](https://grass.osgeo.org/grass-stable/manuals/addons/)
+
+Plugins or **Add-ons** can be installed from a centralized [OSGeo repository](https://grass.osgeo.org/grass-stable/manuals/addons/) or from github (or similar repositories) using [g.extension](https://grass.osgeo.org/grass-stable/manuals/g.extension.html) command.
+
+``` bash
+# install extension from GRASS GIS Add-on repository
+g.extension extension=r.hants
+ 
+# install extension from github repository
+g.extension extension=r3.slice \
+  url=https://github.com/petrasovaa/r3.slice
+```
+
+---
+
+### Graphical User Interface (GUI)
+
+<center><img src="assets/img/GUI_description.png" width="870px"/></center>
+
+---
+
+### Command line
+
+<center><img src="assets/img/grass_command_line.png" width="65%"/></center>
+
+---
+
+### GRASS + R through rgrass package
+
+We can use [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#R_within_GRASS) or use [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R)
+
+![](assets/img/RwithinGRASS_and_Rstudio_from_grass.png)
+
+{{< fa brands r-project >}}
+
+---
+
+# Temporal support in GRASS GIS
+
+---
+
+## The TGRASS framework
+
+GRASS GIS was the first FOSS GIS that incorporated capabilities to *manage, analyze, process and visualize spatio-temporal data*, as well as the temporal relationships among time series.
+
+-   TGRASS is fully **based on metadata** and does not duplicate any dataset
+-   **Snapshot** approach, i.e., adds time stamps to maps
+-   A collection of time stamped maps (snapshots) of the same variable are called **space-time datasets** or STDS
+-   Maps in a STDS can have different spatial and temporal extents
+
+---
+
+## Space-time datasets
+
+-   Space time raster datasets (**STRDS**)
+-   Space time 3D raster datasets (**STR3DS**)
+-   Space time vector datasets (**STVDS**)
+
+<br> 
+
+{{< fa announcement >}} Upcoming GRASS 8 will support image collections by adding a band reference
+
+---
+
+<img src="assets/img/temporal_modules.png" width="110%" align="center"/>
+
+## Temporal modules
+
+-   **t.\***: General modules to handle STDS of all types
+-   **t.rast.\***: Modules that deal with STRDS
+-   **t.rast3d.\***: Modules that deal with STR3DS
+-   **t.vect.\***: Modules that deal with STVDS
+
+---
+
+### Other TGRASS notions
+
+---
+
+-   Time can be defined as **intervals** (start and end time) or **instances** (only start time)
+-   Time can be **absolute** (e.g., 2017-04-06 22:39:49) or **relative** (e.g., 4 years, 90 days)
+-   **Granularity** is the greatest common divisor of the temporal extents (and possible gaps) of all maps in the space-time cube
+
+<img src="https://grass.osgeo.org/grass78/manuals/timeline_2D.jpg"/>
+
+---
+
+-   **Topology** refers to temporal relations between time intervals in a STDS.
+
+<img src="assets/img/temp_relation.png"/>
+
+---
+
+### TGRASS framework and workflow
+
+<img src="assets/img/tgrass_flowchart.png" width="91%"/>
+
+---
+
+## Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:
+
+---
+
+### Demo session overview
+
+Habitat suitability mapping for the Asian tiger mosquito in Northern Italy based on variables derived from daily LST data
+
+-   **GRASS**
+    -   Import species records
+    -   Create random background points
+    -   Create different environmental layers from daily LST data
+-   **R**
+    -   Read data from GRASS into R
+    -   Model species distribution
+    -   Model evaluation
+    -   Visualization of results
+
+---
+
+Jarnevich et al. 2015. doi:[10.1016/j.ecoinf.2015.06.007](https://doi.org/10.1016/j.ecoinf.2015.06.007)
+
+<img src="assets/img/sdm_workflow_edited.png" width="72%"/>
+
+---
+
+### Data for the session
+
+-   Records of *Aedes albopictus* (Asian tiger mosquito) in Northern Italy downloaded from [GBIF](https://www.gbif.org/)
+-   Daily MODIS LST reconstructed by [mundialis](https://www.mundialis.de/en/) based on [Metz et al. 2017](https://www.mdpi.com/2072-4292/9/12/1333/htm)
+    -   1 km spatial resolution
+    -   Converted to Celsius degrees
+
+<img src="assets/img/aedes_albopictus.jpg" width="47%" align="right"/> <br> <img src="assets/img/lst_north_italy_2014.png" width="78%" align="left"/>
+
+---
+
+### :download: Get sample location, mosquito records and code :download:
+
+-   Create a folder named `grassdata_ogh`
+-   Download and unzip [eu_laea location with LST mapset](https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing) and unzip within your `grassdata_ogh` folder
+-   Download the asian tiger [mosquito occurrences](https://github.com/veroandreo/grass_opengeohub2021/raw/master/data/aedes_albopictus.gpkg) as `.gpkg` file
+-   Download the [GRASS script](https://github.com/veroandreo/grass_opengeohub2021/raw/master/code/grass_R_disease_ecology_code.sh)
+-   Download the [R script](https://github.com/veroandreo/grass_opengeohub2021/raw/master/code/grass_R_disease_ecology_code.r)
+
+The `grassdata_ogh` folder's tree should look like this:
+
+      grassdata_ogh/
+      └── eu_laea
+          ├── italy_LST_daily
+          └── PERMANENT
+
+---

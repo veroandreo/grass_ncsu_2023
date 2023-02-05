@@ -1,0 +1,12 @@
+
+
+:::{.column-page}
+## Slides
+```{=html}
+<iframe class="slide-deck", style="width:100%;height:600px; border:1px solid gray;" src="presentation.html"></iframe>
+```
+
+[Show in new tab](presentation.html){target="_blank"}
+:::
+
+

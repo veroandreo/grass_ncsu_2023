@@ -1,0 +1,22 @@
+---
+title: "Remote Sensing and Public Health"
+subtitle: "Visiting the Geospatial Analytics Center at NCSU"
+date: "April, 2023"
+author: "Verónica Andreo"
+toc: true
+---
+
+## Overview
+
+bla bla
+
+## Contents
+
+1.  Lecture
+    1.  bla
+    2.  bla
+2.  Studio
+    1.  bla
+    2.  bla
+
+

@@ -1,0 +1,62 @@
+---
+title: "Verónica Andreo"
+about:
+  template: trestles
+  image: assets/img/profile.png
+  links:
+    - icon: mastodon
+      url: "https://fosstodon.org/@VeronicaAndreo"
+    - icon: twitter
+      url: "https://twitter.com/VeronicaAndreo"
+    - icon: github
+      url: "https://github.com/veroandreo"
+    - text: "{{< ai orcid >}}"
+      url: https://orcid.org/0000-0002-4633-2161
+---
+
+
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-12}
+## {{< fa solid dna >}} About 
+[**Verónica Andreo**](https://veroandreo.gitlab.io/) is a biologist. She holds 
+a PhD in Biological Sciences and an MSc in Remote Sensing and GIS applications. 
+She works as a researcher for [CONICET](https://www.conicet.gov.ar/) and 
+lecturer at [Gulich Institute](http://ig.conae.unc.edu.ar/) - Argentinian Space
+Agency [(CONAE)](https://www.argentina.gob.ar/ciencia/conae) in Córdoba, Argentina.
+Her research is focused on uncovering **environmental drivers of vector-borne disease outbreaks**. She is mostly interested in those environmental features 
+that can be derived **by means of satellite image analysis, remote sensing time series and GIS-based techniques**. 
+
+
+Verónica is part of the [GRASS GIS](https://grass.osgeo.org/) Development team
+and currently serves as the [PSC chair](https://grass.osgeo.org/news/2021_02_05_new_grass_psc/). 
+She is a strong advocate for [OSGeo](https://www.osgeo.org/) and free and open 
+source software for geo-spatial (FOSS4G). She was the Program Committee
+chair for [**FOSS4G 2021**](2021.foss4g.org/). Among other things, she has 
+volunteered as a mentor for GRASS GIS in the 
+[Google Code-In contest](https://codein.withgoogle.com/) 
+introducing high school students into the Open Source world.
+:::
+
+::: {.g-col-12 .g-col-md-6}
+## {{< fa solid heart >}} Interests 
+
+- Remote sensing time series
+- Image analysis
+- GIS
+- SDM
+- Vector-borne diseases
+- Free and Open Source Software
+:::
+
+::: {.g-col-12 .g-col-md-6}
+## {{< fa solid graduation-cap >}}  Education
+
+- **PhD in Biological Sciences**. *National University of Río Cuarto*. 2012.
+- **MSc in Spatial Applications for Early Warning and Response to Emergencies**. 
+*National University of Córdoba*. 2015.
+- **Biologist**. *National University of Río Cuarto*. 2005.
+:::
+
+:::

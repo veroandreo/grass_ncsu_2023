@@ -1,0 +1,38 @@
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Noto Sans";
+$font-family-monospace: "Fira Code";
+
+// font size
+$presentation-h1-font-size: 2.75rem;
+$presentation-h2-font-size: 2.25rem;
+$presentation-h3-font-size: 1.75rem;
+$presentation-font-size-root: 40px;
+$presentation-font-smaller: 0.7;
+
+// colors
+$primary: #248232;
+$secondary: #2BA84A;
+$white: #FFFFFF;
+$black: #000000;
+
+$presentation-heading-color: $primary;
+
+$link-color: lighten($presentation-heading-color, 15%);
+$link-color-hover: lighten($link-color, 15%);
+
+//$selection-bg: lighten($presentation-heading-color, 25%);
+$presentation-title-slide-text-align: center;
+
+
+/*-- scss:rules --*/
+
+.reveal .slide-number {
+  color: $link-color;
+}
+
+.reveal .footer {
+  font-size: 0.35em !important;
+  text-align: center !important;
+}

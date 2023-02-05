@@ -1,0 +1,14 @@
+---
+title: "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R"
+editor: visual
+---
+
+bla
+
+```{r}
+2-2
+```
+
+```{python}
+6-2
+```
