@@ -3,7 +3,7 @@
 format: 
   revealjs:
     #transition: fade
-    theme: theme_slides.scss
+    theme: assets/css/theme_slides.scss
 #subtitle: "Tutorial at CONAE spring school 2022"
 #date: "Sept. 27, 2022"
 slide-number: "c/t"
