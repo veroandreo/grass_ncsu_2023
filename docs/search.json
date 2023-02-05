@@ -1,0 +1,562 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Remote Sensing and Public Health",
+    "section": "",
+    "text": "bla bla"
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "Remote Sensing and Public Health",
+    "section": "Contents",
+    "text": "Contents\n\nLecture\n\nbla\nbla\n\nStudio\n\nbla\nbla"
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "Visiting NCSU",
+    "section": "",
+    "text": "Show in new tab"
+  },
+  {
+    "objectID": "slides.html#motivation",
+    "href": "slides.html#motivation",
+    "title": "Visiting NCSU",
+    "section": "Motivation",
+    "text": "Motivation\n\nData availability (e.g. Sentinel-2) in the cloud\nMethod availability (e.g. in R, > 18k CRAN packages)\nWho wants to download > 100 GB from data portals?"
+  },
+  {
+    "objectID": "slides.html#tutorial-overview",
+    "href": "slides.html#tutorial-overview",
+    "title": "Visiting NCSU",
+    "section": "Tutorial overview",
+    "text": "Tutorial overview\nObjective: Show how you can analyze satellite image collections in the cloud with R\n\nIntroduction:\n\nCloud computing\nSatellite imagery in the cloud\nCloud-native geospatial echnologies\nR ecosystem\n\nLive examples\n\nCreating composite images\nComplex time series analysis\nExtraction from data cubes\n\nDiscussion\n\nAll materials are available on GitHub: https://github.com/appelmar/CONAE_2022."
+  },
+  {
+    "objectID": "slides.html#in-the-cloud",
+    "href": "slides.html#in-the-cloud",
+    "title": "Visiting NCSU",
+    "section": "“… in the cloud”",
+    "text": "“… in the cloud”\n\n\nServices:\n\nGoogle Earth Engine (GEE)\nSentinel Hub\nopenEO backends\n…\n\n\n\n\nInfrastructure providers:\n\nAmazon web services (AWS)\nGoogle Cloud Platform\nMicrosoft Azure\n…\n\n\n\nSomewhere in between: Microsoft Planetary Computer\n\n\nIn this tutorial, we will use a custom machine on AWS to analyze satellite image collections in the cloud."
+  },
+  {
+    "objectID": "slides.html#cloud-infrastructure-aws",
+    "href": "slides.html#cloud-infrastructure-aws",
+    "title": "Visiting NCSU",
+    "section": "Cloud infrastructure (AWS)",
+    "text": "Cloud infrastructure (AWS)\n\nLots of separate data centers with large clusters\n\n\n\nIn total: > 25 regions and > 80 availability zones\nBasic service to run (virtual) machines: EC2 (Amazon Elastic Compute Cloud)"
+  },
+  {
+    "objectID": "slides.html#running-a-machine-in-the-cloud-aws",
+    "href": "slides.html#running-a-machine-in-the-cloud-aws",
+    "title": "Visiting NCSU",
+    "section": "Running a machine in the cloud (AWS)",
+    "text": "Running a machine in the cloud (AWS)\n\nSelect a region and machine instance type, based on costs, hardware, and OS\nCreate a key pair for accessing the machine over SSH\nClick “Launch instance” and follow instructions\nConnect via SSH and install software (PROJ, GDAL, R, RStudioServer1, R packages, …)\n\nNotice that security considerations (e.g. by using IAM roles, multi-factor authorization) are NOT part of this tutorial.\nYou need to add a security rule to allow public / protected access to RStudioServer."
+  },
+  {
+    "objectID": "slides.html#aws-management-console",
+    "href": "slides.html#aws-management-console",
+    "title": "Visiting NCSU",
+    "section": "AWS Management Console",
+    "text": "AWS Management Console"
+  },
+  {
+    "objectID": "slides.html#example-platforms-and-available-data",
+    "href": "slides.html#example-platforms-and-available-data",
+    "title": "Visiting NCSU",
+    "section": "Example platforms and available data",
+    "text": "Example platforms and available data\n\n\n\n\nProvider\nData\n\n\n\n\nAmazon web services (AWS)\nSentinel, Landsat, ERA 5, OSM, CMIP 6, and more, see here\n\n\nGoogle Cloud Platform\nLandsat, Sentinel, access to GEE data\n\n\nMicrosoft Planetary Computer\nSentinel, Landsat, MODIS and more, see here"
+  },
+  {
+    "objectID": "slides.html#object-storage-s3",
+    "href": "slides.html#object-storage-s3",
+    "title": "Visiting NCSU",
+    "section": "Object Storage: S3",
+    "text": "Object Storage: S3\nEC2 machines have local storage (EBS) but big data archives use highly scalable object storage.\nS3 elements:\n\nBucket: container for objects that are stored in a specific AWS region\nObjects: Individual files and corresponding metadata within a bucket, identified by a unique key\nKey: Filenames / Path or similar; unique within a bucket\n\nPricing (storage, transfer, requests):\n\nBucket owner pays by default\nFor requester pays buckets, transfer and requests are paid by users"
+  },
+  {
+    "objectID": "slides.html#s3-examples",
+    "href": "slides.html#s3-examples",
+    "title": "Visiting NCSU",
+    "section": "S3 examples",
+    "text": "S3 examples\n\nBuckets:\n\nhttps://registry.opendata.aws/sentinel-2\nhttps://registry.opendata.aws/usgs-landsat/\n\nObject:\n\nhttps://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/20/J/ML/2022/3/S2B_20JML_20220330_0_L2A/B04.tif"
+  },
+  {
+    "objectID": "slides.html#data-access",
+    "href": "slides.html#data-access",
+    "title": "Visiting NCSU",
+    "section": "Data access",
+    "text": "Data access\n\nBuckets are not a drive on your machine\nData access over HTTP requests (PUT, GET, DELETE, …)\n\n\nChallenges\n\nHow to find images by location, time, and other criteria?\nHow to efficiently read image data from S3 without copying images to our machine storage first?"
+  },
+  {
+    "objectID": "slides.html#stac-overview",
+    "href": "slides.html#stac-overview",
+    "title": "Visiting NCSU",
+    "section": "STAC overview",
+    "text": "STAC overview\n\nStandardized JSON-based language for describing catalogs of spatiotemporal data (imagery, point clouds, SAR)\nExtensible (available extensions include EO, Data Cubes, Point Clouds, and more)\n1.0.0 release available since May 2021\nGrowing ecosystem"
+  },
+  {
+    "objectID": "slides.html#stac-specification",
+    "href": "slides.html#stac-specification",
+    "title": "Visiting NCSU",
+    "section": "STAC specification",
+    "text": "STAC specification\n\n\nItems are inseparable objects of data (assets) and metadata (e.g. a single satellite image)\nCatalogs can be nested\nCollections extend catalogs and can be used to group items and their metadata (e.g. license)"
+  },
+  {
+    "objectID": "slides.html#stac-api",
+    "href": "slides.html#stac-api",
+    "title": "Visiting NCSU",
+    "section": "STAC API",
+    "text": "STAC API\nStatic STAC catalogs\n\nTypically set of linked JSON files, starting with a catalog.json\nCatalog JSON contains links to collections, nested catalogs, or items\nItems contain assets (links to files) and metadata\nProblem: All items must be processed for searching\nExample: https://meeo-s5p.s3.amazonaws.com/catalog.json\n\nSTAC API\n\nWeb-service for dynamic search of STAC items by area of interest, datetime, and other metadata\nCompliant with OGC API - Features standard\n\nSTAC Index\n\nA good starting point to find available STAC collections and API services: https://stacindex.org"
+  },
+  {
+    "objectID": "slides.html#cloud-optimized-geotiff-cog",
+    "href": "slides.html#cloud-optimized-geotiff-cog",
+    "title": "Visiting NCSU",
+    "section": "Cloud-optimized GeoTIFF (COG)",
+    "text": "Cloud-optimized GeoTIFF (COG)\nImage file formats must be cloud-friendly to reduce transfer times and costs associated with transfer and requests\n\n\n\nCOG = Normal tiled GeoTIFF files whose content follows a specific order of data and metadata (see full spec here)\nsupport compression\nsupport efficient HTTP range requests, i.e. partial reading of images (blocks, and overviews) over cloud storage\nmay contain overview images (image pyramids)\n\n\n\n\n\nGDAL can efficiently read and write COGs, and access object storage in the cloud with virtual file systems"
+  },
+  {
+    "objectID": "slides.html#satellite-image-collections",
+    "href": "slides.html#satellite-image-collections",
+    "title": "Visiting NCSU",
+    "section": "Satellite image collections",
+    "text": "Satellite image collections\nImages spatially overlap, have different coordinate reference systems, have different pixel sizes depending on spectral bands, yield irregular time series for larger areas"
+  },
+  {
+    "objectID": "slides.html#what-is-a-data-cube",
+    "href": "slides.html#what-is-a-data-cube",
+    "title": "Visiting NCSU",
+    "section": "What is a data cube?",
+    "text": "What is a data cube?\nHere: A four-dimensional (space, time, variable / band) regular raster data cube\n\n\ncollect all observations in one object\n\\(b \\times t \\times y \\times x \\rightarrow\\) number\nsingle CRS, cells have constant temporal duration, and spatial size"
+  },
+  {
+    "objectID": "slides.html#data-cube-creation-is-lossy",
+    "href": "slides.html#data-cube-creation-is-lossy",
+    "title": "Visiting NCSU",
+    "section": "Data Cube creation is lossy",
+    "text": "Data Cube creation is lossy\n Important: There is no single correct data cube!"
+  },
+  {
+    "objectID": "slides.html#r-packages",
+    "href": "slides.html#r-packages",
+    "title": "Visiting NCSU",
+    "section": "R packages",
+    "text": "R packages\n\nraster / terrastarsgdalcubessitsothers\n\n\n\nGeneral packages for raster data analysis\nterra (Hijmans 2020) is a newer (faster) package that replaces raster (Hijmans 2019)\n\nSupport two- or three-dimensional rasters\nInclude lots of analysis tools\n\n\n\n\nFlexible package for spatiotemporal arrays / data cubes with arbitrary number of dimensions (Pebesma 2019)\nSupports raster and vector data cubes\n\n\n\n\n\n\n\n\n\n\n\nImagery from https://r-spatial.github.io/stars\n\n\n\n\nCreation and processing of four-dimensional (space, time, variable) data cubes from irregular image collections (Appel and Pebesma 2019)\nParallel chunk-wise processing\nDocumentation available at https://gdalcubes.github.io/\n\n\n\n\n\n\n\n\n\nGeneric package for satellite image time series analysis (Simoes et al. 2021)\nBuilds on top of previous packages\nIncludes sophisticated methods with a focus on time series classification\nDocumentation: https://e-sensing.github.io/sitsbook/\n\n\n\n\n\n\n\nImagery from https://github.com/e-sensing/sits\n\n\n\n\nrstac (Brazil Data Cube Team 2021): Query images from STAC-API services\nsp (Pebesma and Bivand 2005): replaced by sf and stars\nopeneo (Lahn 2021): Connect to and analyse data at openEO backends\n\n\n\n\n\nThis tutorial focuses on the packages rstac and gdalcubes."
+  },
+  {
+    "objectID": "slides.html#discussion-1",
+    "href": "slides.html#discussion-1",
+    "title": "Visiting NCSU",
+    "section": "Discussion",
+    "text": "Discussion\n\n\n\nAdvantages\n\nAccess to huge data archives\nFlexibility: You can do whatever you can do on your local machine\nPowerful machines available\nOpen source software only\n\n\n\n\nDisadvantages\n\nNot free\nGEE and others can be easier to use (some are free)\nYour institution’s computing center might have more computing resources (for free)\nSetup and familiarization needed\nDepends on the existence of STAC-API services and imagery as COGs!\n\n\n\n\n→ Which tools / platforms / environments are most efficient to use highly depends on factors like data volume, computational effort, data & method availability, effort needed to familiarization and reimplementation, and others."
+  },
+  {
+    "objectID": "slides.html#summary",
+    "href": "slides.html#summary",
+    "title": "Visiting NCSU",
+    "section": "Summary",
+    "text": "Summary\n\nCloud-computing platforms contain lots of satellite data\nCloud storage differs from local storage\nTechnology and tools:\n\nSTAC (and STAC API!) for efficient and standardized search of spatiotemporal EO data\nCOGs allow efficiently reading parts of imagery, potentially on lower resolution\nGDAL has everything for efficient data access on cloud storage\ngdalcubes makes the creation and processing of data cubes from satellite image collections in R easier"
+  },
+  {
+    "objectID": "slides.html#references",
+    "href": "slides.html#references",
+    "title": "Visiting NCSU",
+    "section": "References",
+    "text": "References\n\n\nAppel, M., and Pebesma, E. (2019), “On-demand processing of data cubes from satellite image collections with the gdalcubes library,” Data, 4.\n\n\nBrazil Data Cube Team (2021), Rstac: Client library for SpatioTemporal asset catalog.\n\n\nHijmans, R. J. (2019), Raster: Geographic data analysis and modeling.\n\n\nHijmans, R. J. (2020), Terra: Spatial data analysis.\n\n\nLahn, F. (2021), Openeo: Client interface for ’openEO’ servers.\n\n\nPebesma, E. (2019), Stars: Spatiotemporal arrays, raster and vector data cubes.\n\n\nPebesma, E. J., and Bivand, R. S. (2005), “Classes and methods for spatial data in R,” R News, 5, 9–13.\n\n\nSimoes, R., Camara, G., Souza, F., Andrade, P., Santos, L., Ferreira, K., Queiroz, G., de Carvalho, A. Y., and Maus, V. (2021), Sits: Data analysis and machine learning using satellite image time series, Sao Jose dos Campos, Brazil: INPE - Brazilian National Institute for Space Research."
+  },
+  {
+    "objectID": "notebook_ex_rs_grass.html",
+    "href": "notebook_ex_rs_grass.html",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "",
+    "text": "bla"
+  },
+  {
+    "objectID": "grassgis4rs.html#why-jupyter-notebooks-and-how-to-use-them",
+    "href": "grassgis4rs.html#why-jupyter-notebooks-and-how-to-use-them",
+    "title": "Visiting NCSU",
+    "section": "1. Why Jupyter Notebooks and how to use them?",
+    "text": "1. Why Jupyter Notebooks and how to use them?\nJupyter Notebooks are server-client applications that allow code written in a notebook document to be edited and executed through a web browser. They can be run on a local computer (no internet access required) or used to control computations on a remote server accessed via the Internet (see the documentation).\nJupyter Notebooks can be interactive and they allow to combine live code, explanatory text, and computational results in a single document. In general, they are:\n\nconvenient for initial code development (prototyping)\nideal for code segmentation with the ability to re-run cells\nable to store values of variables from already executed cells\n\nThe notebook can be saved as an executable Python script in addition to the native .ipynb format, or exported to various documentation formats such as PDF or Sphinx RST with nice styling.\n\nEditing and interactive use\nEditing a Jupyter Notebook is very easy: in the web browser, you can navigate between text or code cells using the mouse or keyboard shortcuts (see Menu > Help > Keyboard Shortcuts). You can execute small code chunks cell by cell, save the notebook in its current state, or modify and recalculate cells or return them to their previous state. In addition to executable code cells, you can use Markdown in documentation cells to make them presentable to others."
+  },
+  {
+    "objectID": "grassgis4rs.html#grass-gis-basics",
+    "href": "grassgis4rs.html#grass-gis-basics",
+    "title": "Visiting NCSU",
+    "section": "2. GRASS GIS basics",
+    "text": "2. GRASS GIS basics\n\nOpen GRASS for the first time\nAs of version 8.0, GRASS has modified its startup to make it more user friendly:    \nFrom the Data catalog tab you can manage several actions and if you do not yet have imported data into the GRASS database, the software creates the directory structure or database automatically.\n\n\nDatabase\n\nGRASS database (directory with projects): When running GRASS GIS for the first time, a folder named “grassdata” is automatically created. Depending on the operating system, it can be found in $HOME (*nix) or My Documents (MS Windows).\nLocation (a project): A location is defined by its coordinate reference system (CRS). The location that is automatically created is in WGS84 (EPSG:4326). If you have data in another CRS, you should ideally create a new location.\nMapset (a subproject): Each location can have many mapsets to manage different aspects or sub-regions of a project. When creating a new location, GRASS GIS automatically creates a special mapset called PERMANENT where the central data of the project (e.g., base maps, road network, dem, etc.) can be stored.\n\n  \n\nMore info: https://grass.osgeo.org/grass-stable/manuals/grass_database.html.\n\n\n\nComputational region\nAnother fundamental concept of GRASS GIS (and very useful when working with raster data) is that of the computational region. It refers to the boundary configuration of the analysis area and spatial resolution (raster). The computational region can be defined and modified with the command g.region to the extent of a vector map, a raster or manually to some area of interest. The output raster maps will have an extent and spatial resolution equal to the computational region, while vector maps are always processed at their original extent.\n  \n\nFor more details, see the wiki on Computational Region.\n\n\nModules and extensions\nGRASS has more than 500 modules for the most varied tasks:\n\n\n\nPrefix\nFunction class\nType of command\nExample\n\n\n\n\ng.*\ngeneral\ngeneral data management\ng.rename: renames map\n\n\nd.*\ndisplay\ngraphical output\nd.rast: display raster map\n\n\nr.*\nraster\nraster processing\nr.mapcalc: map algebra\n\n\nv.*\nvector\nvector processing\nv.clean: topological cleaning\n\n\ni.*\nimagery\nimagery processing\ni.pca: Principal Components Analysis on imagery group\n\n\nr3.*\nvoxel\n3D raster processing\nr3.stats: voxel statistics\n\n\ndb.*\ndatabase\ndatabase management\ndb.select: select value(s) from table\n\n\nps.*\npostscript\nPostScript map creation\nps.map: PostScript map creation\n\n\nt.*\ntemporal\nspace-time datasets\nt.rast.aggregate: raster time series aggregation\n\n\n\nExtensions or add-ons can be installed from the central GitHub repository or from other users’ GitHub (or similar repositories) using the command g.extension. For example:\n # install an extension from the GRASS GIS repository\n g.extension extension=r.hants\n \n # install an extension from another GitHub repository\n g.extension extension=r.change.stats \\\n   url=https://github.com/mundialis/r.change.stats"
+  },
+  {
+    "objectID": "grassgis4rs.html#grass-python",
+    "href": "grassgis4rs.html#grass-python",
+    "title": "Visiting NCSU",
+    "section": "3. GRASS & Python",
+    "text": "3. GRASS & Python\n\nPython package grass.script\nThe grass.script or GRASS GIS Python Scripting Library provides functions for calling GRASS modules within Python scripts. The most commonly used functions include:\n\nrun_command: used when the output of the modules is a raster or vector, no text type output is expected\nread_command: used when the output of the modules is of text type\nparse_command: used with modules whose output can be converted to key=value pairs\nwrite_command: used with modules that expect text input, either in the form of a file or from stdin\n\nIt also provides several wrapper functions for frequently used modules, for example:\n\nTo get info from a raster, script.raster.raster_info() is used: gs.raster_info('dsm')\nTo get info of a vector, script.vector.vector_info() is used: gs.vector_info('roads')\nTo list the raster in a location, script.core.list_grouped() is used: gs.list_grouped(type=['raster'])\nTo obtain the computational region, script.core.region() is used: gs.region()\n\n\nMore info: https://grass.osgeo.org/grass-stable/manuals/libpython/script_intro.html\n\n\nPython package grass.jupyter\nThe grass.jupyter library improves the integration of GRASS and Jupyter, and provides different classes to facilitate GRASS maps visualization:\n\ninit: starts a GRASS session and sets up all necessary environment variables\nMap: 2D rendering\nMap3D: 3D rendering\nInteractiveMap: interactive visualization with folium\nTimeSeriesMap: visualization for spatio-temporal data\n\n\nMore info: https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html"
+  },
+  {
+    "objectID": "grassgis4rs.html#getting-ready-set-variables-and-download-sample-data",
+    "href": "grassgis4rs.html#getting-ready-set-variables-and-download-sample-data",
+    "title": "Visiting NCSU",
+    "section": "4. Getting ready: set variables and download sample data",
+    "text": "4. Getting ready: set variables and download sample data\nFor the ease of working in this notebook, we define some session variables.\n\n\nCode\nimport os\n\n# data directory\nhomedir = os.path.join(os.path.expanduser('~'), \"foss4g_grass4rs\")\n\n# GRASS GIS database variables\n#grassbin = \"grassdev\"\ngrassbin = \"grass\"\ngrassdata = os.path.join(homedir, \"grassdata\")\nlocation = \"nc_spm_08_grass7\"\nmapset = \"PERMANENT\"\n\n\n\n\nCode\n# Sentinel-2 related directories\ns2_data = os.path.join(homedir, \"sentinel\")\ns2_timestamps = os.path.join(homedir, s2_data, \"sentinel-timestamps.txt\")\n\n# create directories if not already existing\nos.makedirs(grassdata, exist_ok=True)\nos.makedirs(s2_data, exist_ok=True)\n\n# the variables are also accessible via Python\nprint(homedir)\n\n# list content\nos.listdir(homedir)\n\n\nNext we check the GRASS GIS installation:\n\n\nCode\nimport subprocess\nprint(subprocess.check_output([grassbin, \"--config\", \"version\"], text=True))\n\n\nNext, if not already there, we download North Carolina location and unpack it within the above defined homedir.\n\n\nCode\n# download NC sample data into target directory homedir (we use `wget` on command line here)\n!wget -c https://grass.osgeo.org/sampledata/north_carolina/nc_spm_08_grass7.zip -O $homedir/nc.zip\n\n\n\n\nCode\n# unpack sample dataset into target directory homedir\n!unzip -o -q -d $grassdata $homedir/nc.zip\n\nprint(\"List uploaded file(s) in target directory \"+homedir+\":\")\nos.listdir(homedir)\n\n\nDownload and unzip Sentinel-2 scenes:\n\n\nCode\n# download Sentinel-2 data into target directory homedir\n!wget -c https://data.neteler.org/foss4g2022/sentinel.zip -O $homedir/sentinel.zip\n\n# unpack into target directory homedir\n!unzip -o -q -d $homedir $homedir/sentinel.zip\n\n\nDownload landuse map:\n\n\nCode\n# get NC landuse map 2019 in GRASS GIS format, to be used later as classification training map\n!wget -c https://data.neteler.org/foss4g2022/nc_nlcd2019.pack -O $homedir/nc_nlcd2019.pack\n\n\n\n\nCode\nprint(\"List uploaded file(s) in target directory \"+homedir+\":\")\nos.listdir(homedir)"
+  },
+  {
+    "objectID": "grassgis4rs.html#imports-and-initialization-of-grass-gis",
+    "href": "grassgis4rs.html#imports-and-initialization-of-grass-gis",
+    "title": "Visiting NCSU",
+    "section": "5. Imports and initialization of GRASS GIS",
+    "text": "5. Imports and initialization of GRASS GIS\n\n\nCode\n# Import standard Python packages we need\nimport sys\n\n# Ask GRASS GIS where its Python packages are to be able to run it from the notebook\nsys.path.append(\n    subprocess.check_output([grassbin, \"--config\", \"python_path\"], text=True).strip()\n)\n\n\n\n\nCode\n# Import the GRASS GIS packages we need\nimport grass.script as gs\nimport grass.jupyter as gj\n\n# Start the GRASS GIS Session\nsession = gj.init(grassdata, location, mapset)\n\n\n\n\nCode\n# Show current GRASS GIS settings, this also checks if the session works\ngs.gisenv()\n\n\nBefore we start, we list the elements in the mapset PERMANENT. If you only want to see the raster or vector type elements, just change the type option in the following command. As you can see, since the output is of text type, we use read_command().\n\n\nCode\n# List vector elements in the PERMANENT mapset\ngs.list_grouped(type=\"vector\")\n\n\nNow we import the landuse map into the PERMANENT mapset (so it is visible in all other mapsets).\n\n\nCode\n## Import of the North Carolina NLCD2019 raster map (subset; resampled to 10m)\ngs.run_command(\"r.unpack\", input=os.path.join(homedir, \"nc_nlcd2019.pack\"))\n\n\n\n\nCode\n# show metadata\nprint(gs.read_command(\"r.report\", map=\"nc_nlcd2019\"))\n\n\nNext, we create a new mapset or project, where we will work with this notebook and import Sentinel-2 data.\n\n\nCode\n# Create a new mapset and switch to it\ngs.run_command(\"g.mapset\", mapset=\"sentinel2\", flags=\"c\")\n\n\n\n\nCode\n# Another way would be to use the grass.grassdb functions:\n\n# import grass.grassdb.create as gsdb\n# gsdb.create_mapset(grassdata, location, \"sentinel2\")\n# session.switch_mapset(\"sentinel2\")\n\n\n\n\nCode\n# Check current mapset\nprint(gs.read_command(\"g.mapset\", flags=\"p\"))\n\n\n\n\nCode\n# Print accessible mapsets within the location\nprint(gs.read_command(\"g.mapsets\", flags=\"p\"))"
+  },
+  {
+    "objectID": "grassgis4rs.html#creating-an-area-of-interest-map",
+    "href": "grassgis4rs.html#creating-an-area-of-interest-map",
+    "title": "Visiting NCSU",
+    "section": "6. Creating an area of interest map",
+    "text": "6. Creating an area of interest map\nTo search for Sentinel 2 images, we need an area of interest. This area can be defined by a vector map or the computational region. Here, will use a map of urban areas that we already have in the PERMANENT mapset to define the region. Since we are interested in the city of Raleigh, we use the function v.extract to create a new polygon corresponding to that urban area only. Note that in this case we use run_command().\n\n\nCode\n# Check `urbanarea` vector attributes\ngs.vector_db_select('urbanarea')['values']\n\n\n\n\nCode\n# Extract Raleigh urban area from `urbanarea` vector map\ngs.run_command(\"v.extract\", \n               input=\"urbanarea\", \n               where=\"NAME == 'Raleigh'\", \n               output=\"urban_area_raleigh\")\n\n\n\n\nCode\n# show attributes\ngs.vector_db_select('urban_area_raleigh')['values']\n\n\nWe set the computational region to the boundaries of the newly created vector. This will be the bounding box we’ll use for the Sentinel scenes search.\n\n\nCode\n# Set the computational region to the extent of Cordoba urban area\nregion = gs.parse_command(\"g.region\", vector=\"urban_area_raleigh\", flags=\"g\")\nregion\n\n\nWe now use the grass.jupyter functions to display the newly obtained vector over the OpenStreetMap basemap.\n\n\nCode\n# Display newly created vector\nraleigh_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nraleigh_map.add_vector(\"urban_area_raleigh\")\nraleigh_map.add_layer_control(position = \"bottomright\")\nraleigh_map.show()"
+  },
+  {
+    "objectID": "grassgis4rs.html#sentinel-2-processing-overview",
+    "href": "grassgis4rs.html#sentinel-2-processing-overview",
+    "title": "Visiting NCSU",
+    "section": "7. Sentinel-2 processing overview",
+    "text": "7. Sentinel-2 processing overview\nThere are plenty of libraries or tools which allow downloading Sentinel products from Copernicus Open Access Hub.\nFor GRASS GIS there is the i.sentinel toolbox that facilitates searching, filtering, downloading, importing and pre-processing Sentinel data, especially Sentinel 2, from a GRASS GIS session. The toolbox consists of six GRASS addon modules:\n\ni.sentinel.download\ni.sentinel.import\ni.sentinel.preproc\ni.sentinel.mask\ni.sentinel.coverage\ni.sentinel.parallel.download\n\nLet’s install it:\n\n\nCode\ngs.run_command(\"g.extension\", extension=\"i.sentinel\")\n\n\nCheck if the module is there by running it with optional arguments:\n\n\nCode\ngs.core.find_program(\"i.sentinel.download\", \"--help\")\n\n\n\nSentinel 2 data search and download\nSentinel-2 L2A products will be used to avoid the need of computing atmospheric corrections.\nLet’s search for the latest available product by means of i.sentinel.download. Setting the -l flag, the result will only be printed. The download procedure will be demonstrated later.\nIn order to search and download Sentinel products from the Copernicus Open Access Hub, you have to create an account first (see below). See the manual page of i.sentinel.download module for details. Upload or create a new text file in the data directory (homedir) named esa_credentials.txt containing two lines: username and password.\n\nNote\nTo get username and password you need to register at the Copernicus Open Access Hub, see the register new account page for signing up. Once you registered, create a text file named esa_credentials.txt with the following content:\n    username\n    password\nand move it within your working directory\n\n\nCode\n# list available Sentinel-2 L2A scenes for AOI\n# note that we use parse_command() in order to intercept the output\ngs.parse_command(\"i.sentinel.download\", \n                 flags=\"l\", \n                 producttype=\"S2MSI2A\",\n                 map=\"urban_area_raleigh\",\n                 settings=os.path.join(homedir, \"esa_credentials.txt\"))\n\n\nBy default, the module returns all the products meeting the defined criteria for the last 60 days. Let’s change the search period setting start and end options. We will also limit products by clouds coverage percentage threshold and sort them by ingestion date.\n\n\nCode\ngs.parse_command(\"i.sentinel.download\", \n                 flags=\"l\", \n                 producttype=\"S2MSI2A\", \n                 map=\"urban_area_raleigh\",\n                 settings=os.path.join(homedir, \"esa_credentials.txt\"),\n                 start=\"2022-02-01\", \n                 end=\"2022-05-31\", \n                 clouds=\"5\",\n                 sort=\"ingestiondate\",\n                 limit=10)\n\n\n\nIf a long list of products have been found, you can limit the amount with the limit option as we did above.\nLet’s save the output of the search into a list and then beautify the display by creating a pandas table.\n\n\nCode\nlist_prod = gs.read_command(\"i.sentinel.download\", \n                            flags=\"l\", \n                            producttype=\"S2MSI2A\", \n                            map=\"urban_area_raleigh\",\n                            settings=os.path.join(homedir, \"esa_credentials.txt\"), \n                            footprints=\"s2_footprints\", # we save the footprints in a vector file\n                            start=\"2022-02-01\", \n                            end=\"2022-05-31\", \n                            clouds=\"5\",\n                            sort=\"ingestiondate\",\n                            limit=10)\n\n\n\n\nCode\n# print plain list\nlist_prod\n\n\n\n\nCode\nimport pandas as pd\nfrom io import StringIO\n\npd.read_csv(StringIO(list_prod), delimiter=\" \", usecols=[0, 1, 2, 4, 5, 6, 7],\n            names=['uuid', 'scene', 'date', 'cloud', 'product', 'size', 'unit'])\n\n\n\n\nCode\n# list available vector maps in sentinel2\ngs.list_grouped(type=\"vector\")[\"sentinel2\"]\n\n\n\n\nCode\n# diplay footprints (you may want to zoom out a bit)\nfp_map = gj.InteractiveMap(width = 400, use_region=True, tiles=\"OpenStreetMap\")\nfp_map.add_vector(\"s2_footprints\")\nfp_map.add_vector(\"urban_area_raleigh\")\nfp_map.add_layer_control(position = \"bottomright\")\nfp_map.show()\n\n\nThe next step is to download the scene or scenes of interest. Just remove the -l flag and add the output option in order to define the path to the output directory where data should be saved.\nAs download might take quite some time, we’ll skip this part and directly use an already prepared set of smaller, ready to import scenes which we downloaded above. Still, we leave an example below for future reference :)\nGo to section “Importing Sentinel 2 data”\n\n\nCode\n# Example: download of a selected scene (2022-06-17, T15:58:29Z)\n# gs.run_command(\"i.sentinel.download\", \n#               settings=s2_credentials, \n#               uuid=\"cfa30609-5627-4788-b7ff-768e2df99975\", \n#               output=s2_data)\n\n\n\n\n\nImporting Sentinel-2 data\nBefore importing or linking Sentinel-2 data we print a list of filtered raster files including projection match (1 for match, otherwise 0). If the CRS of the input data differs from that of the current location, you should consider reprojection (-rflag) or creating a new location for import.\nImportant: Data will be imported into the new location by means of the i.sentinel.import tool. The command will, by default, import all Sentinel bands from input directory recursively. Before importing the data, let’s check content of the input directory by means of the -p flag.\n\n\nCode\n# Check list of pre-downloaded Sentinel-2 scenes, with i.sentinel.import (-p: print)\ngs.parse_command(\"i.sentinel.import\", \n                 flags=\"p\", \n                 input=s2_data)\n\n\nTo speed up things, we’ll limit the S2 data import to the RGB and NIR bands (2, 3, 4, 8A) in 10 m spatial resolution using the pattern option. Let’s first print the bands that will be imported:\n\n\nCode\n# print only to test band selection\ngs.parse_command(\"i.sentinel.import\", \n                 flags=\"p\", \n                 input=s2_data, \n                 pattern=\"B(02|03|04|08)_10m\")\n\n\nBy default, input data are imported into GRASS and converted into GRASS native data format. Alternatively, data can be linked if the -l flag is provided. It is also useful to import cloud mask vector features (-c flag). In addition, we’ll use the register_output option to produce a timestamp plain text file which will be used later on to create a time series.\n\n\nCode\n# for S2 import, allow for using 2GB of RAM for faster operations.\n# (s2_data and s2_timestamps are defined above)\n# this takes up to a few minutes...\ngs.parse_command(\"i.sentinel.import\", \n                 flags=\"rcsj\", \n                 input=s2_data, \n                 pattern=\"B(02|03|04|08)_10m\", \n                 memory=4000, \n                 extent=\"input\",\n                 register_output=s2_timestamps)\n\n\n\n\nCode\n# list selected raster maps\ngs.list_grouped(type=\"raster\")['sentinel2']\n\n\n\n\nCode\n# check metadata of one of the imported bands\ngs.raster_info(map=\"T17SQV_20220617T155829_B03_10m\")[\"comments\"]\n\n\n\n\nCode\n# print timestamp file for inspection\nwith open(s2_timestamps, 'r') as f:\n    content = f.read()\n    print(content)\n    f.close()\n\n\n\nSemantic labels A fairly new concept within GRASS GIS is semantic labels. These are especially relevant for satellite imagery as they allow us to identify to which sensor and band a given raster corresponds to. These labels are particularly relevant when working with satellite image collections and also when classifying different scenes. We will see it later, but by generating a spectral signature for a given set of bands, it can be re-used to classify another scene as long as the semantic labels are the same. Be ware – although it is possible to re-use spectral signatures to any scene with the same bands, temporal changes (seasons, weather impact) limit their applicability only to scenes obtained more or less at the same time.\n\n\nDisplaying maps with grass.jupyter functions\n\n\nCode\n# create Map instance\nb3_map = gj.Map(width=400)\n# add a raster, vector and legend to the map\nb3_map.d_rast(map=\"T17SQV_20220617T155829_B03_10m\")\nb3_map.d_vect(map=\"lakes\")\nb3_map.d_legend(raster=\"T17SQV_20220617T155829_B03_10m\", \n                title=\"Reflectance\", \n                fontsize=10, at=(70, 93, 80, 90), flags=\"b\")\nb3_map.d_barscale()\n# display map\nb3_map.show()\n\n\n\n\nCode\n# set color table of bands 4, 3 and 2 to grey\ngs.run_command(\"r.colors\", \n               map=\"T17SQV_20220617T155829_B04_10m,T17SQV_20220617T155829_B03_10m,T17SQV_20220617T155829_B02_10m\", \n               color=\"grey\")\n\n\n\n\nCode\n# color enhancing for RGB composition\ngs.run_command(\"i.colors.enhance\", \n               red=\"T17SQV_20220617T155829_B04_10m\",\n               green=\"T17SQV_20220617T155829_B03_10m\", \n               blue=\"T17SQV_20220617T155829_B02_10m\",\n               strength=92)\n\n\n\n\nCode\n# set region to \"elevation\" map and align to the S2 data\ngs.run_command(\"g.region\", \n               raster=\"elevation\",\n               align=\"T17SQV_20220617T155829_B04_10m\",\n               flags=\"p\")\n\n\n\n\nCode\n# display the enhanced RGB combination\nrgb = gj.Map(width=400, use_region=True)\nrgb.d_rgb(red=\"T17SQV_20220617T155829_B04_10m\",\n          green=\"T17SQV_20220617T155829_B03_10m\", \n          blue=\"T17SQV_20220617T155829_B02_10m\")\nrgb.show()"
+  },
+  {
+    "objectID": "grassgis4rs.html#spectral-indices-of-vegetation-and-water",
+    "href": "grassgis4rs.html#spectral-indices-of-vegetation-and-water",
+    "title": "Visiting NCSU",
+    "section": "8. Spectral indices of vegetation and water",
+    "text": "8. Spectral indices of vegetation and water\nWe will use i.vi and i.wi (addon) to estimate NDVI and NDWI vegetation and water indices. See i.vi and i.wi for more other available indices.\n\n\nCode\n# estimate vegetation indices\ngs.run_command(\"i.vi\", \n               red=\"T17SQV_20220528T155819_B04_10m\", \n               nir=\"T17SQV_20220528T155819_B08_10m\", \n               output=\"T17SQV_20220528T155819_NDVI_10m\", \n               viname=\"ndvi\")\n\n# add semantic label\ngs.run_command(\"r.support\", \n               map=\"T17SQV_20220528T155819_NDVI_10m\", \n               semantic_label=\"S2_NDVI\")\n\n\n\n\nCode\n# install extension\ngs.run_command(\"g.extension\", extension=\"i.wi\")\n\n\n\n\nCode\n# estimate water indices\ngs.run_command(\"i.wi\", \n               green=\"T17SQV_20220528T155819_B03_10m\", \n               nir=\"T17SQV_20220528T155819_B08_10m\", \n               output=\"T17SQV_20220528T155819_NDWI_10m\", \n               winame=\"ndwi_mf\")\n\n# set ndwi color palette\ngs.run_command(\"r.colors\", map=\"T17SQV_20220528T155819_NDWI_10m\", color=\"ndwi\")\n\n# add semantic label\ngs.run_command(\"r.support\", \n               map=\"T17SQV_20220528T155819_NDWI_10m\", \n               semantic_label=\"S2_NDWI\")\n\n\n\n\nCode\n# check metadata of NDVI\ngs.raster_info(map=\"T17SQV_20220528T155819_NDVI_10m\")\n\n\n\n\nCode\n# interactive maps\nidx_map = gj.InteractiveMap(width = 400, use_region=True, tiles=\"OpenStreetMap\")\nidx_map.add_raster(\"T17SQV_20220528T155819_NDVI_10m\", opacity=0.7)\nidx_map.add_raster(\"T17SQV_20220528T155819_NDWI_10m\", opacity=0.7)\nidx_map.add_layer_control(position = \"bottomright\")\nidx_map.show()\n# ... use the layer selector in the corner to enable/disable the NDVI/NDWI layers\n\n\n\nGRASS GIS maps as numpy arrays\nGRASS maps can be read as numpy arrays thanks to the array function of the grass.script library. This facilitates many operations with python libraries that require an array as input. In this case, we demonstrate its use plotting an histogram.\n\n\nCode\n# Import required libraries\nimport numpy as np\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom grass.script import array as garray\n\n# Read NDVI as numpy array\nndvi = garray.array(mapname=\"T17SQV_20220528T155819_NDVI_10m\", null=\"nan\")\nndwi = garray.array(mapname=\"T17SQV_20220528T155819_NDWI_10m\", null=\"nan\")\nprint(ndvi.shape,ndwi.shape)\n\n\n\n\nCode\n# Plot NDVI and NDWI\nsns.set_style('darkgrid')\nfig, axs = plt.subplots(1, 2, figsize=(7, 7))\nsns.histplot(ax=axs[0], data=ndvi.ravel(), kde=True, color=\"olive\")\nsns.histplot(ax=axs[1], data=ndwi.ravel(), kde=True, color=\"skyblue\")\nplt.show()"
+  },
+  {
+    "objectID": "grassgis4rs.html#ndvi-time-series-data-processing",
+    "href": "grassgis4rs.html#ndvi-time-series-data-processing",
+    "title": "Visiting NCSU",
+    "section": "10. NDVI time series data processing",
+    "text": "10. NDVI time series data processing\n\nA few concepts of time series data processing in GRASS GIS\nGRASS GIS offers specialized tools for spatio-temporal data processing, see GRASS documentation temporalintro for details and the temporal data processing wiki for examples and a workflow tutorial.\nGRASS introduces three special data types that are designed to handle time-series:\n\nSpace-time raster datasets (strds) for managing raster map time series.\nSpace-time 3D raster datasets (str3ds) for managing 3D raster map time series.\nSpace-time vector datasets (stvds) for managing vector map time series.\n\n  \n\n\nCreate space-time dataset\nAt this moment a new space-time dataset can be created by means of t.create and all imported Sentinel bands registered with t.register and the timestamps file we created when we imported S2 bands.\n\n\nCode\ngs.run_command(\"t.create\", \n               output=\"s2_nc\", \n               title=\"Sentinel L2A - North Carolina\", \n               desc=\"Tile T17SQV - 2022\")\n\ngs.run_command(\"t.register\", \n               input=\"s2_nc\", \n               file=s2_timestamps)\n\n\nLet’s check basic metadata with t.info and list the registered maps with t.rast.list.\n\n\nCode\n# Print time series info\nprint(gs.read_command(\"t.info\", input=\"s2_nc\"))\n\n\n\n\nCode\n# List registered bands in the space-time cube\nprint(gs.read_command(\"t.rast.list\", \n                      input=\"s2_nc\", \n                      columns=\"name,start_time,semantic_label\"))\n\n\nWe’ll now use a special syntaxis to list only band 4 raster maps withing the time series:\n\n\nCode\n# List only band 4 maps\nprint(gs.read_command(\"t.rast.list\", \n                      input=\"s2_nc.S2_4\", \n                      columns=\"name,start_time,semantic_label\"))\n\n\n\n\nNDVI Space-Time computation\nFor NDVI computation the 4th and 8th bands are required, as we saw above for a single map. Now, we will create a time series of NDVI maps. We will take advantage of the semantic labels syntax and use t.rast.mapcalc to estimate NDVI for all the timestamps in the time series, using band 4 and 8 subsets.\n\n\nCode\ngs.run_command(\"t.rast.mapcalc\", \n               inputs=\"s2_nc.S2_8,s2_nc.S2_4\", \n               output=\"s2_ndvi\", \n               basename=\"s2_ndvi\",\n               expression=\"float(s2_nc.S2_8 - s2_nc.S2_4) / (s2_nc.S2_8 + s2_nc.S2_4)\")\n\n\nWhen computation is finished, the ndvi color table can be set with t.rast.colors:\n\n\nCode\ngs.run_command(\"t.rast.colors\", input=\"s2_ndvi\", color=\"ndvi\")\n\n\n\n\nCode\nprint(gs.read_command(\"t.info\", input=\"s2_ndvi\"))\n\n\n\n\nTime series plots\nLet’s check content of the new dataset by means of t.rast.list:\n\n\nCode\nprint(gs.read_command(\"t.rast.list\", \n                      input=\"s2_ndvi\", \n                      columns=\"name,start_time,min,max\"))\n\n\nIf we save the previous output to a file, we can then plot the min and max time series:\n\n\nCode\ngs.run_command(\"t.rast.list\", \n                input=\"s2_ndvi\", \n                columns=\"name,start_time,min,max\",\n                format=\"csv\",\n                separator=\"comma\",\n                output=os.path.join(homedir,\"ndvi.csv\"))\n\n\n\n\nCode\n# Read the csv and plot\nndvi = pd.read_csv(os.path.join(homedir,\"ndvi.csv\"))\nndvi.plot(0, [2,3], subplots=False)\n\n\nWe could also use t.rast.univar to obtain extended statistics:\n\n\nCode\n# Get extended univar stats and save them as a csv file\ngs.run_command(\"t.rast.univar\",\n                flags=\"e\",\n                input=\"s2_ndvi\",\n                output=os.path.join(homedir,\"ndvi_ext_stats.csv\"),\n                separator=\"comma\")\n\n\n\n\nCode\n# Read the csv and plot\nndvi = pd.read_csv(os.path.join(homedir,\"ndvi_ext_stats.csv\"))\nndvi['start'] = pd.to_datetime(ndvi.start, format=\"%Y-%m-%d\", exact=False)\nndvi.plot.line(1, [3,4,5], subplots=False)\n\n\n\n\nQuery time series in a single point\ng.region command allows us to get the coordinates of the center of the computational region, we’ll use those to query the NDVI time series.\n\n\nCode\n# Get region center coordinates for query (center_easting, center_northing values)\ngs.region(complete=True)\n\n\n\n\nCode\n# Query map at center coordinates\nprint(gs.read_command(\"t.rast.what\", \n                      strds=\"s2_ndvi\", \n                      coordinates=\"637500,221750\", \n                      layout=\"col\", \n                      flags=\"n\"))\n\n\n\n\nTime series animation\nNote: TimeSeriesMap() of grass.jupyter is still experimental and under development.\n\n\nCode\n### YET TO BE SKIPPED - in GRASS GIS 8.2.0 it takes \"forever\", bugfix pending.\n\n## reduce resolution for faster display of time series, save original first for later\n#gs.parse_command(\"g.region\", save=\"default_res\")\n#gs.parse_command(\"g.region\", flags=\"pa\", res=50)\n \n## Display newly created NDVI time series map\n#ndviseries = gj.TimeSeriesMap(use_region=True)\n#ndviseries.add_raster_series(\"s2_ndvi\", fill_gaps=False)\n#ndviseries.d_legend(color=\"black\", at=(10,40,2,6))\n#ndviseries.d_barscale()\n#ndviseries.show()  # Create TimeSlider\n\n# optionally, write out to animated GIF\n# ndviseries.save(\"image.gif\")\n\n\n\n\nCode\n## restore original region\n#gs.parse_command(\"g.region\", region=\"default_res\")"
+  },
+  {
+    "objectID": "grassgis4rs.html#creating-an-image-stack-imagery-group",
+    "href": "grassgis4rs.html#creating-an-image-stack-imagery-group",
+    "title": "Visiting NCSU",
+    "section": "11. Creating an image stack (imagery group)",
+    "text": "11. Creating an image stack (imagery group)\nStack of maps = imagery group\nWhen you work with a stack of raster maps (e.g., R-G-B channels or more) in GRASS GIS, you can best handle this stack by creating a raster group with i.group. It is just based on metadata, so it does not take up more disk space.\n\n\nCode\n# Since imagery groups can not be overwritten, \n# we delete a potentially leftover \"s2\" group from a previous run\ngs.run_command(\"g.remove\", \n               type=\"group\", \n               name=\"s2\", \n               flags=\"f\")\n\n\n\n\nCode\n# Generate list of selected S2 maps\ns2_maps = gs.list_grouped(type=\"raster\", pattern=\"*20220528T155819*\")['sentinel2']\nprint(s2_maps)\n\n\n\n\nCode\n# Create group and subgroup with S2 bands\ngs.run_command(\"i.group\", group=\"s2\", subgroup=\"s2\", input=s2_maps)\nprint(gs.read_command(\"i.group\", group=\"s2\", flags=\"l\"))"
+  },
+  {
+    "objectID": "grassgis4rs.html#object-recognition-with-image-segmentation",
+    "href": "grassgis4rs.html#object-recognition-with-image-segmentation",
+    "title": "Visiting NCSU",
+    "section": "12. Object recognition with image segmentation",
+    "text": "12. Object recognition with image segmentation\nWe’ll use i.segment to perform image segmentation. The resulting map will be used together with S2 bands, NDVI and NDWI to perform supervised classification.\n\n\nCode\n# Threshold = 0 merges only identical segments; threshold = 1 merges all\ngs.run_command(\"i.segment\", \n               group=\"s2\", \n               threshold=\"0.05\", \n               minsize=\"100\", \n               output=\"sentinel_segments_min100\", \n               goodness=\"sentinel_segments_goodness_min100\",\n               memory=2000)\n\n\n\n\nCode\n# Display newly created segments raster map\nsegments = gj.InteractiveMap(width = 400, use_region=True)\nsegments.add_raster(\"sentinel_segments_min100\", opacity=0.3)\nsegments.add_raster(\"s2_ndvi_4\", opacity=0.3)\nsegments.add_layer_control(position = \"bottomright\")\nsegments.show()\n\n\n\n\nCode\n# Show univariate statistics of goodness-of-fit raster map, with extended statistics (quartiles)\nprint(gs.read_command(\"r.univar\",\n                      map=\"sentinel_segments_goodness_min100\", \n                      flags=\"ge\"))\n\n\n\n\nCode\n# Assign color table (low fit values: blue; high fit values: green)\ngs.run_command(\"r.colors\", \n               map=\"sentinel_segments_goodness_min100\", \n               color=\"byg\", \n               flags=\"e\")\n\n\n\n\nCode\n# Display newly created goodness-of-fit raster map\nsegments = gj.InteractiveMap(width = 400, use_region=True)\nsegments.add_raster(\"sentinel_segments_goodness_min100\", opacity=0.8)\nsegments.add_vector(\"urban_area_raleigh\")\nsegments.add_layer_control(position = \"bottomright\")\nsegments.show()"
+  },
+  {
+    "objectID": "grassgis4rs.html#supervised-classification-randomforest",
+    "href": "grassgis4rs.html#supervised-classification-randomforest",
+    "title": "Visiting NCSU",
+    "section": "13. Supervised Classification: RandomForest",
+    "text": "13. Supervised Classification: RandomForest\nWe will now demonstrate a very much simplified workflow to perform a supervised Random Forest classification.\nWe will feed the following data into the model:\n\nNDVI and NDWI maps (created above)\nimage segmentation (created above)\nrandom training points extracted from landuse map\n\nFirst we inspect the raster maps available in the current mapset (i.e., sentinel2), just to recall their names.\n\n\nCode\ngs.list_grouped(type=\"raster\")[\"sentinel2\"]\n\n\n\nCreation of a classification training map by sampling from existing data\nIn order to generate training data for the Sentinel-2 image classification, we will use the National Land Cover Database (NLCD) 2019. It is available for download (30m raster map) from here. However, we have already prepared the dataset (the nc_nlcd2019 landuse map). We will use it to perform stratified sampling to retrieve training data.\n\n\nCode\n# Check raster categories of landuse map\nprint(gs.read_command(\"r.category\", \n                      map=\"nc_nlcd2019\", \n                      separator=\"comma\"))\n\n\n\n\nCode\n# display nc_nlcd2019 landuse raster map\nlulc = gj.InteractiveMap(width = 400, use_region=True, tiles=\"OpenStreetMap\")\nlulc.add_raster(\"nc_nlcd2019\", opacity=0.6)\nlulc.add_layer_control(position = \"bottomright\")\nlulc.show()\n\n\nWe already note differences between the underlying OpenStreetMap data and the 30m NLCD map.\n\n\nCode\n# show simple legend\nlegend = gj.Map(width=400, use_region=True)\n# at=bottom,top,left,right, percentage of screen coordinates (0,0 is lower left)\nlegend.d_legend(raster=\"nc_nlcd2019\", \n                title=\"Classes\",\n                fontsize=10, at=(10, 90, 50, 90), \n                flags=\"n\")\nlegend.show()\n\n\n\n\nRandom sampling from rasterized simplified landuse map\nWe now perform stratified sampling, i.e. we extract for each land use class n sampling points, using the GRASS GIS addon r.sample.category.\nFirst, we install this addon.\n\n\nCode\ngs.run_command(\"g.extension\", extension=\"r.sample.category\")\n\n\n\n\nCode\n# Stratified random sampling, generated vector points\ngs.run_command(\"r.sample.category\", \n               input=\"nc_nlcd2019\", \n               output=\"landuse_train\", \n               n=\"100\")\n\n\n\n\nCode\n# display newly created vector points map\ntrain = gj.InteractiveMap(width = 400, use_region=True)\ntrain.add_raster(\"nc_nlcd2019\", opacity=0.7)\ntrain.add_vector(\"landuse_train\")\ntrain.add_layer_control(position = \"bottomright\")\ntrain.show()\n\n\n\n\nCode\n# List column names of vector points map\ngs.vector_columns(\"landuse_train\", \n                  getDict=False)\n\n\n\n\nCode\n# Show vector attribute table\ngs.vector_db_select(\"landuse_train\")\n\n\n\n\nCode\n# Check column data types\nprint(gs.read_command(\"v.info\", map=\"landuse_train\", flags=\"c\"))\n\n\nSince the machine learning classifier expects raster points as input, we convert the vector sampling points accordingly using v.to.rast.\n\n\nCode\n# Convert points from vector to raster model\ngs.run_command(\"v.to.rast\", \n               input=\"landuse_train\", \n               output=\"landuse_train\", \n               use=\"attr\", \n               attribute_column=\"nc_nlcd2019\", \n               label_column=\"label\")\n\n\n\n\nCode\n# Check raster categories of new raster training map\n# Skip reporting on empty cells\nprint(gs.read_command(\"r.report\", \n                      map=\"landuse_train\",\n                      flags=\"n\"))\n\n\n\n\nCode\n# Display newly created raster map - zoom in to better spot the raster sampling points\ntrain = gj.InteractiveMap(width = 400, use_region=True)\ntrain.add_raster(\"landuse_train\", opacity=0.8)\ntrain.add_layer_control(position = \"bottomright\")\ntrain.show()\n\n\n\n\nPerform machine learning model training (RandomForest)\nFirst we have to install the r.learn.ml2 extention. It consists of two modules: r.learn.train and r.learn.predict.\n\n\nCode\n# Install ML extension\ngs.run_command(\"g.extension\", extension=\"r.learn.ml2\")\n\n\n\n\nCode\n# Add segmentation map created above to group and subgroup already populated with S2 bands, NDWI and NDVI\ngs.run_command(\"i.group\", \n               group=\"s2\", \n               subgroup=\"s2\", \n               input=\"sentinel_segments_min100\")\n\n# List group content\nprint(gs.read_command(\"i.group\", group=\"s2\", flags=\"l\"))\n\n\nWe now train the ML model using r.learn.train, with model “RandomForestClassifier”.\n\n\nCode\n# Train a random forest classification model using r.learn.train\ngs.run_command(\"r.learn.train\", \n               group=\"s2\", \n               training_map=\"landuse_train\",\n               model_name=\"RandomForestClassifier\",\n               n_estimators=\"500\", \n               save_model=os.path.join(homedir, \"rf_model.gz\"))\n\n\nThe model has been stored in the file rf_model.gz for use in the prediction step of the supervised classification.\n\n\nCode\nos.listdir(homedir)\n\n\n\n\nPerform ML supervised classification\nThe trained model will now be applied to the entire dataset.\n\n\nCode\n# Perform prediction using r.learn.predict\ngs.run_command(\"r.learn.predict\", \n               group=\"s2\", \n               load_model=os.path.join(homedir, \"rf_model.gz\"), \n               output=\"sentinel_rf\")\n\n\n\n\nCode\n# Set color table, we transfer the colors from the original landuse map\ngs.run_command(\"r.colors\", map=\"sentinel_rf\", raster=\"nc_nlcd2019\")\n\n\nWith this, the (oversimplified) supervised classification has been completed and we can display the result.\n\n\nReporting and display\n\n\nCode\n# Display newly created sentinel_rf map\nrfmap = gj.InteractiveMap(width = 600, tiles=\"OpenStreetMap\")\nrfmap.add_raster(\"sentinel_rf\", opacity=0.7)\n# rfmap.add_raster(\"nc_nlcd2019\", opacity=0.7)\nrfmap.add_layer_control(position = \"bottomright\")\nrfmap.show()\n\n\n\n\nCode\n# Show legend\nlegend = gj.Map(width=400, use_region=True)\nlegend.d_legend(raster=\"sentinel_rf\", \n                title=\"Classes\",\n                fontsize=14, \n                at=(10, 80, 10, 40), \n                flags=\"n\")\nlegend.show()\n\n\n\n\nCode\n# Show class distribution in percent\nprint(gs.read_command(\"r.report\", \n                      map=\"sentinel_rf\", \n                      units=\"p\", \n                      flags=\"h\"))\n\n\n\n\nCode\n# export map to COG\ngs.run_command(\"r.out.gdal\", \n               flags=\"fmt\", #\n               input=\"sentinel_rf\", \n               output=os.path.join(homedir, \"nc_sentinel2_RF.tif\"),\n               format=\"COG\", \n               overviews=\"4\")\n\n\nKeep in mind, this classification was just a simplified example to show how the procedure works.\nAt this moment you should use r.kappa to calculate accuracy of classification. As this step would require either field observation data or manual interpretation of the scene, we’ll leave this as an exercise to do at home.\n\n\nCode\n# Open the tif in QGIS, adapt path accordingly\n!qgis $homedir/nc_sentinel2_RF.tif"
+  },
+  {
+    "objectID": "grassgis4rs.html#supervised-classification-maximum-likelihood",
+    "href": "grassgis4rs.html#supervised-classification-maximum-likelihood",
+    "title": "Visiting NCSU",
+    "section": "14. Supervised Classification: Maximum Likelihood",
+    "text": "14. Supervised Classification: Maximum Likelihood\nWe will now demonstrate the workflow to perform a supervised maximum likelihood classification which is integrated with the semantic labels metadata class, and hence allow us to use the same spectral signature to classify multiple scenes as long as the raster map order in the group is the same.\nLet’s first check the semantic labels of the bands in our s2 group:\n\n\nCode\nband_list = gs.read_command(\"i.group\", group=\"s2\", flags=\"lg\")\n\n\n\n\nCode\n# Add semantic label to the segmentation\ngs.run_command(\"r.support\", \n               map=\"sentinel_segments_min100\", \n               semantic_label=\"S2_seg\")\n\n\n\n\nCode\nfor m in band_list.split():\n    sl = gs.raster_info(m)['semantic_label']\n    print(m,sl)\n\n\nNow, we generate the signature file based on the training sample that we obtained earlier, this will then be the input for the maximum likelihood classification\n\n\nCode\n# obtain signature files\ngs.run_command(\"i.gensig\", \n               trainingmap=\"landuse_train\", \n               group=\"s2\", \n               subgroup=\"s2\", \n               signaturefile=\"sig_sentinel\")\n\n\n\n\nCode\n# perform ML supervised classification\ngs.run_command(\"i.maxlik\", \n               group=\"s2\", \n               subgroup=\"s2\", \n               signaturefile=\"sig_sentinel\", \n               output=\"sentinel_maxlik\")\n\n\n\n\nCode\n# check classes\nprint(gs.read_command(\"r.category\", \n                      map=\"sentinel_maxlik\", \n                      separator=\"comma\"))\n\n\nIn GRASS 8.2+, i.maxlik classifier does not preserve the original class values in the output. Thus, here is a lookup-table for original class numbers and new category values:\n\n\n\nclass\nnlcd_class\nlanduse\nRGB\n\n\n\n\n1\n11\nOpen Water\n072:109:162\n\n\n2\n21\nDeveloped, Open Space\n225:205:206\n\n\n3\n22\nDeveloped, Low Intensity\n220:152:129\n\n\n4\n23\nDeveloped, Medium Intensity\n241:001:000\n\n\n5\n24\nDeveloped, High Intensity\n171:001:001\n\n\n6\n41\nDeciduous Forest\n108:169:102\n\n\n7\n42\nEvergreen Forest\n029:101:051\n\n\n8\n43\nMixed Forest\n189:204:147\n\n\n9\n81\nHay/Pasture\n221:216:062\n\n\n10\n90\nWoody Wetlands\n187:215:237\n\n\n\n\n\nCode\n# Set color table\ncolours = [\"1 072:109:162\", \"2 225:205:206\", \"3 220:152:129\", \"4 241:001:000\", \"5 171:001:001\", \"6 108:169:102\", \"7 029:101:051\", \"8 189:204:147\", \"9 221:216:062\", \"10 187:215:237\"]\ngs.write_command(\"r.colors\", map=\"sentinel_maxlik\", rules=\"-\", stdin=\"\\n\".join(colours))\n\n\n\n\nCode\n# display results\nmaxlik_sup_class = gj.Map(width=500, use_region=True)\nmaxlik_sup_class.d_rast(map=\"sentinel_maxlik\")\nmaxlik_sup_class.d_legend(raster=\"sentinel_maxlik\", \n                          title=\"Class\", \n                          fontsize=12, \n                          at=(70, 95, 75, 90), \n                          flags=\"bn\")\nmaxlik_sup_class.d_barscale()\nmaxlik_sup_class.show()\n\n\n\n\nCode\n# percentage of each class\nprint(gs.read_command(\"r.report\", \n                      map=\"sentinel_maxlik\", \n                      units=\"p\", \n                      flags=\"h\"))\n\n\n\n\nCode\n# class statistics: NDVI\nclass_stats = gs.read_command(\"r.univar\", \n                              map=\"T17SQV_20220528T155819_NDVI_10m\", \n                              zones=\"sentinel_maxlik\", \n                              flags=\"t\")\n\n\n\n\nCode\npd.read_csv(StringIO(class_stats), \n            delimiter=\"|\", \n            usecols=[1, 4, 5, 7])\n\n\nNext, and to demonstrate the use of semantic labels, we will classify another sentinel scene with the same signature obtained earlier. To this aim, we need to: 1. create a new imagery group for a different scene with the exact same band order 1. estimate NDVI and NDWI and assign semantic labels 1. run a segmentation and assign semantic labels 1. check group and semantic labels 1. run i.maxlik\n\nBe ware – changes over time (phenology, weather) will make spectral signatures to not fit well or at all. Do not use same signatures for a different season!\n\n\nCode\ns2_maps = gs.list_grouped(type=\"raster\", pattern=\"*20220617*\")['sentinel2']\ns2_maps\n\n\n\n\nCode\n# Since imagery groups can not be overwritten, \n# we delete any leftover \"s2_new\" group from previous runs\ngs.run_command(\"g.remove\", \n               type=\"group\", \n               name=\"s2_new\", \n               flags=\"f\")\n\n\n\n\nCode\ngs.run_command(\"i.group\", group=\"s2_new\", subgroup=\"s2_new\", input=s2_maps)\nprint(gs.read_command(\"i.group\", group=\"s2_new\", flags=\"l\"))\n\n\n\n\nCode\n# estimate NDVI\ngs.run_command(\"i.vi\", \n               red=\"T17SQV_20220617T155829_B04_10m\", \n               nir=\"T17SQV_20220617T155829_B08_10m\", \n               output=\"T17SQV_20220617T155829_NDVI_10m\", \n               viname=\"ndvi\")\n\n# add semantic label\ngs.run_command(\"r.support\", \n               map=\"T17SQV_20220617T155829_NDVI_10m\", \n               semantic_label=\"S2_NDVI\")\n\n\n\n\nCode\n# estimate NDWI\ngs.run_command(\"i.wi\", \n               green=\"T17SQV_20220617T155829_B03_10m\", \n               nir=\"T17SQV_20220617T155829_B08_10m\", \n               output=\"T17SQV_20220617T155829_NDWI_10m\", \n               winame=\"ndwi_mf\")\n\n# add semantic label\ngs.run_command(\"r.support\", \n               map=\"T17SQV_20220617T155829_NDWI_10m\", \n               semantic_label=\"S2_NDWI\")\n\n\n\n\nCode\n# add NDVI and NDWI to s2_mew group\ngs.run_command(\"i.group\", \n               group=\"s2_new\", \n               subgroup=\"s2_new\", \n               input=\"T17SQV_20220617T155829_NDVI_10m,T17SQV_20220617T155829_NDWI_10m\")\n\n# print maps in the group\nprint(gs.read_command(\"i.group\", group=\"s2_new\", flags=\"l\"))\n\n\n\n\nCode\n# Run segmentation\ngs.run_command(\"i.segment\", \n               group=\"s2_new\", \n               threshold=\"0.05\", \n               minsize=\"100\", \n               output=\"sentinel_new_segments_min100\", \n               goodness=\"sentinel_new_segments_goodness_min100\")\n\n\n\n\nCode\n# Add semantic label to the segmentation\ngs.run_command(\"r.support\", \n               map=\"sentinel_new_segments_min100\", \n               semantic_label=\"S2_seg\")\n\n\n\n\nCode\n# Add segmentation to the s2_new group\ngs.parse_command(\"i.group\", group=\"s2_new\", subgroup=\"s2_new\", input=\"sentinel_new_segments_min100\")\n\n\n\n\nCode\n# Check\nprint(gs.read_command(\"i.group\", group=\"s2_new\", flags=\"l\"))\n\n\n\n\nCode\n# Run the classification\ngs.run_command(\"i.maxlik\", \n               group=\"s2_new\", \n               subgroup=\"s2_new\", \n               signaturefile=\"sig_sentinel\", \n               output=\"sentinel_maxlik_new\")\n\n\n\n\nCode\n# Set color table\ncolours = [\"1 072:109:162\", \"2 225:205:206\", \"3 220:152:129\", \"4 241:001:000\", \"5 171:001:001\", \"6 108:169:102\", \"7 029:101:051\", \"8 189:204:147\", \"9 221:216:062\", \"10 187:215:237\"]\ngs.write_command(\"r.colors\", map=\"sentinel_maxlik_new\", rules=\"-\", stdin=\"\\n\".join(colours))\n\n\n\n\nCode\n# display results\nmaxlik_sup_class = gj.Map(width=500, use_region=True)\nmaxlik_sup_class.d_rast(map=\"sentinel_maxlik_new\")\nmaxlik_sup_class.d_legend(raster=\"sentinel_maxlik_new\", \n                          title=\"Class\", \n                          fontsize=12, \n                          at=(60, 95, 70, 90), \n                          flags=\"bn\")\nmaxlik_sup_class.d_barscale()\nmaxlik_sup_class.show()"
+  },
+  {
+    "objectID": "grassgis4rs.html#whats-next",
+    "href": "grassgis4rs.html#whats-next",
+    "title": "Visiting NCSU",
+    "section": "15. What’s next?",
+    "text": "15. What’s next?\nYou may enjoy more Jupyter notebooks at: https://github.com/OSGeo/grass/tree/main/doc/notebooks\n\nTalk to us\n\nVeronica Andreo, PhD, https://veroandreo.gitlab.io/\nMarkus Neteler, PhD, https://www.mundialis.de/en/neteler/\nMāris Nartišs, PhD\n\n\n\nReferences\n\nGRASS GIS 8.2.0 Reference Manual\nGRASS GIS Addons Reference Manuals\nGRASS GIS Python library documentation\nUnleash the power of GRASS GIS with Jupyter\nList of Tutorials at the GRASS GIS website"
+  },
+  {
+    "objectID": "notebook_intro.html#which-grass",
+    "href": "notebook_intro.html#which-grass",
+    "title": "Introduction to GRASS GIS",
+    "section": "Which GRASS?",
+    "text": "Which GRASS?\n\n\n\nGRASS GIS (Geographic Resources Analysis Support System), a FOSS suite used for geospatial data management and analysis, image processing, graphics and maps, spatial modeling, and visualization.\nOriginally developed by the U.S. Army Construction Engineering Research Laboratories for land management and environmental planning (1982-1995).\nMore history: https://grass.osgeo.org/about/history/"
+  },
+  {
+    "objectID": "notebook_intro.html#a-bit-of-geek-grass-gis-history",
+    "href": "notebook_intro.html#a-bit-of-geek-grass-gis-history",
+    "title": "Introduction to GRASS GIS",
+    "section": "A bit of (geek) GRASS GIS history…",
+    "text": "A bit of (geek) GRASS GIS history…\n\n\n\nIn case you didn’t notice, the video is narrated by William Shatner 🚀"
+  },
+  {
+    "objectID": "notebook_intro.html#grass-gis-general-stuff",
+    "href": "notebook_intro.html#grass-gis-general-stuff",
+    "title": "Introduction to GRASS GIS",
+    "section": "GRASS GIS general stuff",
+    "text": "GRASS GIS general stuff\n\nFree and open source, you can use, modify, improve, share\nStrong user community, commercial support\nLarge amount of tools: 500+ core modules, 300+ addons\nGUI and CLI interfaces\nPython API and libraries - new grass.jupyter library can be tried online\nConnection with R, QGIS, WPS, etc.\nDifferent data types supported: raster (including satellite imagery), 3D raster or voxel, vector and space-time datasets"
+  },
+  {
+    "objectID": "notebook_intro.html#more-than-300-add-ons",
+    "href": "notebook_intro.html#more-than-300-add-ons",
+    "title": "Introduction to GRASS GIS",
+    "section": "More than 300 add-ons",
+    "text": "More than 300 add-ons\nPlugins or Add-ons can be installed from a centralized OSGeo repository or from github (or similar repositories) using g.extension command.\n# install extension from GRASS GIS Add-on repository\ng.extension extension=r.hants\n \n# install extension from github repository\ng.extension extension=r3.slice \\\n  url=https://github.com/petrasovaa/r3.slice"
+  },
+  {
+    "objectID": "notebook_intro.html#the-tgrass-framework",
+    "href": "notebook_intro.html#the-tgrass-framework",
+    "title": "Introduction to GRASS GIS",
+    "section": "The TGRASS framework",
+    "text": "The TGRASS framework\nGRASS GIS was the first FOSS GIS that incorporated capabilities to manage, analyze, process and visualize spatio-temporal data, as well as the temporal relationships among time series.\n\nTGRASS is fully based on metadata and does not duplicate any dataset\nSnapshot approach, i.e., adds time stamps to maps\nA collection of time stamped maps (snapshots) of the same variable are called space-time datasets or STDS\nMaps in a STDS can have different spatial and temporal extents"
+  },
+  {
+    "objectID": "notebook_intro.html#space-time-datasets",
+    "href": "notebook_intro.html#space-time-datasets",
+    "title": "Introduction to GRASS GIS",
+    "section": "Space-time datasets",
+    "text": "Space-time datasets\n\nSpace time raster datasets (STRDS)\nSpace time 3D raster datasets (STR3DS)\nSpace time vector datasets (STVDS)\n\n\n Upcoming GRASS 8 will support image collections by adding a band reference"
+  },
+  {
+    "objectID": "notebook_intro.html#temporal-modules",
+    "href": "notebook_intro.html#temporal-modules",
+    "title": "Introduction to GRASS GIS",
+    "section": "Temporal modules",
+    "text": "Temporal modules\n\nt.*: General modules to handle STDS of all types\nt.rast.*: Modules that deal with STRDS\nt.rast3d.*: Modules that deal with STR3DS\nt.vect.*: Modules that deal with STVDS"
+  },
+  {
+    "objectID": "notebook_intro.html#walk-through-space-time-analysis-for-disease-ecology-with-grass-gis-and-r-project",
+    "href": "notebook_intro.html#walk-through-space-time-analysis-for-disease-ecology-with-grass-gis-and-r-project",
+    "title": "Introduction to GRASS GIS",
+    "section": "Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:",
+    "text": "Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:"
+  },
+  {
+    "objectID": "presentation.html#hello-there",
+    "href": "presentation.html#hello-there",
+    "title": "Quarto Presentations",
+    "section": "Hello, There",
+    "text": "Hello, There\nThis presentation will show you examples of what you can do with Quarto and Reveal.js, including:\n\nPresenting code and LaTeX equations\nIncluding computations in slide output\nImage, video, and iframe backgrounds\nFancy transitions and animations\nPrinting to PDF\n\n…and much more"
+  },
+  {
+    "objectID": "presentation.html#pretty-code",
+    "href": "presentation.html#pretty-code",
+    "title": "Quarto Presentations",
+    "section": "Pretty Code",
+    "text": "Pretty Code\n\nOver 20 syntax highlighting themes available\nDefault theme optimized for accessibility\n\n# Define a server for the Shiny app\nfunction(input, output) {\n  \n  # Fill in the spot we created for a plot\n  output$phonePlot <- renderPlot({\n    # Render a barplot\n  })\n}\n\nLearn more: Syntax Highlighting"
+  },
+  {
+    "objectID": "presentation.html#code-animations",
+    "href": "presentation.html#code-animations",
+    "title": "Quarto Presentations",
+    "section": "Code Animations",
+    "text": "Code Animations\n\nOver 20 syntax highlighting themes available\nDefault theme optimized for accessibility\n\n# Define a server for the Shiny app\nfunction(input, output) {\n  \n  # Fill in the spot we created for a plot\n  output$phonePlot <- renderPlot({\n    # Render a barplot\n    barplot(WorldPhones[,input$region]*1000, \n            main=input$region,\n            ylab=\"Number of Telephones\",\n            xlab=\"Year\")\n  })\n}\n\nLearn more: Code Animations"
+  },
+  {
+    "objectID": "presentation.html#line-highlighting",
+    "href": "presentation.html#line-highlighting",
+    "title": "Quarto Presentations",
+    "section": "Line Highlighting",
+    "text": "Line Highlighting\n\nHighlight specific lines for emphasis\nIncrementally highlight additional lines\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(subplot_kw={'projection': 'polar'})\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\nLearn more: Line Highlighting"
+  },
+  {
+    "objectID": "presentation.html#executable-code",
+    "href": "presentation.html#executable-code",
+    "title": "Quarto Presentations",
+    "section": "Executable Code",
+    "text": "Executable Code\n\nlibrary(ggplot2)\nggplot(mtcars, aes(hp, mpg, color = am)) +\n  geom_point() +\n  geom_smooth(formula = y ~ x, method = \"loess\")\n\n\n\nLearn more: Executable Code"
+  },
+  {
+    "objectID": "presentation.html#latex-equations",
+    "href": "presentation.html#latex-equations",
+    "title": "Quarto Presentations",
+    "section": "LaTeX Equations",
+    "text": "LaTeX Equations\nMathJax rendering of equations to HTML\n\n\n\\begin{gather*}\na_1=b_1+c_1\\\\\na_2=b_2+c_2-d_2+e_2\n\\end{gather*}\n\\begin{align}\na_{11}& =b_{11}&\n  a_{12}& =b_{12}\\\\\na_{21}& =b_{21}&\n  a_{22}& =b_{22}+c_{22}\n\\end{align}\n\n\\[\\begin{gather*}\na_1=b_1+c_1\\\\\na_2=b_2+c_2-d_2+e_2\n\\end{gather*}\\]\n\\[\\begin{align}\na_{11}& =b_{11}&\n  a_{12}& =b_{12}\\\\\na_{21}& =b_{21}&\n  a_{22}& =b_{22}+c_{22}\n\\end{align}\\]\n\n\n\nLearn more: LaTeX Equations"
+  },
+  {
+    "objectID": "presentation.html#column-layout",
+    "href": "presentation.html#column-layout",
+    "title": "Quarto Presentations",
+    "section": "Column Layout",
+    "text": "Column Layout\nArrange content into columns of varying widths:\n\n\nMotor Trend Car Road Tests\nThe data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles.\n\n\n\n\n\n\n\n\n\nmpg\ncyl\ndisp\nhp\nwt\n\n\n\n\nMazda RX4\n21.0\n6\n160\n110\n2.620\n\n\nMazda RX4 Wag\n21.0\n6\n160\n110\n2.875\n\n\nDatsun 710\n22.8\n4\n108\n93\n2.320\n\n\nHornet 4 Drive\n21.4\n6\n258\n110\n3.215\n\n\nHornet Sportabout\n18.7\n8\n360\n175\n3.440\n\n\nValiant\n18.1\n6\n225\n105\n3.460\n\n\n\n\n\n\n\n\nLearn more: Multiple Columns"
+  },
+  {
+    "objectID": "presentation.html#incremental-lists",
+    "href": "presentation.html#incremental-lists",
+    "title": "Quarto Presentations",
+    "section": "Incremental Lists",
+    "text": "Incremental Lists\nLists can optionally be displayed incrementally:\n\n\nFirst item\nSecond item\nThird item\n\n\n\n Insert pauses to make other types of content display incrementally.\n\nLearn more: Incremental Lists"
+  },
+  {
+    "objectID": "presentation.html#fragments",
+    "href": "presentation.html#fragments",
+    "title": "Quarto Presentations",
+    "section": "Fragments",
+    "text": "Fragments\nIncremental text display and animation with fragments:\n\n\nFade in\n\n\nSlide up while fading in\n\n\nSlide left while fading in\n\n\nFade in then semi out\n\n\n\nStrike\n\n\nHighlight red\n\n\nLearn more: Fragments"
+  },
+  {
+    "objectID": "presentation.html#slide-backgrounds",
+    "href": "presentation.html#slide-backgrounds",
+    "title": "Quarto Presentations",
+    "section": "Slide Backgrounds",
+    "text": "Slide Backgrounds\nSet the background attribute on a slide to change the background color (all CSS color formats are supported).\nDifferent background transitions are available via the background-transition option.\n\nLearn more: Slide Backgrounds"
+  },
+  {
+    "objectID": "presentation.html#media-backgrounds",
+    "href": "presentation.html#media-backgrounds",
+    "title": "Quarto Presentations",
+    "section": "Media Backgrounds",
+    "text": "Media Backgrounds\nYou can also use the following as a slide background:\n\nAn image: background-image\nA video: background-video\nAn iframe: background-iframe\n\n\nLearn more: Media Backgrounds"
+  },
+  {
+    "objectID": "presentation.html#absolute-position",
+    "href": "presentation.html#absolute-position",
+    "title": "Quarto Presentations",
+    "section": "Absolute Position",
+    "text": "Absolute Position\nPosition images or other elements at precise locations\n\n\n\n\nLearn more: Absolute Position"
+  },
+  {
+    "objectID": "presentation.html#auto-animate",
+    "href": "presentation.html#auto-animate",
+    "title": "Quarto Presentations",
+    "section": "Auto-Animate",
+    "text": "Auto-Animate\nAutomatically animate matching elements across slides with Auto-Animate.\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Auto-Animate"
+  },
+  {
+    "objectID": "presentation.html#auto-animate-1",
+    "href": "presentation.html#auto-animate-1",
+    "title": "Quarto Presentations",
+    "section": "Auto-Animate",
+    "text": "Auto-Animate\nAutomatically animate matching elements across slides with Auto-Animate.\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Auto-Animate"
+  },
+  {
+    "objectID": "presentation.html#slide-transitions",
+    "href": "presentation.html#slide-transitions",
+    "title": "Quarto Presentations",
+    "section": "Slide Transitions",
+    "text": "Slide Transitions\nThe next few slides will transition using the slide transition\n\n\n\n\n\n\n\nTransition\nDescription\n\n\n\n\nnone\nNo transition (default, switch instantly)\n\n\nfade\nCross fade\n\n\nslide\nSlide horizontally\n\n\nconvex\nSlide at a convex angle\n\n\nconcave\nSlide at a concave angle\n\n\nzoom\nScale the incoming slide so it grows in from the center of the screen.\n\n\n\n\nLearn more: Slide Transitions"
+  },
+  {
+    "objectID": "presentation.html#tabsets",
+    "href": "presentation.html#tabsets",
+    "title": "Quarto Presentations",
+    "section": "Tabsets",
+    "text": "Tabsets\n\nPlotData\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmpg\ncyl\ndisp\nhp\ndrat\nwt\nqsec\nvs\nam\ngear\ncarb\n\n\n\n\nMazda RX4\n21.0\n6\n160.0\n110\n3.90\n2.620\n16.46\n0\n1\n4\n4\n\n\nMazda RX4 Wag\n21.0\n6\n160.0\n110\n3.90\n2.875\n17.02\n0\n1\n4\n4\n\n\nDatsun 710\n22.8\n4\n108.0\n93\n3.85\n2.320\n18.61\n1\n1\n4\n1\n\n\nHornet 4 Drive\n21.4\n6\n258.0\n110\n3.08\n3.215\n19.44\n1\n0\n3\n1\n\n\nHornet Sportabout\n18.7\n8\n360.0\n175\n3.15\n3.440\n17.02\n0\n0\n3\n2\n\n\nValiant\n18.1\n6\n225.0\n105\n2.76\n3.460\n20.22\n1\n0\n3\n1\n\n\nDuster 360\n14.3\n8\n360.0\n245\n3.21\n3.570\n15.84\n0\n0\n3\n4\n\n\nMerc 240D\n24.4\n4\n146.7\n62\n3.69\n3.190\n20.00\n1\n0\n4\n2\n\n\nMerc 230\n22.8\n4\n140.8\n95\n3.92\n3.150\n22.90\n1\n0\n4\n2\n\n\nMerc 280\n19.2\n6\n167.6\n123\n3.92\n3.440\n18.30\n1\n0\n4\n4\n\n\nMerc 280C\n17.8\n6\n167.6\n123\n3.92\n3.440\n18.90\n1\n0\n4\n4\n\n\nMerc 450SE\n16.4\n8\n275.8\n180\n3.07\n4.070\n17.40\n0\n0\n3\n3\n\n\nMerc 450SL\n17.3\n8\n275.8\n180\n3.07\n3.730\n17.60\n0\n0\n3\n3\n\n\nMerc 450SLC\n15.2\n8\n275.8\n180\n3.07\n3.780\n18.00\n0\n0\n3\n3\n\n\nCadillac Fleetwood\n10.4\n8\n472.0\n205\n2.93\n5.250\n17.98\n0\n0\n3\n4\n\n\nLincoln Continental\n10.4\n8\n460.0\n215\n3.00\n5.424\n17.82\n0\n0\n3\n4\n\n\nChrysler Imperial\n14.7\n8\n440.0\n230\n3.23\n5.345\n17.42\n0\n0\n3\n4\n\n\nFiat 128\n32.4\n4\n78.7\n66\n4.08\n2.200\n19.47\n1\n1\n4\n1\n\n\nHonda Civic\n30.4\n4\n75.7\n52\n4.93\n1.615\n18.52\n1\n1\n4\n2\n\n\nToyota Corolla\n33.9\n4\n71.1\n65\n4.22\n1.835\n19.90\n1\n1\n4\n1\n\n\nToyota Corona\n21.5\n4\n120.1\n97\n3.70\n2.465\n20.01\n1\n0\n3\n1\n\n\nDodge Challenger\n15.5\n8\n318.0\n150\n2.76\n3.520\n16.87\n0\n0\n3\n2\n\n\nAMC Javelin\n15.2\n8\n304.0\n150\n3.15\n3.435\n17.30\n0\n0\n3\n2\n\n\nCamaro Z28\n13.3\n8\n350.0\n245\n3.73\n3.840\n15.41\n0\n0\n3\n4\n\n\nPontiac Firebird\n19.2\n8\n400.0\n175\n3.08\n3.845\n17.05\n0\n0\n3\n2\n\n\nFiat X1-9\n27.3\n4\n79.0\n66\n4.08\n1.935\n18.90\n1\n1\n4\n1\n\n\nPorsche 914-2\n26.0\n4\n120.3\n91\n4.43\n2.140\n16.70\n0\n1\n5\n2\n\n\nLotus Europa\n30.4\n4\n95.1\n113\n3.77\n1.513\n16.90\n1\n1\n5\n2\n\n\nFord Pantera L\n15.8\n8\n351.0\n264\n4.22\n3.170\n14.50\n0\n1\n5\n4\n\n\nFerrari Dino\n19.7\n6\n145.0\n175\n3.62\n2.770\n15.50\n0\n1\n5\n6\n\n\nMaserati Bora\n15.0\n8\n301.0\n335\n3.54\n3.570\n14.60\n0\n1\n5\n8\n\n\nVolvo 142E\n21.4\n4\n121.0\n109\n4.11\n2.780\n18.60\n1\n1\n4\n2\n\n\n\n\n\n\n\n\n\nLearn more: Tabsets"
+  },
+  {
+    "objectID": "presentation.html#interactive-slides",
+    "href": "presentation.html#interactive-slides",
+    "title": "Quarto Presentations",
+    "section": "Interactive Slides",
+    "text": "Interactive Slides\nInclude Jupyter widgets and htmlwidgets in your presentations\n\n\n\n\n\n\n\nLearn more: Jupyter widgets, htmlwidgets"
+  },
+  {
+    "objectID": "presentation.html#interactive-slides-1",
+    "href": "presentation.html#interactive-slides-1",
+    "title": "Quarto Presentations",
+    "section": "Interactive Slides",
+    "text": "Interactive Slides\nTurn presentations into applications with Observable and Shiny. Use component layout to position inputs and outputs.\n\n\n\n\n\nviewof talentWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"talent weight\" })\nviewof looksWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"looks weight\" })\nviewof minimum = Inputs.range([-2, 2], { value: 1, step: 0.01, label: \"min fame\" })\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport { plotActors } from './actors.js';\nplotActors(actors, talentWeight, looksWeight, minimum)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Observable, Shiny, Component Layout"
+  },
+  {
+    "objectID": "presentation.html#preview-links",
+    "href": "presentation.html#preview-links",
+    "title": "Quarto Presentations",
+    "section": "Preview Links",
+    "text": "Preview Links\nNavigate to hyperlinks without disrupting the flow of your presentation.\nUse the preview-links option to open links in an iframe on top of your slides. Try clicking the link below for a demonstration:\n\nMatplotlib: Visualization with Python\n\n\nLearn more: Preview Links"
+  },
+  {
+    "objectID": "presentation.html#themes",
+    "href": "presentation.html#themes",
+    "title": "Quarto Presentations",
+    "section": "Themes",
+    "text": "Themes\n10 Built-in Themes (or create your own)\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Themes"
+  },
+  {
+    "objectID": "presentation.html#easy-navigation",
+    "href": "presentation.html#easy-navigation",
+    "title": "Quarto Presentations",
+    "section": "Easy Navigation",
+    "text": "Easy Navigation\n\nQuickly jump to other parts of your presentation\n\n\n\n\n\n\n\nToggle the slide menu with the menu button (bottom left of slide) to go to other slides and access presentation tools.\n\n\n\nYou can also press m to toggle the menu open and closed.\n\nLearn more: Navigation"
+  },
+  {
+    "objectID": "presentation.html#chalkboard",
+    "href": "presentation.html#chalkboard",
+    "title": "Quarto Presentations",
+    "section": "Chalkboard",
+    "text": "Chalkboard\n\nFree form drawing and slide annotations\n\n\n\n\n\n\n\nUse the chalkboard button at the bottom left of the slide to toggle the chalkboard.\n\n\n\n\n\n\n\n\n\nUse the notes canvas button at the bottom left of the slide to toggle drawing on top of the current slide.\n\n\n\nYou can also press b to toggle the chalkboard or c to toggle the notes canvas.\n\nLearn more: Chalkboard"
+  },
+  {
+    "objectID": "presentation.html#point-of-view",
+    "href": "presentation.html#point-of-view",
+    "title": "Quarto Presentations",
+    "section": "Point of View",
+    "text": "Point of View\nPress o to toggle overview mode:\n\nHold down the Alt key (or Ctrl in Linux) and click on any element to zoom towards it—try it now on this slide.\n\nLearn more: Overview Mode, Slide Zoom"
+  },
+  {
+    "objectID": "presentation.html#speaker-view",
+    "href": "presentation.html#speaker-view",
+    "title": "Quarto Presentations",
+    "section": "Speaker View",
+    "text": "Speaker View\nPress s (or use the presentation menu) to open speaker view\n\n\nLearn more: Speaker View"
+  },
+  {
+    "objectID": "presentation.html#authoring-tools",
+    "href": "presentation.html#authoring-tools",
+    "title": "Quarto Presentations",
+    "section": "Authoring Tools",
+    "text": "Authoring Tools\nLive side-by-side preview for any notebook or text editor including Jupyter and VS Code\n\n\n\n\n\n\n\n\nLearn more: Jupyter, VS Code, Text Editors"
+  },
+  {
+    "objectID": "presentation.html#authoring-tools-1",
+    "href": "presentation.html#authoring-tools-1",
+    "title": "Quarto Presentations",
+    "section": "Authoring Tools",
+    "text": "Authoring Tools\nRStudio includes an integrated presentation preview pane\n\n\nLearn more: RStudio"
+  },
+  {
+    "objectID": "presentation.html#and-more",
+    "href": "presentation.html#and-more",
+    "title": "Quarto Presentations",
+    "section": "And More…",
+    "text": "And More…\n\nTouch optimized (presentations look great on mobile, swipe to navigate slides)\nFooter & Logo (optionally specify custom footer per-slide)\nAuto-Slide (step through slides automatically, without any user input)\nMultiplex (allows your audience to follow the slides of the presentation you are controlling on their own phone, tablet or laptop).\n\n\nLearn more: Quarto Presentations\n\n\n\nhttps://quarto.org"
+  },
+  {
+    "objectID": "studio_index.html",
+    "href": "studio_index.html",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "",
+    "text": "Traditionally, species distribution models (SDM) use climatic data as predictors of habitat suitability for the target species. In this studio, we will explore the use of satellite data to derive relevant predictors. The satellite data processing, from download to analysis, will be performed using GRASS GIS software functionality. Then, we’ll read our predictors within R and perform SDM, visualize and analyze results there, to then exemplify how to write the output distribution maps back into GRASS."
+  },
+  {
+    "objectID": "studio_index.html#software",
+    "href": "studio_index.html#software",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "Software",
+    "text": "Software\nIn this studio we’ll use x and y\n\nDependencies\n\nPython dependencies\n\nsentinelsat\npandas\n\n\n\nR dependencies\n\nrgrass\nbiomod"
+  },
+  {
+    "objectID": "studio_index.html#data",
+    "href": "studio_index.html#data",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "Data",
+    "text": "Data"
+  },
+  {
+    "objectID": "studio_index.html#references",
+    "href": "studio_index.html#references",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "References",
+    "text": "References\n\nhttps://github.com/veroandreo/foss4g2022_grass4rs\nhttps://github.com/veroandreo/grass_opengeohub2021"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Verónica Andreo",
+    "section": "",
+    "text": "Verónica Andreo is a biologist. She holds a PhD in Biological Sciences and an MSc in Remote Sensing and GIS applications. She works as a researcher for CONICET and lecturer at Gulich Institute - Argentinian Space Agency (CONAE) in Córdoba, Argentina. Her research is focused on uncovering environmental drivers of vector-borne disease outbreaks. She is mostly interested in those environmental features that can be derived by means of satellite image analysis, remote sensing time series and GIS-based techniques.\nVerónica is part of the GRASS GIS Development team and currently serves as the PSC chair. She is a strong advocate for OSGeo and free and open source software for geo-spatial (FOSS4G). She was the Program Committee chair for FOSS4G 2021. Among other things, she has volunteered as a mentor for GRASS GIS in the Google Code-In contest introducing high school students into the Open Source world.\n\n\n\n\nRemote sensing time series\nImage analysis\nGIS\nSDM\nVector-borne diseases\nFree and Open Source Software\n\n\n\n\n\nPhD in Biological Sciences. National University of Río Cuarto. 2012.\nMSc in Spatial Applications for Early Warning and Response to Emergencies. National University of Córdoba. 2015.\nBiologist. National University of Río Cuarto. 2005."
+  },
+  {
+    "objectID": "notebook_ex_sdm_r.html",
+    "href": "notebook_ex_sdm_r.html",
+    "title": "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R",
+    "section": "",
+    "text": "bla\n\n\nCode\n2-2\n\n\n## [1] 0\n\n\n\n\nCode\n6-2\n\n\n## 4"
+  }
+]
