@@ -1,0 +1,129 @@
+/*-- scss:defaults --*/
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,700,400italic,700italic);
+
+// fonts
+$font-family-sans-serif: Poppins, sans-serif !default;
+
+// font sizes
+$presentation-heading-font-weight: 600 !default;
+$presentation-h1-font-size: 2.75em !default;
+$presentation-h2-font-size:	2.0em !default;
+$presentation-h3-font-size:	1.5em !default;
+$presentation-h4-font-size:	1.2em !default;
+$presentation-font-size-root: 34px !default;
+$presentation-font-smaller: 0.8 !default; 
+
+// colors
+$body-bg: #ffffff !default;
+$body-color: #131e29 !default;
+$text-muted: $body-color !default;
+$link-color: #6aaae4 !default;
+$selection-bg: #e81f76 !default;
+$input-panel-bg: rgba(233, 236, 239, 0.2) !default;
+$footer-bg: #1a428a;
+$highlight-color: #e81f76;
+
+// headings
+$presentation-heading-font: "Poppins", sans-serif !default;
+$presentation-heading-color: #e81f76 !default;
+//$presentation-heading-text-transform: uppercase !default;
+
+$presentation-title-slide-text-align: center !default;
+//$presentation-slide-text-align: center !default;
+
+/*-- scss:rules --*/
+
+html * {
+  color-profile: sRGB;
+  rendering-intent: auto;
+}
+
+.reveal .footer {
+  background-color: $footer-bg;
+  height: 48px !important;
+  bottom: 0px !important;
+}
+
+.reveal .progress {
+  background: $footer-bg;
+  color: $highlight-color;
+}
+
+.reveal .progress:after {
+  background-color: $footer-bg;
+  // background: $footer-bg;
+}
+
+.reveal .slide-logo {
+  z-index: 3;
+  max-height: 1.9rem !important;
+}
+
+.bio-img {
+    float: right;
+}
+
+// .reveal .slide blockquote {
+//   border-left: 3px solid $text-muted;
+//   padding-left: 0.6em;
+//   background: #08b8b8;
+// }
+
+// .reveal h2 {
+//   padding-bottom: 0.3em;
+// }
+
+// .reveal .controls {
+//   color: $highlight-color;
+// }
+
+// .reveal a {
+//   color: #11559a;
+// }
+
+// .reveal a:hover {
+//   color: #4076ae;
+// }
+
+// .reveal .footer a {
+//   color: $footer-bg;
+// }
+
+// .reveal .footer a:hover {
+//   color: $footer-bg;
+// }
+
+// .reveal .slide ul li {
+//   list-style: none; /* Remove default bullets */
+// }
+
+// .reveal .slide ul li::before {
+//   content: "\25FC"; /* Add content: \2022 is the CSS Code/unicode for a bullet; add a space for easier alignment! */
+//   color: $highlight-color; /* Change the color */
+//   display: inline-block; /* Needed to add space between the bullet and the text */
+//   width: 1.5em; /* Also needed for space (tweak if needed) */
+//   margin-left: -1.5em; /* Also needed for space (tweak if needed) */
+//   font-size: 66%;
+// }
+
+// .reveal .panel-tabset ul li::before {
+//   content: ""; /* Remove default bullets */
+// }
+
+// .reveal .monospace {
+//   font-size: 36pt;
+// }
+
+// .reveal .faded {
+//   opacity: 0.4;
+// }
+
+// .reveal .faded-small {
+//   opacity: 0.4;
+//   font-size: 0.8em;
+// }
+
+// .reveal .imitate-title {
+//   font-size: 2em;
+// }

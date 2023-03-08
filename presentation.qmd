@@ -1,196 +1,112 @@
 ---
-title: "Quarto Presentations"
-subtitle: "Create beautiful interactive slide decks with Reveal.js"
+title: Environmental drivers of vector-borne and zoonotic diseases
+subtitle: Leveraging remote sensing for Public Health
+title-slide-attributes: 
+  data-background-color: "#1A428A"
 format:
   revealjs: 
+    hash-type: number 
     slide-number: true
     chalkboard: 
       buttons: true
     preview-links: auto
-    logo: images/quarto.png
-    css: assets/css/styles.css
-    footer: <https://quarto.org>
-resources:
-  - demo.pdf
+    logo: "https://ig.conae.unc.edu.ar/wp-content/uploads/sites/68/2022/04/G-UNC-CONAE-C.png"
+    theme: [default, assets/css/IG_style.scss]
 ---
 
-## Hello, There
+## About me { background-color="#1A428A" }
 
-This presentation will show you examples of what you can do with Quarto and [Reveal.js](https://revealjs.com), including:
+:::::: columns
+::: {.column width="68%"}
 
--   Presenting code and LaTeX equations
--   Including computations in slide output
--   Image, video, and iframe backgrounds
--   Fancy transitions and animations
--   Printing to PDF
+- Researcher and lecturer at Instituto Gulich (CONAE-UNC)
+- Background: Lic. & Dr. in Biology, MSc. in Spatial Information Applications
+- Remote sensing and GIS applications in disease ecology
+- Member of the GRASS GIS Dev Team y project chair
+- OSGeo Charter member & FOSS4G enthusiast
 
-...and much more
-
-## Pretty Code {auto-animate="true"}
-
--   Over 20 syntax highlighting themes available
--   Default theme optimized for accessibility
-
-``` r
-# Define a server for the Shiny app
-function(input, output) {
-  
-  # Fill in the spot we created for a plot
-  output$phonePlot <- renderPlot({
-    # Render a barplot
-  })
-}
-```
-
-::: footer
-Learn more: [Syntax Highlighting](https://quarto.org/docs/output-formats/html-code.html#highlighting)
 :::
 
-## Code Animations {auto-animate="true"}
-
--   Over 20 syntax highlighting themes available
--   Default theme optimized for accessibility
-
-``` r
-# Define a server for the Shiny app
-function(input, output) {
-  
-  # Fill in the spot we created for a plot
-  output$phonePlot <- renderPlot({
-    # Render a barplot
-    barplot(WorldPhones[,input$region]*1000, 
-            main=input$region,
-            ylab="Number of Telephones",
-            xlab="Year")
-  })
-}
-```
-
-::: footer
-Learn more: [Code Animations](https://quarto.org/docs/presentations/revealjs/advanced.html#code-animations)
-:::
-
-## Line Highlighting
-
--   Highlight specific lines for emphasis
--   Incrementally highlight additional lines
-
-``` {.python code-line-numbers="4-5|7|10"}
-import numpy as np
-import matplotlib.pyplot as plt
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
-::: footer
-Learn more: [Line Highlighting](https://quarto.org/docs/presentations/revealjs/#line-highlighting)
-:::
-
-## Executable Code
-
-```{r}
-#| echo: true
-#| fig-width: 10
-#| fig-height: 4.5
-library(ggplot2)
-ggplot(mtcars, aes(hp, mpg, color = am)) +
-  geom_point() +
-  geom_smooth(formula = y ~ x, method = "loess")
-```
-
-::: footer
-Learn more: [Executable Code](https://quarto.org/docs/presentations/revealjs/#executable-code)
-:::
-
-## LaTeX Equations
-
-[MathJax](https://www.mathjax.org/) rendering of equations to HTML
-
-::: columns
-::: {.column width="40%"}
-``` tex
-\begin{gather*}
-a_1=b_1+c_1\\
-a_2=b_2+c_2-d_2+e_2
-\end{gather*}
-\begin{align}
-a_{11}& =b_{11}&
-  a_{12}& =b_{12}\\
-a_{21}& =b_{21}&
-  a_{22}& =b_{22}+c_{22}
-\end{align}
-```
-:::
-
-::: {.column width="60%"}
-```{=tex}
-\begin{gather*}
-a_1=b_1+c_1\\
-a_2=b_2+c_2-d_2+e_2
-\end{gather*}
-```
-```{=tex}
-\begin{align}
-a_{11}& =b_{11}&
-  a_{12}& =b_{12}\\
-a_{21}& =b_{21}&
-  a_{22}& =b_{22}+c_{22}
-\end{align}
-```
+:::{.column width="30%"}
+![](assets/img/profile.png){.bio-img}
 :::
 :::
 
 ::: footer
-Learn more: [LaTeX Equations](https://quarto.org/docs/authoring/markdown-basics.html#equations)
+{{< fa globe >}} <https://veroandreo.gitlab.io/>
 :::
 
-## Column Layout {.smaller}
+## Overview { background-color="#1A428A" }
 
-Arrange content into columns of varying widths:
+- bla
+- bla
 
-::: columns
-::: {.column width="35%"}
-#### Motor Trend Car Road Tests
 
-The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles.
+## Disease Ecology
+
+:::::: {.columns}
+:::{.column width="55%"}
+<br><br>
+![](assets/img/lecture/global_view_diseases.png){width="700"}
 :::
 
-::: {.column width="3%"}
+:::{.column width="45%"}
+The main objective of disease ecology is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur
+
+::: {style="display: flex; align-items: center; justify-content: center;"} 
+{{< fa solid angles-down size=2x >}}
 :::
 
-::: {.column width="62%"}
-```{r}
-knitr::kable(head(mtcars)[,c("mpg",	"cyl", "disp", "hp", "wt")])
-```
+decision making, planning of prevention, management and/or response actions, etc.
 :::
+::::::
+
+
+## Landscape Epidemiology
+
+<br>
+
+:::::: columns
+:::{.column width="45%"}
+5 components:
+
+1. animal donors; 
+2. vectors; 
+3. animal recipients; 
+4. the pathogenic agent, 
+5. the influence of factors of the external environments
 :::
 
-::: footer
-Learn more: [Multiple Columns](https://quarto.org/docs/presentations/revealjs/#multiple-columns)
+:::{.column width="15%"}
+<br>
+{{< fa solid right-long size=3x >}}
 :::
 
-## Incremental Lists
+:::{.column width="40%"}
+Spatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence.
+:::
+::::::
 
-Lists can optionally be displayed incrementally:
+
+## Applications of geospatial technologies {.smaller}
 
 ::: incremental
--   First item
--   Second item
--   Third item
+- Spatialisation of outbreaks (space-time patterns and causes)
+- Hosts and vector distribution mapping
+- Estimation of environmental indices and monitoring of favorable environmental conditions
+- Disease risk mapping and prediction of number of cases
+- Landscape analysis: metrics, fragmentation, LULCC detection
+- Optimal distribution of health services 
+- Location of best routes to hospitals
+- etc.
 :::
 
-. . .
 
-<br/> Insert pauses to make other types of content display incrementally.
+## What about remote sensing?
 
-::: footer
-Learn more: [Incremental Lists](https://quarto.org/docs/presentations/revealjs/#incremental-lists)
-:::
+What can we see with remote sensing to contribute to disease ecology?
+
+![](assets/img/lecture/lambin_2010.png){width="65%" fig-align="center"}
 
 ## Fragments
 
@@ -228,42 +144,18 @@ Highlight red
 Learn more: [Fragments](https://quarto.org/docs/presentations/revealjs/advanced.html#fragments)
 :::
 
-## Slide Backgrounds {background="#43464B"}
-
-Set the `background` attribute on a slide to change the background color (all CSS color formats are supported).
-
-Different background transitions are available via the `background-transition` option.
-
-::: footer
-Learn more: [Slide Backgrounds](https://quarto.org/docs/presentations/revealjs/#color-backgrounds)
-:::
-
-## Media Backgrounds {background="#43464B" background-image="images/milky-way.jpeg"}
-
-You can also use the following as a slide background:
-
--   An image: `background-image`
-
--   A video: `background-video`
-
--   An iframe: `background-iframe`
-
-::: footer
-Learn more: [Media Backgrounds](https://quarto.org/docs/presentations/revealjs/#image-backgrounds)
-:::
-
 ## Absolute Position
 
 Position images or other elements at precise locations
 
-![](mini/images/kitten-400-350.jpeg){.absolute top="170" left="30" width="400" height="400"}
+![](assets/img/aedes_albopictus.jpg){.absolute top="170" left="30" width="400" height="400"}
 
-![](mini/images/kitten-450-250.jpeg){.absolute .fragment top="150" right="80" width="450"}
+![](assets/img/aedes_albopictus.jpg){.absolute .fragment top="150" right="80" width="450"}
 
-![](mini/images/kitten-300-200.jpeg){.absolute .fragment bottom="110" right="130" width="300"}
+![](assets/img/aedes_albopictus.jpg){.absolute .fragment bottom="110" right="130" width="300"}
 
 ::: footer
-Learn more: [Absolute Position](https://quarto.org/docs/presentations/revealjs/advanced.html#absolute-position)
+Learn more: [Absolute Position](https://quarto.org/docs/presentations/revealjs/advanced.html#absolute-position){preview-link="true"}
 :::
 
 ## Auto-Animate {auto-animate="true" auto-animate-easing="ease-in-out"}
