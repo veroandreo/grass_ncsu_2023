@@ -387,6 +387,9 @@
   </style>
   <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
@@ -397,7 +400,7 @@
   <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
   <script src="site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
   <script type="ojs-define">
-  {"contents":[{"name":"actors","value":{"x":[0.8404,-0.0529,-2.2003,0.2605,-0.6641,-0.9521,0.2971,0.8407,0.2906,1.4836,1.6539,-0.0621,-0.0904,0.2944,-0.5668,-0.9953,0.3703,1.5998,-1.7041,1.3308,-0.8989,0.5772,-0.3091,-0.5766,-0.4609,1.3447,0.2349,-1.2186,-0.6402,1.0921,0.9902,0.1945,-0.093,-0.2007,1.0366,0.3863,-2.5526,-0.0179,-1.6165,2.1404,1.5779,0.3031,0.9903,0.4952,1.3105,0.2359,-0.5818,-0.6237,1.5486,-0.485,0.931,-1.1554,-3.8961,-0.2753,0.4524,-0.0467,0.3299,0.8271,-1.0631,-1.0898,0.0592,1.4773,0.6881,0.1351,-0.023,-0.2019,-1.3218,-1.0226,-0.3964,-0.4307,0.6718,0.5888,1.0468,-0.9465,-0.1965,-0.7521,0.2443,1.465,-0.9931,-0.4952,0.5293,0.1246,0.4423,0.6185,-2.0298,-1.0693,0.5213,0.7354,0.882,0.7384,0.4209,0.1369,1.28,0.8178,-1.4611,-0.5077,0.2585,-1.5844,0.8189,0.3331],"y":[1.358,0.2551,0.2099,-0.7179,-1.4298,0.647,-1.3597,1.6587,0.5728,0.2283,-0.4366,0.8261,2.0262,-0.2267,-0.4407,0.9213,-1.2923,0.6133,-1.5948,1.3917,-0.7958,0.0284,-1.136,-2.4281,-1.5654,-0.5976,0.282,0.183,0.9633,1.8891,-0.619,2.395,-1.0772,1.3539,1.1656,-0.1565,-1.2811,-2.7018,-0.2809,0.0279,-0.4319,-1.2195,-0.5518,-0.3432,0.0447,0.2599,0.8149,1.3278,-0.5977,-0.3645,-2.0253,1.4491,0.5975,-0.0335,0.5731,1.3661,1.2526,0.0088,-0.8504,0.7317,0.8697,1.4729,1.0256,-0.3933,-0.22,1.2705,0.138,-1.8727,-1.5965,-0.4195,-0.2443,-0.9924,-0.206,0.7724,-0.6877,0.2747,0.8203,-0.7256,-0.1291,0.5745,-1.0719,0.5773,1.3951,0.0297,-0.1041,-0.5904,-0.9258,2.1733,0.2517,0.1742,-0.225,-0.4635,0.0372,-0.7827,0.6267,0.6558,-0.7279,-0.076,-0.2003,0.4303]}}]}
+  {"contents":[{"name":"actors","value":{"x":[-0.6717,-0.0475,-0.1933,0.3053,0.891,0.3381,-2.3659,1.2461,0.2,-0.9029,-0.238,-0.2479,-0.4557,-0.399,-1.0616,1.5157,0.6698,-0.2428,1.8511,0.1993,-0.6575,0.3832,0.6047,0.0008,-0.7537,0.7412,-0.9469,-0.9808,1.7273,1.277,-0.9156,0.2489,0.718,0.1323,-1.1899,-1.0183,-1.9262,0.3115,-2.2497,-1.0635,-0.8484,0.0862,1.5711,-0.0996,-0.0124,1.1092,0.0641,-0.1593,1.0596,-1.1676,0.9227,2.4026,1.182,0.9428,0.9267,-0.2518,1.3043,-0.0592,-0.7806,-1.0857,-0.2956,-0.4226,0.0613,1.4465,-0.3664,-0.4027,-1.4533,-0.0609,0.1467,0.9898,-0.0809,1.3214,-0.4553,-1.3023,-0.6808,-0.9488,1.1389,-1.2556,-0.0965,-0.2966,-1.5427,2.133,0.037,0.0173,-0.9943,-0.0926,0.5,0.31,-0.45,-1.3049,-0.9875,0.5706,-0.3877,-0.3397,-0.7171,-2.0053,-1.4582,1.0305,-1.0142,-0.3218],"y":[-0.5801,1.0349,0.3408,-0.3147,0.3218,0.0099,0.1529,-0.6631,1.0864,1.6052,-1.5851,0.3817,-1.1036,-0.7202,0.5052,0.6526,-0.7099,-0.4834,-0.628,0.9634,-1.5406,0.2398,-0.3708,0.1505,0.4671,0.2237,-0.6268,0.5692,-1.48,-1.3229,1.5656,1.0953,-0.2691,0.7468,0.6882,-1.7701,-0.2652,0.7634,-0.709,1.0217,0.7238,-0.2288,-0.4707,-0.1076,-0.3101,-0.9564,1.1105,-0.0085,0.4503,0.4036,0.9902,2.4328,0.7884,-0.4808,-1.6609,0.705,-1.0385,-1.1055,-0.4826,1.1,-0.9662,1.2268,0.0113,0.714,1.3613,-1.1401,0.0293,-0.3695,0.1816,0.5655,0.4899,1.0035,-0.9543,0.9168,-0.2238,0.0365,-0.4721,-0.1136,0.3048,0.7623,-1.5633,1.261,0.977,-0.3665,1.1821,-0.7013,-0.6333,-0.3938,0.2203,-0.0777,-0.9944,0.205,-0.653,0.1037,-3.0754,0.6948,-0.4671,-0.4589,-0.0143,0.2268]}}]}
   </script>
 </head>
 <body class="quarto-light">
@@ -457,6 +460,7 @@
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:45%;">
+<div class="color-box-light-blue">
 <p>5 components:</p>
 <ol type="1">
 <li>animal donors;</li>
@@ -465,11 +469,31 @@
 <li>the pathogenic agent,</li>
 <li>the influence of factors of the external environments</li>
 </ol>
+</div>
 </div><div class="column" style="width:15%;">
 <p><br></p>
 <p><i class="fa-solid fa-right-long fa-3x" aria-label="right-long"></i></p>
 </div><div class="column" style="width:40%;">
 <p>Spatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence.</p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>LS Test</h2>
+<div class="cell" data-reveal="true" data-fig-height="100%">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --&gt; B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
+    
+    
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
 </div>
 </div>
 </section>
@@ -495,7 +519,9 @@
 <img data-src="assets/img/lecture/lambin_2010.png" style="width:65.0%" class="r-stretch quarto-figure-center"></section>
 <section class="slide level2">
 <h2>Fragments</h2>
+<div class="color-box-light-blue">
 <p>Incremental text display and animation with fragments:</p>
+</div>
 <p><br></p>
 <div class="fragment fade-in">
 <p>Fade in</p>
@@ -620,7 +646,7 @@
 <div id="tabset-1-1">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="presentation_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+<p><img data-src="presentation_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
 </div>
 </div>
 </div>
@@ -1123,8 +1149,8 @@
 <p>Include Jupyter widgets and htmlwidgets in your presentations</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-c55fa2731dc11aaa2480" style="width:960px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c55fa2731dc11aaa2480">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.852,174.768,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"The birthplace of R",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.852,-36.852],"lng":[174.768,174.768]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f9a116670bf1ea7ec5e9" style="width:960px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f9a116670bf1ea7ec5e9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.852,174.768,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"The birthplace of R",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.852,-36.852],"lng":[174.768,174.768]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="footer">
@@ -1139,9 +1165,9 @@
 </div>
 <div class="layout-sidebar layout-sidebar-left">
 <div class="cell panel-sidebar">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="269" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 268;"><span id="cb1-269"><a href="#cb1-269"></a>viewof talentWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"talent weight"</span> })</span>
-<span id="cb1-270"><a href="#cb1-270"></a>viewof looksWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"looks weight"</span> })</span>
-<span id="cb1-271"><a href="#cb1-271"></a>viewof minimum <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"min fame"</span> })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="285" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 284;"><span id="cb1-285"><a href="#cb1-285"></a>viewof talentWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"talent weight"</span> })</span>
+<span id="cb1-286"><a href="#cb1-286"></a>viewof looksWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"looks weight"</span> })</span>
+<span id="cb1-287"><a href="#cb1-287"></a>viewof minimum <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"min fame"</span> })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -1165,8 +1191,8 @@
 </div>
 </div>
 <div class="cell panel-fill">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="276" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 275;"><span id="cb2-276"><a href="#cb2-276"></a><span class="im">import</span> { plotActors } <span class="im">from</span> <span class="st">'./actors.js'</span><span class="op">;</span></span>
-<span id="cb2-277"><a href="#cb2-277"></a><span class="fu">plotActors</span>(actors<span class="op">,</span> talentWeight<span class="op">,</span> looksWeight<span class="op">,</span> minimum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="292" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 291;"><span id="cb2-292"><a href="#cb2-292"></a><span class="im">import</span> { plotActors } <span class="im">from</span> <span class="st">'./actors.js'</span><span class="op">;</span></span>
+<span id="cb2-293"><a href="#cb2-293"></a><span class="fu">plotActors</span>(actors<span class="op">,</span> talentWeight<span class="op">,</span> looksWeight<span class="op">,</span> minimum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">

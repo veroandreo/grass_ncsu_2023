@@ -68,6 +68,7 @@ decision making, planning of prevention, management and/or response actions, etc
 
 :::::: columns
 :::{.column width="45%"}
+:::{.color-box-light-blue}
 5 components:
 
 1. animal donors; 
@@ -75,6 +76,7 @@ decision making, planning of prevention, management and/or response actions, etc
 3. animal recipients; 
 4. the pathogenic agent, 
 5. the influence of factors of the external environments
+:::
 :::
 
 :::{.column width="15%"}
@@ -86,6 +88,18 @@ decision making, planning of prevention, management and/or response actions, etc
 Spatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence.
 :::
 ::::::
+
+## LS Test
+
+```{mermaid}
+%%|fig-height: 100%
+
+flowchart LR
+    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --> B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
+    
+    
+```
+
 
 
 ## Applications of geospatial technologies {.smaller}
@@ -110,7 +124,9 @@ What can we see with remote sensing to contribute to disease ecology?
 
 ## Fragments
 
+:::{.color-box-light-blue}
 Incremental text display and animation with fragments:
+:::
 
 <br/>
 
