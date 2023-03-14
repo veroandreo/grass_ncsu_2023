@@ -270,14 +270,14 @@
     "href": "notebook_intro.html#grass-gis-general-stuff",
     "title": "Introduction to GRASS GIS",
     "section": "GRASS GIS general stuff",
-    "text": "GRASS GIS general stuff\n\nFree and open source, you can use, modify, improve, share\nStrong user community, commercial support\nLarge amount of tools: 500+ core modules, 300+ addons\nGUI and CLI interfaces\nPython API and libraries - new grass.jupyter library can be tried online\nConnection with R, QGIS, WPS, etc.\nDifferent data types supported: raster (including satellite imagery), 3D raster or voxel, vector and space-time datasets"
+    "text": "GRASS GIS general stuff\n\nFree and open source, you can use, modify, improve, share\nStrong user community, commercial support\nLarge amount of tools: 500+ core modules, 300+ addons\nGUI and CLI interfaces\nPython API and libraries - new grass.jupyter library can be tried online\nConnection with R, QGIS, WPS, etc.\nDifferent data types supported: raster (including satellite imagery), 3D raster or voxel, vector and space-time datasets\n\n\n\nMore than 500 core modules \n\n\n\nPrefix\nFunction class\nType of command\nExample\n\n\n\n\ng.*\ngeneral\ngeneral data management\ng.rename: renames map\n\n\nd.*\ndisplay\ngraphical output\nd.rast: display raster map\n\n\nr.*\nraster\nraster processing\nr.mapcalc: map algebra\n\n\nv.*\nvector\nvector processing\nv.clean: topological cleaning\n\n\ni.*\nimagery\nimagery processing\ni.pca: Principal Component Analysis\n\n\nr3.*\nvoxel\n3D raster processing\nr3.stats: voxel statistics\n\n\ndb.*\ndatabase\ndatabase management\ndb.select: select value(s) from table\n\n\nps.*\npostscript\nPostScript map creation\nps.map: PostScript map creation\n\n\nt.*\ntemporal\nspace-time datasets\nt.rast.aggregate: raster time series aggregation"
   },
   {
     "objectID": "notebook_intro.html#more-than-300-add-ons",
     "href": "notebook_intro.html#more-than-300-add-ons",
     "title": "Introduction to GRASS GIS",
     "section": "More than 300 add-ons",
-    "text": "More than 300 add-ons\nPlugins or Add-ons can be installed from a centralized OSGeo repository or from github (or similar repositories) using g.extension command.\n# install extension from GRASS GIS Add-on repository\ng.extension extension=r.hants\n \n# install extension from github repository\ng.extension extension=r3.slice \\\n  url=https://github.com/petrasovaa/r3.slice"
+    "text": "More than 300 add-ons\nPlugins or Add-ons can be installed from a centralized OSGeo repository or from github (or similar repositories) using g.extension command.\n# install extension from GRASS GIS Add-on repository\ng.extension extension=r.hants\n \n# install extension from github repository\ng.extension extension=r3.slice \\\n  url=https://github.com/petrasovaa/r3.slice\n\n\nGraphical User Interface (GUI)\n\n\n\n\n\n\nCommand line\n\n\n\n\n\n\nGRASS + R through rgrass package\nWe can use R within a GRASS GIS session or use GRASS GIS within an R session"
   },
   {
     "objectID": "notebook_intro.html#the-tgrass-framework",
@@ -298,14 +298,14 @@
     "href": "notebook_intro.html#temporal-modules",
     "title": "Introduction to GRASS GIS",
     "section": "Temporal modules",
-    "text": "Temporal modules\n\nt.*: General modules to handle STDS of all types\nt.rast.*: Modules that deal with STRDS\nt.rast3d.*: Modules that deal with STR3DS\nt.vect.*: Modules that deal with STVDS"
+    "text": "Temporal modules\n\nt.*: General modules to handle STDS of all types\nt.rast.*: Modules that deal with STRDS\nt.rast3d.*: Modules that deal with STR3DS\nt.vect.*: Modules that deal with STVDS\n\n\n\nOther TGRASS notions\n\n\nTime can be defined as intervals (start and end time) or instances (only start time)\nTime can be absolute (e.g., 2017-04-06 22:39:49) or relative (e.g., 4 years, 90 days)\nGranularity is the greatest common divisor of the temporal extents (and possible gaps) of all maps in the space-time cube\n\n\n\n\nTopology refers to temporal relations between time intervals in a STDS.\n\n\n\n\n\nTGRASS framework and workflow"
   },
   {
     "objectID": "notebook_intro.html#walk-through-space-time-analysis-for-disease-ecology-with-grass-gis-and-r-project",
     "href": "notebook_intro.html#walk-through-space-time-analysis-for-disease-ecology-with-grass-gis-and-r-project",
     "title": "Introduction to GRASS GIS",
     "section": "Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:",
-    "text": "Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:"
+    "text": "Walk through space-time analysis for disease ecology with GRASS GIS and :r-project:\n\n\nDemo session overview\nHabitat suitability mapping for the Asian tiger mosquito in Northern Italy based on variables derived from daily LST data\n\nGRASS\n\nImport species records\nCreate random background points\nCreate different environmental layers from daily LST data\n\nR\n\nRead data from GRASS into R\nModel species distribution\nModel evaluation\nVisualization of results\n\n\n\nJarnevich et al. 2015. doi:10.1016/j.ecoinf.2015.06.007\n\n\n\n\nData for the session\n\nRecords of Aedes albopictus (Asian tiger mosquito) in Northern Italy downloaded from GBIF\nDaily MODIS LST reconstructed by mundialis based on Metz et al. 2017\n\n1 km spatial resolution\nConverted to Celsius degrees\n\n\n  \n\n\n\n:download: Get sample location, mosquito records and code :download:\n\nCreate a folder named grassdata_ogh\nDownload and unzip eu_laea location with LST mapset and unzip within your grassdata_ogh folder\nDownload the asian tiger mosquito occurrences as .gpkg file\nDownload the GRASS script\nDownload the R script\n\nThe grassdata_ogh folder’s tree should look like this:\n  grassdata_ogh/\n  └── eu_laea\n      ├── italy_LST_daily\n      └── PERMANENT"
   },
   {
     "objectID": "index.html",
@@ -380,9 +380,9 @@
   {
     "objectID": "presentation.html#fragments",
     "href": "presentation.html#fragments",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Fragments",
-    "text": "Fragments\nIncremental text display and animation with fragments:\n\n\nFade in\n\n\nSlide up while fading in\n\n\nSlide left while fading in\n\n\nFade in then semi out\n\n\n\nStrike\n\n\nHighlight red\n\n\nLearn more: Fragments"
+    "text": "Fragments\n\nIncremental text display and animation with fragments:\n\n\n\nFade in\n\n\nSlide up while fading in\n\n\nSlide left while fading in\n\n\nFade in then semi out\n\n\n\nStrike\n\n\nHighlight red\n\n\nLearn more: Fragments"
   },
   {
     "objectID": "presentation.html#slide-backgrounds",
@@ -401,112 +401,112 @@
   {
     "objectID": "presentation.html#absolute-position",
     "href": "presentation.html#absolute-position",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Absolute Position",
     "text": "Absolute Position\nPosition images or other elements at precise locations\n\n\n\n\nLearn more: Absolute Position"
   },
   {
     "objectID": "presentation.html#auto-animate",
     "href": "presentation.html#auto-animate",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Auto-Animate",
     "text": "Auto-Animate\nAutomatically animate matching elements across slides with Auto-Animate.\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Auto-Animate"
   },
   {
     "objectID": "presentation.html#auto-animate-1",
     "href": "presentation.html#auto-animate-1",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Auto-Animate",
     "text": "Auto-Animate\nAutomatically animate matching elements across slides with Auto-Animate.\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Auto-Animate"
   },
   {
     "objectID": "presentation.html#slide-transitions",
     "href": "presentation.html#slide-transitions",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Slide Transitions",
     "text": "Slide Transitions\nThe next few slides will transition using the slide transition\n\n\n\n\n\n\n\nTransition\nDescription\n\n\n\n\nnone\nNo transition (default, switch instantly)\n\n\nfade\nCross fade\n\n\nslide\nSlide horizontally\n\n\nconvex\nSlide at a convex angle\n\n\nconcave\nSlide at a concave angle\n\n\nzoom\nScale the incoming slide so it grows in from the center of the screen.\n\n\n\n\nLearn more: Slide Transitions"
   },
   {
     "objectID": "presentation.html#tabsets",
     "href": "presentation.html#tabsets",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Tabsets",
     "text": "Tabsets\n\nPlotData\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmpg\ncyl\ndisp\nhp\ndrat\nwt\nqsec\nvs\nam\ngear\ncarb\n\n\n\n\nMazda RX4\n21.0\n6\n160.0\n110\n3.90\n2.620\n16.46\n0\n1\n4\n4\n\n\nMazda RX4 Wag\n21.0\n6\n160.0\n110\n3.90\n2.875\n17.02\n0\n1\n4\n4\n\n\nDatsun 710\n22.8\n4\n108.0\n93\n3.85\n2.320\n18.61\n1\n1\n4\n1\n\n\nHornet 4 Drive\n21.4\n6\n258.0\n110\n3.08\n3.215\n19.44\n1\n0\n3\n1\n\n\nHornet Sportabout\n18.7\n8\n360.0\n175\n3.15\n3.440\n17.02\n0\n0\n3\n2\n\n\nValiant\n18.1\n6\n225.0\n105\n2.76\n3.460\n20.22\n1\n0\n3\n1\n\n\nDuster 360\n14.3\n8\n360.0\n245\n3.21\n3.570\n15.84\n0\n0\n3\n4\n\n\nMerc 240D\n24.4\n4\n146.7\n62\n3.69\n3.190\n20.00\n1\n0\n4\n2\n\n\nMerc 230\n22.8\n4\n140.8\n95\n3.92\n3.150\n22.90\n1\n0\n4\n2\n\n\nMerc 280\n19.2\n6\n167.6\n123\n3.92\n3.440\n18.30\n1\n0\n4\n4\n\n\nMerc 280C\n17.8\n6\n167.6\n123\n3.92\n3.440\n18.90\n1\n0\n4\n4\n\n\nMerc 450SE\n16.4\n8\n275.8\n180\n3.07\n4.070\n17.40\n0\n0\n3\n3\n\n\nMerc 450SL\n17.3\n8\n275.8\n180\n3.07\n3.730\n17.60\n0\n0\n3\n3\n\n\nMerc 450SLC\n15.2\n8\n275.8\n180\n3.07\n3.780\n18.00\n0\n0\n3\n3\n\n\nCadillac Fleetwood\n10.4\n8\n472.0\n205\n2.93\n5.250\n17.98\n0\n0\n3\n4\n\n\nLincoln Continental\n10.4\n8\n460.0\n215\n3.00\n5.424\n17.82\n0\n0\n3\n4\n\n\nChrysler Imperial\n14.7\n8\n440.0\n230\n3.23\n5.345\n17.42\n0\n0\n3\n4\n\n\nFiat 128\n32.4\n4\n78.7\n66\n4.08\n2.200\n19.47\n1\n1\n4\n1\n\n\nHonda Civic\n30.4\n4\n75.7\n52\n4.93\n1.615\n18.52\n1\n1\n4\n2\n\n\nToyota Corolla\n33.9\n4\n71.1\n65\n4.22\n1.835\n19.90\n1\n1\n4\n1\n\n\nToyota Corona\n21.5\n4\n120.1\n97\n3.70\n2.465\n20.01\n1\n0\n3\n1\n\n\nDodge Challenger\n15.5\n8\n318.0\n150\n2.76\n3.520\n16.87\n0\n0\n3\n2\n\n\nAMC Javelin\n15.2\n8\n304.0\n150\n3.15\n3.435\n17.30\n0\n0\n3\n2\n\n\nCamaro Z28\n13.3\n8\n350.0\n245\n3.73\n3.840\n15.41\n0\n0\n3\n4\n\n\nPontiac Firebird\n19.2\n8\n400.0\n175\n3.08\n3.845\n17.05\n0\n0\n3\n2\n\n\nFiat X1-9\n27.3\n4\n79.0\n66\n4.08\n1.935\n18.90\n1\n1\n4\n1\n\n\nPorsche 914-2\n26.0\n4\n120.3\n91\n4.43\n2.140\n16.70\n0\n1\n5\n2\n\n\nLotus Europa\n30.4\n4\n95.1\n113\n3.77\n1.513\n16.90\n1\n1\n5\n2\n\n\nFord Pantera L\n15.8\n8\n351.0\n264\n4.22\n3.170\n14.50\n0\n1\n5\n4\n\n\nFerrari Dino\n19.7\n6\n145.0\n175\n3.62\n2.770\n15.50\n0\n1\n5\n6\n\n\nMaserati Bora\n15.0\n8\n301.0\n335\n3.54\n3.570\n14.60\n0\n1\n5\n8\n\n\nVolvo 142E\n21.4\n4\n121.0\n109\n4.11\n2.780\n18.60\n1\n1\n4\n2\n\n\n\n\n\n\n\n\n\nLearn more: Tabsets"
   },
   {
     "objectID": "presentation.html#interactive-slides",
     "href": "presentation.html#interactive-slides",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Interactive Slides",
     "text": "Interactive Slides\nInclude Jupyter widgets and htmlwidgets in your presentations\n\n\n\n\n\n\n\nLearn more: Jupyter widgets, htmlwidgets"
   },
   {
     "objectID": "presentation.html#interactive-slides-1",
     "href": "presentation.html#interactive-slides-1",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Interactive Slides",
-    "text": "Interactive Slides\nTurn presentations into applications with Observable and Shiny. Use component layout to position inputs and outputs.\n\n\n\n\n\nviewof talentWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"talent weight\" })\nviewof looksWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"looks weight\" })\nviewof minimum = Inputs.range([-2, 2], { value: 1, step: 0.01, label: \"min fame\" })\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport { plotActors } from './actors.js';\nplotActors(actors, talentWeight, looksWeight, minimum)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Observable, Shiny, Component Layout"
+    "text": "Interactive Slides\nTurn presentations into applications with Observable and Shiny. Use component layout to position inputs and outputs.\n\n\n\n\n\n\nCode\nviewof talentWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"talent weight\" })\nviewof looksWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"looks weight\" })\nviewof minimum = Inputs.range([-2, 2], { value: 1, step: 0.01, label: \"min fame\" })\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nimport { plotActors } from './actors.js';\nplotActors(actors, talentWeight, looksWeight, minimum)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Observable, Shiny, Component Layout"
   },
   {
     "objectID": "presentation.html#preview-links",
     "href": "presentation.html#preview-links",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Preview Links",
     "text": "Preview Links\nNavigate to hyperlinks without disrupting the flow of your presentation.\nUse the preview-links option to open links in an iframe on top of your slides. Try clicking the link below for a demonstration:\n\nMatplotlib: Visualization with Python\n\n\nLearn more: Preview Links"
   },
   {
     "objectID": "presentation.html#themes",
     "href": "presentation.html#themes",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Themes",
     "text": "Themes\n10 Built-in Themes (or create your own)\n\n\n\n\n\n\n\n\n\n\n\nLearn more: Themes"
   },
   {
     "objectID": "presentation.html#easy-navigation",
     "href": "presentation.html#easy-navigation",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Easy Navigation",
     "text": "Easy Navigation\n\nQuickly jump to other parts of your presentation\n\n\n\n\n\n\n\nToggle the slide menu with the menu button (bottom left of slide) to go to other slides and access presentation tools.\n\n\n\nYou can also press m to toggle the menu open and closed.\n\nLearn more: Navigation"
   },
   {
     "objectID": "presentation.html#chalkboard",
     "href": "presentation.html#chalkboard",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Chalkboard",
     "text": "Chalkboard\n\nFree form drawing and slide annotations\n\n\n\n\n\n\n\nUse the chalkboard button at the bottom left of the slide to toggle the chalkboard.\n\n\n\n\n\n\n\n\n\nUse the notes canvas button at the bottom left of the slide to toggle drawing on top of the current slide.\n\n\n\nYou can also press b to toggle the chalkboard or c to toggle the notes canvas.\n\nLearn more: Chalkboard"
   },
   {
     "objectID": "presentation.html#point-of-view",
     "href": "presentation.html#point-of-view",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Point of View",
     "text": "Point of View\nPress o to toggle overview mode:\n\nHold down the Alt key (or Ctrl in Linux) and click on any element to zoom towards it—try it now on this slide.\n\nLearn more: Overview Mode, Slide Zoom"
   },
   {
     "objectID": "presentation.html#speaker-view",
     "href": "presentation.html#speaker-view",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Speaker View",
-    "text": "Speaker View\nPress s (or use the presentation menu) to open speaker view\n\n\nLearn more: Speaker View"
+    "text": "Speaker View\nPress s (or use the presentation menu) to open speaker view\n\n\n\n\n\n\nLearn more: Speaker View"
   },
   {
     "objectID": "presentation.html#authoring-tools",
     "href": "presentation.html#authoring-tools",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Authoring Tools",
     "text": "Authoring Tools\nLive side-by-side preview for any notebook or text editor including Jupyter and VS Code\n\n\n\n\n\n\n\n\nLearn more: Jupyter, VS Code, Text Editors"
   },
   {
     "objectID": "presentation.html#authoring-tools-1",
     "href": "presentation.html#authoring-tools-1",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Authoring Tools",
     "text": "Authoring Tools\nRStudio includes an integrated presentation preview pane\n\n\nLearn more: RStudio"
   },
   {
     "objectID": "presentation.html#and-more",
     "href": "presentation.html#and-more",
-    "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "And More…",
     "text": "And More…\n\nTouch optimized (presentations look great on mobile, swipe to navigate slides)\nFooter & Logo (optionally specify custom footer per-slide)\nAuto-Slide (step through slides automatically, without any user input)\nMultiplex (allows your audience to follow the slides of the presentation you are controlling on their own phone, tablet or laptop).\n\n\nLearn more: Quarto Presentations"
   },
@@ -565,5 +565,61 @@
     "title": "Environmental Drivers of Vector-borne and Zoonotic Diseases:",
     "section": "boh, There",
     "text": "boh, There\nThis presentation will show you examples of what you can do with Quarto and Reveal.js, including:\n\nPresenting code and LaTeX equations\nIncluding computations in slide output\nImage, video, and iframe backgrounds\nFancy transitions and animations\nPrinting to PDF\n\n…and much more"
+  },
+  {
+    "objectID": "notebook_intro.html",
+    "href": "notebook_intro.html",
+    "title": "Introduction to GRASS GIS",
+    "section": "",
+    "text": "GRASS GIS (Geographic Resources Analysis Support System), a FOSS suite used for geospatial data management and analysis, image processing, graphics and maps, spatial modeling, and visualization.\nOriginally developed by the U.S. Army Construction Engineering Research Laboratories for land management and environmental planning (1982-1995).\nMore history: https://grass.osgeo.org/about/history/"
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "",
+    "text": "Researcher and lecturer at Instituto Gulich (CONAE-UNC)\nBackground: Lic. & Dr. in Biology, MSc. in Spatial Information Applications\nRemote sensing and GIS applications in disease ecology\nMember of the GRASS GIS Dev Team y project chair\nOSGeo Charter member & FOSS4G enthusiast\n\n\n\n\n\n\n https://veroandreo.gitlab.io/"
+  },
+  {
+    "objectID": "presentation.html#overview",
+    "href": "presentation.html#overview",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Overview",
+    "text": "Overview\n\nbla\nbla"
+  },
+  {
+    "objectID": "presentation.html#disease-ecology",
+    "href": "presentation.html#disease-ecology",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Disease Ecology",
+    "text": "Disease Ecology\n\n\n \n\nThe main objective of disease ecology is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur\n\n\n\ndecision making, planning of prevention, management and/or response actions, etc."
+  },
+  {
+    "objectID": "presentation.html#landscape-epidemiology",
+    "href": "presentation.html#landscape-epidemiology",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Landscape Epidemiology",
+    "text": "Landscape Epidemiology\n\n\n\n\n5 components:\n\nanimal donors;\nvectors;\nanimal recipients;\nthe pathogenic agent,\nthe influence of factors of the external environments\n\n\n\n\n\n\nSpatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence."
+  },
+  {
+    "objectID": "presentation.html#ls-test",
+    "href": "presentation.html#ls-test",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "LS Test",
+    "text": "LS Test\n\n\n\n\nflowchart LR\n    A[1. animal donors, \\n 2. vectors, \\n 3. animal recipients,\\n  4. the pathogenic agent, \\n 5. the influence of factors of \\nthe external environments \\n] --> B(Spatial interactions between \\n these agents in a landscape\\n explain patterns of infection \\n risk and may contribute \\n to disease emergence)"
+  },
+  {
+    "objectID": "presentation.html#applications-of-geospatial-technologies",
+    "href": "presentation.html#applications-of-geospatial-technologies",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Applications of geospatial technologies",
+    "text": "Applications of geospatial technologies\n\n\nSpatialisation of outbreaks (space-time patterns and causes)\nHosts and vector distribution mapping\nEstimation of environmental indices and monitoring of favorable environmental conditions\nDisease risk mapping and prediction of number of cases\nLandscape analysis: metrics, fragmentation, LULCC detection\nOptimal distribution of health services\nLocation of best routes to hospitals\netc."
+  },
+  {
+    "objectID": "presentation.html#what-about-remote-sensing",
+    "href": "presentation.html#what-about-remote-sensing",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "What about remote sensing?",
+    "text": "What about remote sensing?\nWhat can we see with remote sensing to contribute to disease ecology?"
   }
 ]
