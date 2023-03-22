@@ -170,6 +170,67 @@ What can we see with remote sensing to contribute to disease ecology?
 [Andreo et al., 2021](https://doi.org/10.1016/j.rsase.2021.100554)
 :::
 
+## Mosquitoes: temporal patterns and micro-habitat
+
+- Temporal and spatial patterns in Aedes aegypty in Córdoba
+- Association with variables derived from S2 imagery analysis to predict temporal patterns over the whole city.
+
+::: footer
+[Andreo et al., 2021](https://www.mdpi.com/2075-4450/12/10/919)
+:::
+
+## Urban environmental characterisation for the distribution of ovitraps
+
+- Object-based classification of very high spatial resolution (0.5-2 m) imagery.
+- Estimation of landscape structure metrics for different polygons
+- Clustering analysis to find similar polygons
+- Stratified distribution of ovitraps as a function of environmental variability
+
+
+## Mosquitoes: Predictive system based on population dynamics and weather forecasting models
+
+![](assets/img/lecture/AT_class_diagram.png)
+![](assets/img/lecture/Fig _agui.png)
+
+::: footer
+[Aguirre et al., 2021](https://doi.org/10.1016/j.ecoinf.2021.101351)
+:::
+
+
+## Algorithm and system for (semi-)automatic counting of mosquito eggs in ovitraps
+
+[https://ovitrap-monitor.netlify.app/](https://ovitrap-monitor.netlify.app/)
+
+## Other projects underway or in the pipeline
+
+Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).
+Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE)
+Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET)
+Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET).
+Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
+Environmental variables associated with non-communicable diseases (Postdoctoral fellow Julius Koritschoner)
+
+
+## Difficulties and challenges I
+
+Compromise between different resolutions 
+VHR, LiDAR, UAV, Hyper-spectral (U$S)
+Missing data, clouds, shadows (spatial and temporal interpolations)
+Need for corrections of various types
+Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U$S)
+
+Field data is always needed! :)
+
+## Difficulties and challenges II
+
+Updating and digitisation of disease cases and intervention data
+Harmonisation of records at different levels and from different systems
+Facilitating data access and public access to aggregated health data 
+Training of staff
+Development of standardised, reproducible and scalable methods
+Commitment and allocation of resources
+
+
 ## Thanks! {background-image="assets/img/lecture/CONAE_aereo.png"}
 
 
