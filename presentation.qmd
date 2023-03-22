@@ -38,26 +38,25 @@ format:
 
 ## Overview { background-color="#1A428A" }
 
+- Health Geography
 - bla
-- bla
-
 
 ## Disease Ecology
 
 :::::: {.columns}
-:::{.column width="55%"}
+:::{.column width="57%"}
 <br><br>
 ![](assets/img/lecture/global_view_diseases.png){width="700"}
 :::
 
-:::{.column width="45%"}
-The main objective of disease ecology is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur
+:::{.column width="43%"}
+The main objective is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur
 
 ::: {style="display: flex; align-items: center; justify-content: center;"} 
 {{< fa solid angles-down size=2x >}}
 :::
 
-decision making, planning of prevention, management and/or response actions, etc.
+decision making, planning of prevention, management or response actions, etc.
 :::
 ::::::
 
@@ -89,19 +88,6 @@ Spatial interactions between these agents in a landscape explain patterns of inf
 :::
 ::::::
 
-## LS Test
-
-```{mermaid}
-%%|fig-height: 100%
-
-flowchart LR
-    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --> B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
-    
-    
-```
-
-
-
 ## Applications of geospatial technologies {.smaller}
 
 ::: incremental
@@ -121,6 +107,80 @@ flowchart LR
 What can we see with remote sensing to contribute to disease ecology?
 
 ![](assets/img/lecture/lambin_2010.png){width="65%" fig-align="center"}
+
+## Applications { background-color="#1A428A" }
+
+---
+
+### Time series analysis of satellite products
+
+- MODIS LST time series reconstruction
+- Detection of spatial and temporal clusters of favorable conditions for the occurrence of West Nile Fever cases in Greece
+
+![](assets/img/lecture/co_cluster_method.png)
+
+::: footer
+[Metz et al., 2017](https://https://www.mdpi.com/2072-4292/9/12/1333/htm), [Andreo et al., 2018](https://ieeexplore.ieee.org/document/8519542)
+:::
+
+---
+
+### Environmental risk of Dengue
+
+[](https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal)
+
+![](assets/img/lecture/riesgo_dengue_por_localidad.png)
+
+::: footer
+[Porcasi et al., 2012](https://geospatialhealth.net/index.php/gh/article/view/120)
+:::
+
+## Remote sensing variables as predictors
+
+![](assets/img/lecture/sdm_workflow.png)
+
+## SDM & GIS based approach for HPS risk mapping
+
+![](assets/img/lecture/workflow_sph_andreo_etal_2014.png)
+![](assets/img/lecture/riesgo_sph_andreo_etal_2014.png)
+
+::: footer
+[Andreo et al., 2011](https://link.springer.com/article/10.1007/s10393-011-0719-5), [2014](https://www.mdpi.com/1999-4915/6/1/201/htm)
+:::
+
+## Outbreak of cutaneous leishmaniasis and remotely sensed LULCC
+
+::: {layout-ncol="2"}
+![](assets/img/lecture/change_maps.png)
+![](assets/img/lecture/fig_avg_pred.png)
+:::
+
+::: footer
+[Andreo et al., 2022](https://geospatialhealth.net/index.php/gh/article/view/1033)
+:::
+
+## Mosquitoes: towards an operational workflow
+
+::: {layout-ncols="2"}
+![](assets/img/lecture/workflow_dengue.png)
+![](assets/img/lecture/Predictions.png)
+:::
+
+::: footer
+[Andreo et al., 2021](https://doi.org/10.1016/j.rsase.2021.100554)
+:::
+
+## Thanks! {background-image="assets/img/lecture/CONAE_aereo.png"}
+
+
+## Extra slides
+
+```{mermaid}
+%%|fig-height: 100%
+
+flowchart LR
+    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --> B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
+```
 
 ## Fragments
 
@@ -427,3 +487,4 @@ Learn more: [RStudio](https://quarto.org/docs/tools/rstudio.html)
 ::: footer
 Learn more: [Quarto Presentations](https://quarto.org/docs/presentations/revealjs/)
 :::
+
