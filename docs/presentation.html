@@ -9,8 +9,9 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.335">
+  <meta name="generator" content="quarto-1.2.313">
 
+  <meta name="author" content="Verónica Andreo">
   <title>Visiting NCSU - Environmental drivers of vector-borne and zoonotic diseases</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,70 +30,6 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -385,11 +322,6 @@
       margin-right: 0; 
     }
   </style>
-  <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-  <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
-  <script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
@@ -398,10 +330,7 @@
   <script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
   <script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
   <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-  <script src="site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
-  <script type="ojs-define">
-  {"contents":[{"name":"actors","value":{"x":[-1.5652,-0.3408,0.8823,1.2218,0.4108,-0.4885,0.0497,-0.4608,-0.289,0.6563,-1.2591,1.2177,0.8232,-1.1758,-0.3709,-1.0786,-0.4311,-0.7553,0.285,1.9385,-0.0967,-0.1551,-0.7106,-1.8815,0.7256,-0.2928,1.891,-0.2336,-0.3571,-2.2093,-0.1054,-0.2812,-0.4738,-1.3446,-0.625,0.0244,0.8729,-0.559,-0.1459,-0.1384,0.859,2.1647,-1.0776,0.8274,0.5606,1.0947,1.2307,-0.8502,-0.6726,0.0136,-0.3652,-0.437,1.209,-1.3987,-1.2309,-0.8347,-0.736,1.1727,1.5888,0.0226,0.3031,2.5347,-0.5763,1.2134,-1.9376,-1.0904,2.0279,-1.3404,-1.0572,-0.5378,-0.4056,3.2576,-0.3328,-1.1245,-1.2732,0.0467,0.4693,1.6686,-0.2506,-1.587,-0.9234,1.5954,0.9931,0.5645,1.4178,-0.3209,1.6088,-2.9907,1.0638,1.1807,-0.4676,-0.5814,1.7269,-1.9432,1.6169,-1.076,0.2759,0.8044,1.1191,0.3325],"y":[0.9753,-0.0847,-0.2143,0.8183,-0.4025,0.4681,0.699,0.1372,-0.0874,0.2205,-0.8709,-0.6046,-0.9052,-0.1408,1.7487,2.593,1.7959,-0.1293,0.4795,-0.432,0.554,-1.0721,1.14,1.9803,-0.3625,0.2929,1.1732,0.6742,0.4136,0.5337,0.673,1.5293,-0.1986,0.6061,-0.6942,-0.6929,0.5494,0.085,-0.5413,0.8009,0.6931,1.0441,1.1934,-0.4413,-0.2382,-0.0375,-0.8639,0.1017,-0.806,1.2975,0.2163,1.2409,0.0906,0.1474,0.3807,0.2822,0.7301,-0.2077,-0.9853,-0.2079,0.3521,0.2477,2.7798,-0.6636,-1.2987,0.1023,-0.0368,0.1546,-0.5005,-1.1304,1.7899,-0.2534,-0.3847,-1.9106,-0.6499,1.2787,0.3533,-1.4323,0.661,0.4029,-0.8037,0.6301,-0.2743,-1.4403,0.7169,-1.2218,1.2755,-1.2453,-0.0809,0.5915,-1.2609,0.0651,0.007,0.2486,0.6821,2.0508,0.4428,0.2799,-0.8204,-0.0305]}}]}
-  </script>
+  <script src="site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -412,6 +341,11 @@
   <p class="subtitle">Leveraging remote sensing for Public Health</p>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Verónica Andreo 
+</div>
+</div>
 </div>
 
 </section>
@@ -420,9 +354,9 @@
 <div class="columns">
 <div class="column" style="width:68%;">
 <ul>
-<li>Researcher and lecturer at Instituto Gulich (CONAE-UNC)</li>
+<li>Researcher and lecturer at Instituto Gulich (CONAE-UNC, Argentina)</li>
 <li>Background: Lic. &amp; Dr.&nbsp;in Biology, MSc. in Spatial Information Applications</li>
-<li>Remote sensing and GIS applications in disease ecology</li>
+<li>Remote sensing and geospatial applications in disease ecology</li>
 <li>Member of the GRASS GIS Dev Team y project chair</li>
 <li>OSGeo Charter member &amp; FOSS4G enthusiast</li>
 </ul>
@@ -438,11 +372,98 @@
 <h2>Overview</h2>
 <ul>
 <li>Health Geography</li>
-<li>bla</li>
+<li>Disease Ecology</li>
+<li>Leveraging remote sensing for Disease Ecology
+<ul>
+<li>Resolution vs scale</li>
+<li>How can we use RS?</li>
+<li>Examples</li>
+</ul></li>
+<li>Gaps, opportunities and challenges: are new EO missions enough?</li>
+<li>Conclusion</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Disease Ecology</h2>
+
+<div class="center">
+<p>You all have seen this, right?</p>
+</div>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="assets/img/lecture/Snow-cholera-map.jpg"></p>
+</div><div class="column" style="width:7%;">
+
+</div><div class="column" style="width:30%;">
+<p><br><br> <img data-src="assets/img/lecture/John_Snow.jpg"></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Health Geography</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="color-box-light-blue fragment">
+<p><strong>Environmental health</strong>: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.</p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="color-box-light-blue fragment">
+<p><strong>Disease ecology</strong>: study of infectious diseases and the spatial distribution of environmental, social, political &amp; economic conditions associated with disease.</p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="color-box-light-blue fragment">
+<p><strong>Health care delivery and access</strong>: spatial patterns of health care provision and patient behavior.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Health geography is the application of geographical information, perspectives, and methods to the study of health, disease, and health care. Mencionar usos y aplicaciones del SR en los 3 campos</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Health Geography</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="color-box-light-blue fragment fade-out">
+<p><strong>Environmental health</strong>: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.</p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="color-box-light-magenta fragment grow">
+<p><strong>Disease ecology</strong>: study of infectious diseases and the spatial distribution of environmental, social, political &amp; economic conditions associated with disease.</p>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="color-box-light-blue fragment fade-out">
+<p><strong>Health care delivery and access</strong>: spatial patterns of health care provision and patient behavior.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>While RS has applications in all fields, I’ll focus on those related to disease ecology</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Disease Ecology I</h2>
 <div class="columns">
 <div class="column" style="width:57%;">
 <p><br><br> <img data-src="assets/img/lecture/global_view_diseases.png" width="700"></p>
@@ -456,25 +477,17 @@
 </div>
 </section>
 <section class="slide level2">
-<h2>Landscape Epidemiology</h2>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:45%;">
-<div class="color-box-light-blue">
-<p>5 components:</p>
-<ol type="1">
-<li>animal donors;</li>
-<li>vectors;</li>
-<li>animal recipients;</li>
-<li>the pathogenic agent,</li>
-<li>the influence of factors of the external environments</li>
-</ol>
+<h2>Disease Ecology II</h2>
+<div class="r-stack">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/disease_triad.jpg" class="fragment" style="width:150.0%"></p>
+</figure>
 </div>
-</div><div class="column" style="width:15%;">
-<p><br></p>
-<p><i class="fa-solid fa-right-long fa-3x" aria-label="right-long"></i></p>
-</div><div class="column" style="width:40%;">
-<p>Spatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/lambin_2010.png" class="fragment" style="width:85.0%"></p>
+</figure>
 </div>
 </div>
 </section>
@@ -495,51 +508,149 @@
 </section>
 <section class="slide level2">
 <h2>What about remote sensing?</h2>
-<p>What can we see with remote sensing to contribute to disease ecology?</p>
 
-<img data-src="assets/img/lecture/lambin_2010.png" style="width:65.0%" class="r-stretch quarto-figure-center"></section>
-<section class="slide level2" data-background-color="#1A428A">
-<h2>Applications</h2>
+<img data-src="assets/img/lecture/all_resolutions_relation.png" class="r-stretch quarto-figure-center"><p class="caption">Relationship among different RS resolutions</p><aside class="notes">
+<p>What can we see with remote sensing to contribute to disease ecology?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Remote sensing &amp; scale I</h2>
+<p><br></p>
+
+<img data-src="assets/img/lecture/scale_vs_variables_spp_distr.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Remote sensing &amp; scale II</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Taxonomy</a></li><li><a href="#tabset-1-2">Plants</a></li><li><a href="#tabset-1-3">Animals</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p><img data-src="assets/img/lecture/resolution_vs_animals.png"></p>
+</div>
+<div id="tabset-1-2">
+<p><img data-src="assets/img/lecture/resolution_vs_forest.png"></p>
+</div>
+<div id="tabset-1-3">
+<img data-src="assets/img/lecture/resolution_vs_movement_a.png" class="r-stretch">
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>How can we use RS? I</h2>
+<p><br></p>
+
+<img data-src="assets/img/lecture/workflow_sdm_other.png" class="r-stretch quarto-figure-center"><p class="caption">General approach used in disease ecology</p></section>
+<section class="slide level2">
+<h2>How can we use RS? II</h2>
+<ul>
+<li>To map the response variables, i.e., species occurrence or abundance, infections</li>
+<li>To map the predictor variables</li>
+<li>To validate predictions</li>
+</ul>
+</section>
+<section class="slide level2" data-background-image="assets/img/lecture/satellite_and_earth.jpg">
+<h2></h2>
+<div style="color: #ffffff">
+<p>Let’s have a look at real cases</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3>Detecting and mapping species occurrences</h3>
+<ul>
+<li>Very high resolution imagery</li>
+<li>For plants species, also hyperspectral data</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:53%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/map_spp_from_vhr_img.png"></p>
+<p></p><figcaption>(a) Emperor penguins. (b) Elephants</figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:47%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/great_gerbil_burrows.jpg"></p>
+<p></p><figcaption>Great gerbil burrows classification</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <h3>Time series analysis of satellite products</h3>
 <ul>
-<li>MODIS LST time series reconstruction</li>
+<li>MODIS LST temporal and spatial reconstruction</li>
 <li>Detection of spatial and temporal clusters of favorable conditions for the occurrence of West Nile Fever cases in Greece</li>
 </ul>
-
-<img data-src="assets/img/lecture/co_cluster_method.png" class="r-stretch"><div class="footer">
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/fig_modis_workflow.png"></p>
+<p></p><figcaption>LST gap-filling process</figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:67%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/co_cluster_method.png" class="fragment grow"></p>
+<p></p><figcaption>Co-cluster of derived LST indices</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="footer">
 <p><a href="https://https://www.mdpi.com/2072-4292/9/12/1333/htm">Metz et al., 2017</a>, <a href="https://ieeexplore.ieee.org/document/8519542">Andreo et al., 2018</a></p>
 </div>
 </section>
 <section class="slide level2">
 
 <h3>Environmental risk of Dengue</h3>
-<p><a href="https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal"></a></p>
+<p><a href="https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal">Environmental risk for Dengue per municipality</a></p>
 
-<img data-src="assets/img/lecture/riesgo_dengue_por_localidad.png" class="r-stretch"><div class="footer">
+<img data-src="assets/img/lecture/riesgo_dengue_por_localidad.png" class="r-stretch quarto-figure-center"><p class="caption">CONAE Geoportal</p><div class="footer">
 <p><a href="https://geospatialhealth.net/index.php/gh/article/view/120">Porcasi et al., 2012</a></p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Remote sensing variables as predictors</h2>
 
-<img data-src="assets/img/lecture/sdm_workflow.png" class="r-stretch"></section>
-<section class="slide level2">
-<h2>SDM &amp; GIS based approach for HPS risk mapping</h2>
-<p><img data-src="assets/img/lecture/workflow_sph_andreo_etal_2014.png"> <img data-src="assets/img/lecture/riesgo_sph_andreo_etal_2014.png"></p>
+<h3>SDM &amp; GIS based approach for HPS risk map</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/img/lecture/workflow_sph_andreo_etal_2014.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/img/lecture/riesgo_sph_andreo_etal_2014.png"></p>
+</div>
+</div>
 <div class="footer">
 <p><a href="https://link.springer.com/article/10.1007/s10393-011-0719-5">Andreo et al., 2011</a>, <a href="https://www.mdpi.com/1999-4915/6/1/201/htm">2014</a></p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Outbreak of cutaneous leishmaniasis and remotely sensed LULCC</h2>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="assets/img/lecture/change_maps.png"> <img data-src="assets/img/lecture/fig_avg_pred.png"></p>
-</div>
+
+<h3>Outbreak of cutaneous leishmaniasis and remotely sensed LULCC</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="assets/img/lecture/change_maps.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/img/lecture/fig_ensemble_final.png"></p>
 </div>
 </div>
 <div class="footer">
@@ -547,116 +658,128 @@
 </div>
 </section>
 <section class="slide level2">
-<h2>Mosquitoes: towards an operational workflow</h2>
-<div data-layout-ncols="2">
-<p><img data-src="assets/img/lecture/workflow_dengue.png"> <img data-src="assets/img/lecture/Predictions.png"></p>
+
+<h3>Mosquitoes: towards operational maps</h3>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><img data-src="assets/img/lecture/workflow_dengue.png"></p>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/img/lecture/Predictions.png"></p>
+</div>
 </div>
 <div class="footer">
 <p><a href="https://doi.org/10.1016/j.rsase.2021.100554">Andreo et al., 2021</a></p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Mosquitoes: temporal patterns and micro-habitat</h2>
+
+<h3>Distribution of temporal patterns</h3>
 <ul>
-<li>Temporal and spatial patterns in Aedes aegypty in Córdoba</li>
+<li>Temporal and spatial patterns in <em>Aedes aegypty</em> in Córdoba</li>
 <li>Association with variables derived from S2 imagery analysis to predict temporal patterns over the whole city.</li>
 </ul>
+<img data-src="assets/img/lecture/spatial_distr_temp_patterns.png" class="r-stretch">
 <div class="footer">
 <p><a href="https://www.mdpi.com/2075-4450/12/10/919">Andreo et al., 2021</a></p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Urban environmental characterisation for the distribution of ovitraps</h2>
+
+<h3>Urban environmental characterisation for the distribution of ovitraps</h3>
+<div class="columns">
+<div class="column" style="width:35%;">
 <ul>
-<li>Object-based classification of very high spatial resolution (0.5-2 m) imagery.</li>
-<li>Estimation of landscape structure metrics for different polygons</li>
+<li>Object-based classification of VHR imagery.</li>
+<li>Estimation of landscape metrics for polygons</li>
 <li>Clustering analysis to find similar polygons</li>
-<li>Stratified distribution of ovitraps as a function of environmental variability</li>
+<li>Stratified distribution of ovitraps</li>
 </ul>
+</div><div class="column" style="width:65%;">
+<p><img data-src="assets/img/lecture/tesis_carla.png"></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
-<h2>Mosquitoes: Predictive system based on population dynamics and weather forecasting models</h2>
-<p><img data-src="assets/img/lecture/AT_class_diagram.png"> <img data-src="assets/img/lecture/Fig _agui.png"></p>
+
+<h3 class="smaller">Mosquitoes: Predictive system based on population dynamics and weather forecasting models</h3>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><img data-src="assets/img/lecture/modelo_exe.png"></p>
+</div><div class="column" style="width:45%;">
+<p><img data-src="assets/img/lecture/Fig_agui.png"></p>
+</div>
+</div>
 <div class="footer">
 <p><a href="https://doi.org/10.1016/j.ecoinf.2021.101351">Aguirre et al., 2021</a></p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Algorithm and system for (semi-)automatic counting of mosquito eggs in ovitraps</h2>
+
+<h3>App to count mosquito eggs in ovitraps pics</h3>
 <p><a href="https://ovitrap-monitor.netlify.app/">https://ovitrap-monitor.netlify.app/</a></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><img data-src="assets/img/lecture/app-count.png"></p>
+</div><div class="column" style="width:55%;">
+<p><img data-src="assets/img/lecture/app-reports.png"></p>
+</div>
+</div>
 </section>
 <section class="slide level2">
-<h2>Other projects underway or in the pipeline</h2>
-<p>Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding). Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE) Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET) Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET). Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET) Environmental variables associated with non-communicable diseases (Postdoctoral fellow Julius Koritschoner)</p>
+
+<h3 class="smaller">Other projects underway or in the pipeline</h3>
+<ul>
+<li>Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).</li>
+<li>Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE)</li>
+<li>Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET)</li>
+<li>Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET).</li>
+<li>Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)</li>
+<li>Environmental variables associated with non-communicable diseases (Postdoctoral fellow Juan Diego Pinotti)</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Gaps, opportunities and challenges</h2>
 </section>
 <section class="slide level2">
 <h2>Difficulties and challenges I</h2>
-<p>Compromise between different resolutions VHR, LiDAR, UAV, Hyper-spectral (U<span class="math inline">\(S) Missing data, clouds, shadows (spatial and temporal interpolations) Need for corrections of various types Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U\)</span>S)</p>
-<p>Field data is always needed! :)</p>
+<ul>
+<li>Compromise between different resolutions</li>
+<li>VHR, LiDAR, UAV, Hyper-spectral (U$S)</li>
+<li>Missing data, clouds, shadows (spatial and temporal interpolations)</li>
+<li>Need for corrections of various types</li>
+<li>Large volumes of data vs.&nbsp;bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U$S)</li>
+</ul>
+<p>Field data will always be needed! :)</p>
 </section>
 <section class="slide level2">
 <h2>Difficulties and challenges II</h2>
-<p>Updating and digitisation of disease cases and intervention data Harmonisation of records at different levels and from different systems Facilitating data access and public access to aggregated health data Training of staff Development of standardised, reproducible and scalable methods Commitment and allocation of resources</p>
-</section>
-<section class="slide level2" data-background-image="assets/img/lecture/CONAE_aereo.png">
-<h2>Thanks!</h2>
-</section>
-<section class="slide level2">
-<h2>Extra slides</h2>
-<div class="cell" data-reveal="true" data-fig-height="100%">
-<div class="cell-output-display">
-<div>
-<p>
-</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
-    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --&gt; B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
-</pre>
-<div id="mermaid-tooltip-1" class="mermaidTooltip">
-
-</div>
-<p></p>
-</div>
-</div>
-</div>
+<ul>
+<li>Updating and digitisation of disease cases and intervention data</li>
+<li>Harmonisation of records at different levels and from different systems</li>
+<li>Facilitating data access and public access to aggregated health data</li>
+<li>Training of staff</li>
+<li>Development of standardised, reproducible and scalable methods</li>
+<li>Commitment and allocation of resources</li>
+</ul>
 </section>
 <section class="slide level2">
-<h2>Fragments</h2>
-<div class="color-box-light-blue">
-<p>Incremental text display and animation with fragments:</p>
-</div>
-<p><br></p>
-<div class="fragment fade-in">
-<p>Fade in</p>
-</div>
-<div class="fragment fade-up">
-<p>Slide up while fading in</p>
-</div>
-<div class="fragment fade-left">
-<p>Slide left while fading in</p>
-</div>
-<div class="fragment fade-in-then-semi-out">
-<p>Fade in then semi out</p>
-</div>
-<div class="fragment">
-<div class="fragment strike">
-<p>Strike</p>
-</div>
-<div class="fragment highlight-red">
-<p>Highlight red</p>
-</div>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/advanced.html#fragments">Fragments</a></p>
-</div>
+<h2>New missions</h2>
+</section>
+<section class="slide level2">
+<h2>UAVs</h2>
+</section>
+<section class="slide level2">
+<h2>SDGs and One Health</h2>
+</section>
+<section>
+<section class="title-slide slide level1 center" data-background-image="assets/img/lecture/CONAE_aereo.png">
+<h1></h1>
+<div class="r-fit-text fragment zoom" style="color: #6aaae4">
+<p>Thanks!</p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Absolute Position</h2>
-<p>Position images or other elements at precise locations</p>
-<p><img data-src="assets/img/aedes_albopictus.jpg" class="absolute" style="top: 170px; left: 30px; width: 400px; height: 400px; "></p>
-<p><img data-src="assets/img/aedes_albopictus.jpg" class="absolute fragment" style="top: 150px; right: 80px; width: 450px; "></p>
-<p><img data-src="assets/img/aedes_albopictus.jpg" class="absolute fragment" style="bottom: 110px; right: 130px; width: 300px; "></p>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/advanced.html#absolute-position" data-preview-link="true">Absolute Position</a></p>
-</div>
+<h2>References</h2>
 </section>
 <section class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out">
 <h2 data-id="quarto-animate-title">Auto-Animate</h2>
@@ -739,590 +862,17 @@
 <p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/advanced.html#slide-transitions">Slide Transitions</a></p>
 </div>
 </section>
-<section class="slide level2 smaller scrollable" data-transition="slide">
-<h2>Tabsets</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Plot</a></li><li><a href="#tabset-1-2">Data</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="presentation_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="cell">
-<div class="cell-output-display">
-<table style="width:100%;">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 6%">
-<col style="width: 5%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 6%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">mpg</th>
-<th style="text-align: right;">cyl</th>
-<th style="text-align: right;">disp</th>
-<th style="text-align: right;">hp</th>
-<th style="text-align: right;">drat</th>
-<th style="text-align: right;">wt</th>
-<th style="text-align: right;">qsec</th>
-<th style="text-align: right;">vs</th>
-<th style="text-align: right;">am</th>
-<th style="text-align: right;">gear</th>
-<th style="text-align: right;">carb</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Mazda RX4</td>
-<td style="text-align: right;">21.0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">160.0</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">2.620</td>
-<td style="text-align: right;">16.46</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Mazda RX4 Wag</td>
-<td style="text-align: right;">21.0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">160.0</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">2.875</td>
-<td style="text-align: right;">17.02</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Datsun 710</td>
-<td style="text-align: right;">22.8</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">108.0</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">3.85</td>
-<td style="text-align: right;">2.320</td>
-<td style="text-align: right;">18.61</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hornet 4 Drive</td>
-<td style="text-align: right;">21.4</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">258.0</td>
-<td style="text-align: right;">110</td>
-<td style="text-align: right;">3.08</td>
-<td style="text-align: right;">3.215</td>
-<td style="text-align: right;">19.44</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hornet Sportabout</td>
-<td style="text-align: right;">18.7</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">360.0</td>
-<td style="text-align: right;">175</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">3.440</td>
-<td style="text-align: right;">17.02</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Valiant</td>
-<td style="text-align: right;">18.1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">225.0</td>
-<td style="text-align: right;">105</td>
-<td style="text-align: right;">2.76</td>
-<td style="text-align: right;">3.460</td>
-<td style="text-align: right;">20.22</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Duster 360</td>
-<td style="text-align: right;">14.3</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">360.0</td>
-<td style="text-align: right;">245</td>
-<td style="text-align: right;">3.21</td>
-<td style="text-align: right;">3.570</td>
-<td style="text-align: right;">15.84</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Merc 240D</td>
-<td style="text-align: right;">24.4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">146.7</td>
-<td style="text-align: right;">62</td>
-<td style="text-align: right;">3.69</td>
-<td style="text-align: right;">3.190</td>
-<td style="text-align: right;">20.00</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Merc 230</td>
-<td style="text-align: right;">22.8</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">140.8</td>
-<td style="text-align: right;">95</td>
-<td style="text-align: right;">3.92</td>
-<td style="text-align: right;">3.150</td>
-<td style="text-align: right;">22.90</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Merc 280</td>
-<td style="text-align: right;">19.2</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">167.6</td>
-<td style="text-align: right;">123</td>
-<td style="text-align: right;">3.92</td>
-<td style="text-align: right;">3.440</td>
-<td style="text-align: right;">18.30</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Merc 280C</td>
-<td style="text-align: right;">17.8</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">167.6</td>
-<td style="text-align: right;">123</td>
-<td style="text-align: right;">3.92</td>
-<td style="text-align: right;">3.440</td>
-<td style="text-align: right;">18.90</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Merc 450SE</td>
-<td style="text-align: right;">16.4</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">275.8</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3.07</td>
-<td style="text-align: right;">4.070</td>
-<td style="text-align: right;">17.40</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Merc 450SL</td>
-<td style="text-align: right;">17.3</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">275.8</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3.07</td>
-<td style="text-align: right;">3.730</td>
-<td style="text-align: right;">17.60</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Merc 450SLC</td>
-<td style="text-align: right;">15.2</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">275.8</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">3.07</td>
-<td style="text-align: right;">3.780</td>
-<td style="text-align: right;">18.00</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Cadillac Fleetwood</td>
-<td style="text-align: right;">10.4</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">472.0</td>
-<td style="text-align: right;">205</td>
-<td style="text-align: right;">2.93</td>
-<td style="text-align: right;">5.250</td>
-<td style="text-align: right;">17.98</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lincoln Continental</td>
-<td style="text-align: right;">10.4</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">460.0</td>
-<td style="text-align: right;">215</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">5.424</td>
-<td style="text-align: right;">17.82</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Chrysler Imperial</td>
-<td style="text-align: right;">14.7</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">440.0</td>
-<td style="text-align: right;">230</td>
-<td style="text-align: right;">3.23</td>
-<td style="text-align: right;">5.345</td>
-<td style="text-align: right;">17.42</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Fiat 128</td>
-<td style="text-align: right;">32.4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">78.7</td>
-<td style="text-align: right;">66</td>
-<td style="text-align: right;">4.08</td>
-<td style="text-align: right;">2.200</td>
-<td style="text-align: right;">19.47</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Honda Civic</td>
-<td style="text-align: right;">30.4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">75.7</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">4.93</td>
-<td style="text-align: right;">1.615</td>
-<td style="text-align: right;">18.52</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Toyota Corolla</td>
-<td style="text-align: right;">33.9</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">71.1</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">4.22</td>
-<td style="text-align: right;">1.835</td>
-<td style="text-align: right;">19.90</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Toyota Corona</td>
-<td style="text-align: right;">21.5</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">120.1</td>
-<td style="text-align: right;">97</td>
-<td style="text-align: right;">3.70</td>
-<td style="text-align: right;">2.465</td>
-<td style="text-align: right;">20.01</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dodge Challenger</td>
-<td style="text-align: right;">15.5</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">318.0</td>
-<td style="text-align: right;">150</td>
-<td style="text-align: right;">2.76</td>
-<td style="text-align: right;">3.520</td>
-<td style="text-align: right;">16.87</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">AMC Javelin</td>
-<td style="text-align: right;">15.2</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">304.0</td>
-<td style="text-align: right;">150</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">3.435</td>
-<td style="text-align: right;">17.30</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Camaro Z28</td>
-<td style="text-align: right;">13.3</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">350.0</td>
-<td style="text-align: right;">245</td>
-<td style="text-align: right;">3.73</td>
-<td style="text-align: right;">3.840</td>
-<td style="text-align: right;">15.41</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Pontiac Firebird</td>
-<td style="text-align: right;">19.2</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">400.0</td>
-<td style="text-align: right;">175</td>
-<td style="text-align: right;">3.08</td>
-<td style="text-align: right;">3.845</td>
-<td style="text-align: right;">17.05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Fiat X1-9</td>
-<td style="text-align: right;">27.3</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">79.0</td>
-<td style="text-align: right;">66</td>
-<td style="text-align: right;">4.08</td>
-<td style="text-align: right;">1.935</td>
-<td style="text-align: right;">18.90</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Porsche 914-2</td>
-<td style="text-align: right;">26.0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">120.3</td>
-<td style="text-align: right;">91</td>
-<td style="text-align: right;">4.43</td>
-<td style="text-align: right;">2.140</td>
-<td style="text-align: right;">16.70</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lotus Europa</td>
-<td style="text-align: right;">30.4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">95.1</td>
-<td style="text-align: right;">113</td>
-<td style="text-align: right;">3.77</td>
-<td style="text-align: right;">1.513</td>
-<td style="text-align: right;">16.90</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Ford Pantera L</td>
-<td style="text-align: right;">15.8</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">351.0</td>
-<td style="text-align: right;">264</td>
-<td style="text-align: right;">4.22</td>
-<td style="text-align: right;">3.170</td>
-<td style="text-align: right;">14.50</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ferrari Dino</td>
-<td style="text-align: right;">19.7</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">145.0</td>
-<td style="text-align: right;">175</td>
-<td style="text-align: right;">3.62</td>
-<td style="text-align: right;">2.770</td>
-<td style="text-align: right;">15.50</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Maserati Bora</td>
-<td style="text-align: right;">15.0</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">301.0</td>
-<td style="text-align: right;">335</td>
-<td style="text-align: right;">3.54</td>
-<td style="text-align: right;">3.570</td>
-<td style="text-align: right;">14.60</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Volvo 142E</td>
-<td style="text-align: right;">21.4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">121.0</td>
-<td style="text-align: right;">109</td>
-<td style="text-align: right;">4.11</td>
-<td style="text-align: right;">2.780</td>
-<td style="text-align: right;">18.60</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/#tabsets">Tabsets</a></p>
-</div>
-</section>
 <section class="slide level2 smaller" data-transition="slide">
 <h2>Interactive Slides</h2>
 <p>Include Jupyter widgets and htmlwidgets in your presentations</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-89eecd7b0c2fd1f15ff5" style="width:960px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-89eecd7b0c2fd1f15ff5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.852,174.768,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"The birthplace of R",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.852,-36.852],"lng":[174.768,174.768]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-14a8d2e124e269ae2fa0" style="width:960px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14a8d2e124e269ae2fa0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.852,174.768,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"The birthplace of R",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.852,-36.852],"lng":[174.768,174.768]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="footer">
 <p>Learn more: <a href="https://quarto.org/docs/interactive/widgets/jupyter.html">Jupyter widgets</a>, <a href="https://quarto.org/docs/interactive/widgets/htmlwidgets.html">htmlwidgets</a></p>
-</div>
-</section>
-<section class="slide level2 smaller" data-transition="slide">
-<h2>Interactive Slides</h2>
-<p>Turn presentations into applications with Observable and Shiny. Use component layout to position inputs and outputs.</p>
-<div class="cell">
-
-</div>
-<div class="layout-sidebar layout-sidebar-left">
-<div class="cell panel-sidebar">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="406" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 405;"><span id="cb1-406"><a href="#cb1-406"></a>viewof talentWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"talent weight"</span> })</span>
-<span id="cb1-407"><a href="#cb1-407"></a>viewof looksWeight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"looks weight"</span> })</span>
-<span id="cb1-408"><a href="#cb1-408"></a>viewof minimum <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"min fame"</span> })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-3" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell panel-fill">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="413" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 412;"><span id="cb2-413"><a href="#cb2-413"></a><span class="im">import</span> { plotActors } <span class="im">from</span> <span class="st">'./actors.js'</span><span class="op">;</span></span>
-<span id="cb2-414"><a href="#cb2-414"></a><span class="fu">plotActors</span>(actors<span class="op">,</span> talentWeight<span class="op">,</span> looksWeight<span class="op">,</span> minimum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-2" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/interactive/ojs/">Observable</a>, <a href="https://quarto.org/docs/interactive/shiny/">Shiny</a>, <a href="https://quarto.org/docs/interactive/layout.html">Component Layout</a></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Preview Links</h2>
-<p>Navigate to hyperlinks without disrupting the flow of your presentation.</p>
-<p>Use the <code>preview-links</code> option to open links in an iframe on top of your slides. Try clicking the link below for a demonstration:</p>
-<div style="text-align: center; margin-top: 1em">
-<p><a href="https://matplotlib.org/" data-preview-link="true" style="text-align: center">Matplotlib: Visualization with Python</a></p>
-</div>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#preview-links">Preview Links</a></p>
 </div>
 </section>
 <section class="slide level2">
@@ -1391,63 +941,12 @@
 <div class="footer">
 <p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#chalkboard">Chalkboard</a></p>
 </div>
-</section>
-<section class="slide level2">
-<h2>Point of View</h2>
-<p>Press <code>o</code> to toggle overview mode:</p>
 
-<img data-src="images/overview-mode.png" class="border r-stretch"><p>Hold down the <code>Alt</code> key (or <code>Ctrl</code> in Linux) and click on any element to zoom towards it—try it now on this slide.</p>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#overview-mode">Overview Mode</a>, <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#slide-zoom">Slide Zoom</a></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Speaker View</h2>
-<p>Press <code>s</code> (or use the presentation menu) to open speaker view</p>
-
-<img data-src="images/speaker-view.png" width="780" class="r-stretch quarto-figure-center"><div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#speaker-view">Speaker View</a></p>
-</div>
-</section>
-<section class="slide level2 smaller">
-<h2>Authoring Tools</h2>
-<p>Live side-by-side preview for any notebook or text editor including Jupyter and VS Code</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/jupyter-edit.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="images/jupyter-preview.png" class="border border-thick"></p>
-</div>
-</div>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/tools/jupyter-lab.html">Jupyter</a>, <a href="https://quarto.org/docs/tools/vscode.html">VS Code</a>, <a href="https://quarto.org/docs/tools/text-editors.html">Text Editors</a></p>
-</div>
-</section>
-<section class="slide level2 smaller">
-<h2>Authoring Tools</h2>
-<p>RStudio includes an integrated presentation preview pane</p>
-
-<img data-src="images/rstudio.png" class="border r-stretch" width="900"><div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/tools/rstudio.html">RStudio</a></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>And More…</h2>
-<ul>
-<li><a href="https://quarto.org/docs/presentations/revealjs/advanced.html#touch-navigation">Touch</a> optimized (presentations look great on mobile, swipe to navigate slides)</li>
-<li><a href="https://quarto.org/docs/presentations/revealjs/#footer-logo">Footer &amp; Logo</a> (optionally specify custom footer per-slide)</li>
-<li><a href="https://quarto.org/docs/presentations/revealjs/presenting.html#auto-slide">Auto-Slide</a> (step through slides automatically, without any user input)</li>
-<li><a href="https://quarto.org/docs/presentations/revealjs/presenting.html#multiplex">Multiplex</a> (allows your audience to follow the slides of the presentation you are controlling on their own phone, tablet or laptop).</li>
-</ul>
-<div class="footer">
-<p>Learn more: <a href="https://quarto.org/docs/presentations/revealjs/">Quarto Presentations</a></p>
-</div>
-
-<img src="https://ig.conae.unc.edu.ar/wp-content/uploads/sites/68/2022/04/G-UNC-CONAE-C.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><img src="https://ig.conae.unc.edu.ar/wp-content/uploads/sites/68/2022/04/G-UNC-CONAE-C.png" class="slide-logo"></p>
+<div class="footer footer-default">
 
 </div>
-
-</section>
+</section></section>
     </div>
   </div>
 
@@ -1660,16 +1159,6 @@
           RevealZoom
         ]
       });
-    </script>
-    <script type="ojs-module-contents">
-    {"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"viewof talentWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"talent weight\" })\nviewof looksWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: \"looks weight\" })\nviewof minimum = Inputs.range([-2, 2], { value: 1, step: 0.01, label: \"min fame\" })\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"import { plotActors } from './actors.js';\nplotActors(actors, talentWeight, looksWeight, minimum)\n"},{"methodName":"interpretQuiet","source":"shinyInput('talentWeight')"},{"methodName":"interpretQuiet","source":"shinyInput('looksWeight')"},{"methodName":"interpretQuiet","source":"shinyInput('minimum')"}]}
-    </script>
-    <script type="module">
-    window._ojs.paths.runtimeToDoc = "../..";
-    window._ojs.paths.runtimeToRoot = "../..";
-    window._ojs.paths.docToRoot = "";
-    window._ojs.selfContained = false;
-    window._ojs.runtime.interpretFromScriptTags();
     </script>
     
     <script>

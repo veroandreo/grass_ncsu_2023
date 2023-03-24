@@ -1,6 +1,7 @@
 ---
 title: Environmental drivers of vector-borne and zoonotic diseases
 subtitle: Leveraging remote sensing for Public Health
+author: Verónica Andreo
 title-slide-attributes: 
   data-background-color: "#1A428A"
 format:
@@ -16,18 +17,17 @@ format:
 
 ## About me { background-color="#1A428A" }
 
-:::::: columns
-::: {.column width="68%"}
+::: {.columns}
 
-- Researcher and lecturer at Instituto Gulich (CONAE-UNC)
+::: {.column width="68%"}
+- Researcher and lecturer at Instituto Gulich (CONAE-UNC, Argentina)
 - Background: Lic. & Dr. in Biology, MSc. in Spatial Information Applications
-- Remote sensing and GIS applications in disease ecology
+- Remote sensing and geospatial applications in disease ecology
 - Member of the GRASS GIS Dev Team y project chair
 - OSGeo Charter member & FOSS4G enthusiast
-
 :::
 
-:::{.column width="30%"}
+::: {.column width="30%"}
 ![](assets/img/profile.png){.bio-img}
 :::
 :::
@@ -39,17 +39,103 @@ format:
 ## Overview { background-color="#1A428A" }
 
 - Health Geography
-- bla
+- Disease Ecology
+- Leveraging remote sensing for Disease Ecology
+  - Resolution vs scale
+  - How can we use RS?
+  - Examples
+- Gaps, opportunities and challenges: are new EO missions enough?
+- Conclusion
 
-## Disease Ecology
+---
 
-:::::: {.columns}
-:::{.column width="57%"}
+::: {.center}
+You all have seen this, right?
+:::
+
+::: {.columns}
+
+::: {.column width="60%"}
+![](assets/img/lecture/Snow-cholera-map.jpg)
+:::
+
+::: {.column width="7%"}
+:::
+
+::: {.column width="30%"}
+<br><br>
+![](assets/img/lecture/John_Snow.jpg)
+:::
+:::
+
+## Health Geography
+
+<br>
+
+::: {.columns}
+::: {.column width="33%"}
+::: {.color-box-light-blue .fragment}
+**Environmental health**: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.
+:::
+:::
+
+::: {.column width="33%"}
+::: {.color-box-light-blue .fragment}
+**Disease ecology**: study of infectious diseases and the spatial distribution of environmental, social, political & economic conditions associated with disease.
+::: 
+:::
+
+::: {.column width="33%"}
+::: {.color-box-light-blue .fragment}
+**Health care delivery and access**: spatial patterns of health care
+provision and patient behavior.
+:::
+:::
+:::
+
+::: {.notes}
+Health geography is the application of geographical information, perspectives, and methods to the study of health, disease, and health care.
+Mencionar usos y aplicaciones del SR en los 3 campos
+:::
+
+## Health Geography
+
+<br>
+
+::: {.columns}
+::: {.column width="33%"}
+::: {.color-box-light-blue .fragment .fade-out}
+**Environmental health**: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.
+:::
+:::
+
+::: {.column width="33%"}
+::: {.color-box-light-magenta .fragment .grow}
+**Disease ecology**: study of infectious diseases and the spatial distribution of environmental, social, political & economic conditions associated with disease.
+::: 
+:::
+
+::: {.column width="33%"}
+::: {.color-box-light-blue .fragment .fade-out}
+**Health care delivery and access**: spatial patterns of health care
+provision and patient behavior.
+:::
+:::
+:::
+
+::: {.notes}
+While RS has applications in all fields, I'll focus on those related to disease ecology
+:::
+
+## Disease Ecology I
+
+::: {.columns}
+::: {.column width="57%"}
 <br><br>
 ![](assets/img/lecture/global_view_diseases.png){width="700"}
 :::
 
-:::{.column width="43%"}
+::: {.column width="43%"}
 The main objective is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur
 
 ::: {style="display: flex; align-items: center; justify-content: center;"} 
@@ -58,35 +144,15 @@ The main objective is to understand the influence of environmental factors and t
 
 decision making, planning of prevention, management or response actions, etc.
 :::
-::::::
-
-
-## Landscape Epidemiology
-
-<br>
-
-:::::: columns
-:::{.column width="45%"}
-:::{.color-box-light-blue}
-5 components:
-
-1. animal donors; 
-2. vectors; 
-3. animal recipients; 
-4. the pathogenic agent, 
-5. the influence of factors of the external environments
-:::
 :::
 
-:::{.column width="15%"}
-<br>
-{{< fa solid right-long size=3x >}}
-:::
+## Disease Ecology II
 
-:::{.column width="40%"}
-Spatial interactions between these agents in a landscape explain patterns of infection risk and may contribute to disease emergence.
+::: {.r-stack}
+![](assets/img/lecture/disease_triad.jpg){.fragment width="150%" fig-align="center"}
+
+![](assets/img/lecture/lambin_2010.png){.fragment width="85%" fig-align="center"}
 :::
-::::::
 
 ## Applications of geospatial technologies {.smaller}
 
@@ -101,23 +167,97 @@ Spatial interactions between these agents in a landscape explain patterns of inf
 - etc.
 :::
 
+## What about remote sensing? 
 
-## What about remote sensing?
+![Relationship among different RS resolutions](assets/img/lecture/all_resolutions_relation.png){fig-align="center"}
 
+::: {.notes}
 What can we see with remote sensing to contribute to disease ecology?
+:::
 
-![](assets/img/lecture/lambin_2010.png){width="65%" fig-align="center"}
+## Remote sensing & scale I
 
-## Applications { background-color="#1A428A" }
+<br>
+
+![](assets/img/lecture/scale_vs_variables_spp_distr.png)
+
+## Remote sensing & scale II
+
+::: {.panel-tabset}
+
+## Taxonomy
+
+![](assets/img/lecture/resolution_vs_animals.png)
+
+## Plants
+
+![](assets/img/lecture/resolution_vs_forest.png)
+
+## Animals
+
+![](assets/img/lecture/resolution_vs_movement_a.png){.r-stretch}
+:::
+
+## How can we use RS? I
+
+<br>
+
+![General approach used in disease ecology](assets/img/lecture/workflow_sdm_other.png) 
+
+## How can we use RS? II
+
+- To map the response variables, i.e., species occurrence or abundance, infections
+- To map the predictor variables
+- To validate predictions
+
+## { background-image="assets/img/lecture/satellite_and_earth.jpg" }
+
+::: { style="color: #ffffff" }
+Let's have a look at real cases
+:::
+
+---
+
+### Detecting and mapping species occurrences
+
+- Very high resolution imagery
+- For plants species, also hyperspectral data 
+
+::: {.columns}
+::: {.column width="53%"}
+
+<br>
+
+![(a) Emperor penguins. (b) Elephants ](assets/img/lecture/map_spp_from_vhr_img.png)
+:::
+
+::: {.column width="47%"}
+
+<br>
+
+![Great gerbil burrows classification](assets/img/lecture/great_gerbil_burrows.jpg)
+:::
+:::
 
 ---
 
 ### Time series analysis of satellite products
 
-- MODIS LST time series reconstruction
+- MODIS LST temporal and spatial reconstruction
 - Detection of spatial and temporal clusters of favorable conditions for the occurrence of West Nile Fever cases in Greece
 
-![](assets/img/lecture/co_cluster_method.png)
+::: {.columns}
+::: {.column width="33%"}
+![LST gap-filling process](assets/img/lecture/fig_modis_workflow.png)
+:::
+
+::: {.column width="67%"}
+
+<br>
+
+![Co-cluster of derived LST indices](assets/img/lecture/co_cluster_method.png){.fragment .grow}
+:::
+:::
 
 ::: footer
 [Metz et al., 2017](https://https://www.mdpi.com/2072-4292/9/12/1333/htm), [Andreo et al., 2018](https://ieeexplore.ieee.org/document/8519542)
@@ -127,173 +267,184 @@ What can we see with remote sensing to contribute to disease ecology?
 
 ### Environmental risk of Dengue
 
-[](https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal)
+[Environmental risk for Dengue per municipality](https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal)
 
-![](assets/img/lecture/riesgo_dengue_por_localidad.png)
+![CONAE Geoportal](assets/img/lecture/riesgo_dengue_por_localidad.png)
 
 ::: footer
 [Porcasi et al., 2012](https://geospatialhealth.net/index.php/gh/article/view/120)
 :::
 
-## Remote sensing variables as predictors
+---
 
-![](assets/img/lecture/sdm_workflow.png)
+### SDM & GIS based approach for HPS risk map
 
-## SDM & GIS based approach for HPS risk mapping
+::: {.columns}
 
+::: {.column width="50%"}
 ![](assets/img/lecture/workflow_sph_andreo_etal_2014.png)
+:::
+
+::: {.column width="50%"}
 ![](assets/img/lecture/riesgo_sph_andreo_etal_2014.png)
+:::
+:::
 
 ::: footer
 [Andreo et al., 2011](https://link.springer.com/article/10.1007/s10393-011-0719-5), [2014](https://www.mdpi.com/1999-4915/6/1/201/htm)
 :::
 
-## Outbreak of cutaneous leishmaniasis and remotely sensed LULCC
+---
 
-::: {layout-ncol="2"}
+### Outbreak of cutaneous leishmaniasis and remotely sensed LULCC
+
+::: {.columns}
+
+::: {.column width="50%"}
 ![](assets/img/lecture/change_maps.png)
-![](assets/img/lecture/fig_avg_pred.png)
+:::
+
+::: {.column width="50%"}
+![](assets/img/lecture/fig_ensemble_final.png)
+:::
 :::
 
 ::: footer
 [Andreo et al., 2022](https://geospatialhealth.net/index.php/gh/article/view/1033)
 :::
 
-## Mosquitoes: towards an operational workflow
+---
 
-::: {layout-ncols="2"}
+### Mosquitoes: towards operational maps
+
+::: {.columns}
+
+::: {.column width="55%"}
 ![](assets/img/lecture/workflow_dengue.png)
+:::
+
+::: {.column width="45%"}
 ![](assets/img/lecture/Predictions.png)
+:::
 :::
 
 ::: footer
 [Andreo et al., 2021](https://doi.org/10.1016/j.rsase.2021.100554)
 :::
 
-## Mosquitoes: temporal patterns and micro-habitat
+---
 
-- Temporal and spatial patterns in Aedes aegypty in Córdoba
+### Distribution of temporal patterns
+
+- Temporal and spatial patterns in *Aedes aegypty* in Córdoba
 - Association with variables derived from S2 imagery analysis to predict temporal patterns over the whole city.
+
+![](assets/img/lecture/spatial_distr_temp_patterns.png){.r-stretch}
 
 ::: footer
 [Andreo et al., 2021](https://www.mdpi.com/2075-4450/12/10/919)
 :::
 
-## Urban environmental characterisation for the distribution of ovitraps
+---
 
-- Object-based classification of very high spatial resolution (0.5-2 m) imagery.
-- Estimation of landscape structure metrics for different polygons
+### Urban environmental characterisation for the distribution of ovitraps
+
+::: {.columns}
+::: {.column width="35%"}
+- Object-based classification of VHR imagery.
+- Estimation of landscape metrics for polygons
 - Clustering analysis to find similar polygons
-- Stratified distribution of ovitraps as a function of environmental variability
+- Stratified distribution of ovitraps
+:::
+::: {.column width="65%"}
+![](assets/img/lecture/tesis_carla.png)
+:::
+:::
 
+---
 
-## Mosquitoes: Predictive system based on population dynamics and weather forecasting models
+### Mosquitoes: Predictive system based on population dynamics and weather forecasting models {.smaller}
 
-![](assets/img/lecture/AT_class_diagram.png)
-![](assets/img/lecture/Fig _agui.png)
+::: {.columns}
+::: {.column width="55%"}
+![](assets/img/lecture/modelo_exe.png)
+:::
+
+::: {.column width="45%"}
+![](assets/img/lecture/Fig_agui.png)
+:::
+:::
 
 ::: footer
 [Aguirre et al., 2021](https://doi.org/10.1016/j.ecoinf.2021.101351)
 :::
 
+---
 
-## Algorithm and system for (semi-)automatic counting of mosquito eggs in ovitraps
+### App to count mosquito eggs in ovitraps pics
 
 [https://ovitrap-monitor.netlify.app/](https://ovitrap-monitor.netlify.app/)
 
-## Other projects underway or in the pipeline
+::: {.columns}
+::: {.column width="45%"}
+![](assets/img/lecture/app-count.png)
+:::
 
-Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).
-Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE)
-Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET)
-Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET).
-Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
-Environmental variables associated with non-communicable diseases (Postdoctoral fellow Julius Koritschoner)
+::: {.column width="55%"}
+![](assets/img/lecture/app-reports.png)
+:::
+:::
 
+---
+
+### Other projects underway or in the pipeline {.smaller}
+
+- Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).
+- Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE)
+- Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET)
+- Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET).
+- Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
+- Environmental variables associated with non-communicable diseases (Postdoctoral fellow Juan Diego Pinotti)
+
+## Gaps, opportunities and challenges
 
 ## Difficulties and challenges I
 
-Compromise between different resolutions 
-VHR, LiDAR, UAV, Hyper-spectral (U$S)
-Missing data, clouds, shadows (spatial and temporal interpolations)
-Need for corrections of various types
-Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U$S)
+- Compromise between different resolutions 
+- VHR, LiDAR, UAV, Hyper-spectral (U$S)
+- Missing data, clouds, shadows (spatial and temporal interpolations)
+- Need for corrections of various types
+- Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U$S)
 
-Field data is always needed! :)
+Field data will always be needed! :)
 
 ## Difficulties and challenges II
 
-Updating and digitisation of disease cases and intervention data
-Harmonisation of records at different levels and from different systems
-Facilitating data access and public access to aggregated health data 
-Training of staff
-Development of standardised, reproducible and scalable methods
-Commitment and allocation of resources
+- Updating and digitisation of disease cases and intervention data
+- Harmonisation of records at different levels and from different systems
+- Facilitating data access and public access to aggregated health data 
+- Training of staff
+- Development of standardised, reproducible and scalable methods
+- Commitment and allocation of resources
+
+## New missions
+
+## UAVs
+
+## SDGs and One Health
 
 
-## Thanks! {background-image="assets/img/lecture/CONAE_aereo.png"}
 
+# { background-image="assets/img/lecture/CONAE_aereo.png" }
 
-## Extra slides
-
-```{mermaid}
-%%|fig-height: 100%
-
-flowchart LR
-    A[1. animal donors, \n 2. vectors, \n 3. animal recipients,\n  4. the pathogenic agent, \n 5. the influence of factors of \nthe external environments \n] --> B(Spatial interactions between \n these agents in a landscape\n explain patterns of infection \n risk and may contribute \n to disease emergence)
-```
-
-## Fragments
-
-:::{.color-box-light-blue}
-Incremental text display and animation with fragments:
+::: {.r-fit-text style="color: #6aaae4" .fragment .zoom}
+Thanks! 
 :::
 
-<br/>
 
-::: {.fragment .fade-in}
-Fade in
-:::
+## References
 
-::: {.fragment .fade-up}
-Slide up while fading in
-:::
 
-::: {.fragment .fade-left}
-Slide left while fading in
-:::
-
-::: {.fragment .fade-in-then-semi-out}
-Fade in then semi out
-:::
-
-. . .
-
-::: {.fragment .strike}
-Strike
-:::
-
-::: {.fragment .highlight-red}
-Highlight red
-:::
-
-::: footer
-Learn more: [Fragments](https://quarto.org/docs/presentations/revealjs/advanced.html#fragments)
-:::
-
-## Absolute Position
-
-Position images or other elements at precise locations
-
-![](assets/img/aedes_albopictus.jpg){.absolute top="170" left="30" width="400" height="400"}
-
-![](assets/img/aedes_albopictus.jpg){.absolute .fragment top="150" right="80" width="450"}
-
-![](assets/img/aedes_albopictus.jpg){.absolute .fragment bottom="110" right="130" width="300"}
-
-::: footer
-Learn more: [Absolute Position](https://quarto.org/docs/presentations/revealjs/advanced.html#absolute-position){preview-link="true"}
-:::
 
 ## Auto-Animate {auto-animate="true" auto-animate-easing="ease-in-out"}
 
@@ -350,29 +501,6 @@ The next few slides will transition using the `slide` transition
 Learn more: [Slide Transitions](https://quarto.org/docs/presentations/revealjs/advanced.html#slide-transitions)
 :::
 
-## Tabsets {.smaller .scrollable transition="slide"}
-
-::: panel-tabset
-### Plot
-
-```{r}
-library(ggplot2)
-ggplot(mtcars, aes(hp, mpg, color = am)) +
-  geom_point() +
-  geom_smooth(formula = y ~ x, method = "loess")
-```
-
-### Data
-
-```{r}
-knitr::kable(mtcars)
-```
-:::
-
-::: footer
-Learn more: [Tabsets](https://quarto.org/docs/presentations/revealjs/#tabsets)
-:::
-
 ## Interactive Slides {.smaller transition="slide"}
 
 Include Jupyter widgets and htmlwidgets in your presentations
@@ -388,48 +516,6 @@ leaflet() %>%
 
 ::: footer
 Learn more: [Jupyter widgets](https://quarto.org/docs/interactive/widgets/jupyter.html), [htmlwidgets](https://quarto.org/docs/interactive/widgets/htmlwidgets.html)
-:::
-
-## Interactive Slides {.smaller transition="slide"}
-
-Turn presentations into applications with Observable and Shiny. Use component layout to position inputs and outputs.
-
-```{r}
-ojs_define(actors = data.frame(
-  x = rnorm(100),
-  y = rnorm(100)
-))
-```
-
-```{ojs}
-//| panel: sidebar
-viewof talentWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: "talent weight" })
-viewof looksWeight = Inputs.range([-2, 2], { value: 0.7, step: 0.01, label: "looks weight" })
-viewof minimum = Inputs.range([-2, 2], { value: 1, step: 0.01, label: "min fame" })
-```
-
-```{ojs}
-//| panel: fill
-import { plotActors } from './actors.js';
-plotActors(actors, talentWeight, looksWeight, minimum)
-```
-
-::: footer
-Learn more: [Observable](https://quarto.org/docs/interactive/ojs/), [Shiny](https://quarto.org/docs/interactive/shiny/), [Component Layout](https://quarto.org/docs/interactive/layout.html)
-:::
-
-## Preview Links
-
-Navigate to hyperlinks without disrupting the flow of your presentation.
-
-Use the `preview-links` option to open links in an iframe on top of your slides. Try clicking the link below for a demonstration:
-
-::: {style="text-align: center; margin-top: 1em"}
-[Matplotlib: Visualization with Python](https://matplotlib.org/){preview-link="true" style="text-align: center"}
-:::
-
-::: footer
-Learn more: [Preview Links](https://quarto.org/docs/presentations/revealjs/presenting.html#preview-links)
 :::
 
 ## Themes
@@ -488,64 +574,4 @@ You can also press `b` to toggle the chalkboard or `c` to toggle the notes canva
 Learn more: [Chalkboard](https://quarto.org/docs/presentations/revealjs/presenting.html#chalkboard)
 :::
 
-## Point of View
-
-Press `o` to toggle overview mode:
-
-![](images/overview-mode.png){.border}
-
-Hold down the `Alt` key (or `Ctrl` in Linux) and click on any element to zoom towards it---try it now on this slide.
-
-::: footer
-Learn more: [Overview Mode](https://quarto.org/docs/presentations/revealjs/presenting.html#overview-mode), [Slide Zoom](https://quarto.org/docs/presentations/revealjs/presenting.html#slide-zoom)
-:::
-
-## Speaker View
-
-Press `s` (or use the presentation menu) to open speaker view
-
-![](images/speaker-view.png){fig-align="center" style="border: 3px solid #dee2e6;" width="780"}
-
-::: footer
-Learn more: [Speaker View](https://quarto.org/docs/presentations/revealjs/presenting.html#speaker-view)
-:::
-
-## Authoring Tools {.smaller}
-
-Live side-by-side preview for any notebook or text editor including Jupyter and VS Code
-
-::: columns
-::: {.column width="50%"}
-![](images/jupyter-edit.png){.border .border-thick}
-:::
-
-::: {.column width="50%"}
-![](images/jupyter-preview.png){.border .border-thick}
-:::
-:::
-
-::: footer
-Learn more: [Jupyter](https://quarto.org/docs/tools/jupyter-lab.html), [VS Code](https://quarto.org/docs/tools/vscode.html), [Text Editors](https://quarto.org/docs/tools/text-editors.html)
-:::
-
-## Authoring Tools {.smaller}
-
-RStudio includes an integrated presentation preview pane
-
-![](images/rstudio.png){.border width="900"}
-
-::: footer
-Learn more: [RStudio](https://quarto.org/docs/tools/rstudio.html)
-:::
-
-## And More...
-
--   [Touch](https://quarto.org/docs/presentations/revealjs/advanced.html#touch-navigation) optimized (presentations look great on mobile, swipe to navigate slides)
--   [Footer & Logo](https://quarto.org/docs/presentations/revealjs/#footer-logo) (optionally specify custom footer per-slide)
--   [Auto-Slide](https://quarto.org/docs/presentations/revealjs/presenting.html#auto-slide) (step through slides automatically, without any user input)
--   [Multiplex](https://quarto.org/docs/presentations/revealjs/presenting.html#multiplex) (allows your audience to follow the slides of the presentation you are controlling on their own phone, tablet or laptop).
-
-::: footer
-Learn more: [Quarto Presentations](https://quarto.org/docs/presentations/revealjs/)
-:::
 

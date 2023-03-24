@@ -7,11 +7,11 @@ $font-family-sans-serif: Poppins, sans-serif !default;
 
 // font sizes
 $presentation-heading-font-weight: 600 !default;
-$presentation-h1-font-size: 2.5em !default;
-$presentation-h2-font-size:	2.0em !default;
+$presentation-h1-font-size: 2.2em !default;
+$presentation-h2-font-size:	1.75em !default;
 $presentation-h3-font-size:	1.5em !default;
 $presentation-h4-font-size:	1.2em !default;
-$presentation-font-size-root: 34px !default;
+$presentation-font-size-root: 30px !default;
 $presentation-font-smaller: 0.8 !default; 
 
 // colors
@@ -61,17 +61,28 @@ html * {
 }
 
 .bio-img {
-    float: right;
+  float: right;
 }
 
 .color-box-light-blue {
   border-radius: 15px;
-  background-color: rgba(233, 236, 255, 0.750);
+  background-color: rgba(200, 230, 255, 0.75);
   opacity: 93%;
   padding: 15px 15px 15px 15px !important;
   word-wrap: normal;
 }
 
+.color-box-light-magenta {
+  border-radius: 15px;
+  background-color: rgba(232, 31, 118, 0.75);
+  opacity: 93%;
+  padding: 15px 15px 15px 15px !important;
+  word-wrap: normal;
+}
+
+.center {
+  text-align: center;
+}
 
 
 // .reveal .slide blockquote {
