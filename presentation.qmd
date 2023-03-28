@@ -190,21 +190,24 @@ decision making, planning of prevention, management or response actions, etc.
 
 ::: {data-id="box" .fragment style="background: rgba(232, 31, 118, 0.2); border: 5px solid; border-color: #e81f76; width: 700px; height: 370px; transform: translate(0%, -26%);"}
 :::
-
 :::
 
-<!-- ## Applications of geospatial technologies {.smaller} -->
+::: footer
+[Lambin et al., 2010]()
+:::
 
-<!-- ::: incremental -->
-<!-- - Spatialisation of outbreaks (space-time patterns and causes) -->
-<!-- - Hosts and vector distribution mapping -->
-<!-- - Estimation of environmental indices and monitoring of favorable environmental conditions -->
-<!-- - Disease risk mapping and prediction of number of cases -->
-<!-- - Landscape analysis: metrics, fragmentation, LULCC detection -->
-<!-- - Optimal distribution of health services  -->
-<!-- - Location of best routes to hospitals -->
-<!-- - etc. -->
-<!-- ::: -->
+:::{.notes}
+1. Landscape attributes may influence the level of transmission of an infection
+2. Spatial variations in disease risk depend not only on the presence and area of critical habitats but also on their spatial configuration
+3. Disease risk depends on the connectivity of habitats for vectors and hosts
+4. The landscape is a proxy for specific associations of reservoir hosts and vectors linked with the emergence of multi-host diseases
+5. To understand ecological factors influencing spatial variations of disease risk, one needs to take into account the pathways of pathogen transmission between vectors, hosts, and the physical environment
+6. The emergence and distribution of infection through time and space is controlled by different factors acting at multiple scales
+7. Landscape and meteorological factors control not just the emergence but also the spatial concentration and spatial diffusion of infection risk
+8. Spatial variation in disease risk depends not only on land cover but also on land use, via the probability of contact between, on one hand, human hosts and, on the other hand, infectious vectors, animal hosts or their infected habitats
+9. The relationship between land use and the probability of contact between vectors and animal hosts and human hosts is influenced by land ownership
+10. Human behaviour is a crucial controlling factor of vector-human contacts, and of infection
+:::
 
 ## Remote sensing basic features 
 
@@ -213,6 +216,10 @@ decision making, planning of prevention, management or response actions, etc.
 ::: {.notes}
 What can we see with remote sensing to contribute to disease ecology?
 :::
+
+## Most common RS variables used
+
+![](assets/img/lecture/most_used_RS_vars.png)
 
 ## Remote sensing & scale I
 
@@ -287,6 +294,10 @@ Let's have a look at some real cases...
 
 ![Great gerbil burrows classification](assets/img/lecture/great_gerbil_burrows.jpg)
 :::
+:::
+
+:::{.notes}
+Add example about plants - pine beetle, bark beetle
 :::
 
 ---
@@ -427,7 +438,7 @@ We combined a rescaled probability map of the host with one of the human cases t
 ::: {.column width="35%"}
 - Object-based classification of VHR imagery
 - Estimation of landscape metrics for polygons
-- Clustering analysis to find similar polygons
+- Clustering to find groups of similar polygons
 - Stratified distribution of ovitraps
 :::
 ::: {.column width="65%"}
@@ -453,45 +464,51 @@ We combined a rescaled probability map of the host with one of the human cases t
 [Aguirre et al., 2021](https://doi.org/10.1016/j.ecoinf.2021.101351)
 :::
 
-## Other applications in the pipeline {.smaller}
+## Other research and applications in the pipeline {.smaller}
 
 - Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).
-- Incidence of respiratory diseases as a function of remotely sensed air quality and LULCC (citizen science and web-based data mining) (PhD Thesis project Abraham Coiman - CONAE)
-- Distribution of mother-to-child transmission diseases and access to health in the triple border Argentina-Bolivia-Paraguay (Doctoral thesis project Carla Rodriguez Gonzalez - CONICET)
+- Incidence of asthma as a function of remotely sensed air quality and LULCC (citizen science and web data mining) (PhD Thesis project Abraham Coiman - CONAE)
+- Distribution of congenit diseases and access to health in the triple border Argentina-Bolivia-Paraguay (PhD thesis project Carla Rodriguez Gonzalez - CONICET)
 
 ## Other applications in the pipeline {.smaller}
 
-- Comprehensive epidemiological characterisation of intestinal parasite infection in children in the Department of General José de San Martín, Salta (Doctoral thesis project Matias Scavuzzo - CONICET).
+- Epidemiological characterisation of intestinal parasite infection in children (Doctoral thesis project Matias Scavuzzo - CONICET).
 - Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
 - Environmental variables associated with non-communicable diseases (Postdoctoral fellow Juan Diego Pinotti)
 
-## Gaps, opportunities and challenges
+## Challenges and gaps - RS
 
-## Difficulties and challenges I
-
-- Compromise between different resolutions 
-- VHR, LiDAR, UAV, Hyper-spectral (U$S)
+- Compromise between different RS resolutions, the problem under study, the data and methods available
+- Limited access to certain type of data: VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet, NICFI)
 - Missing data, clouds, shadows (spatial and temporal interpolations)
-- Need for corrections of various types
-- Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and U$S)
+- Need for corrections of various types if the high level data is not suitable (ARD)
+- Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and US$)
 
 Field data will always be needed! :)
 
 ![](assets/img/lecture/satellite_b.png){.absolute top=100 right=5 width=150}
 
-## Difficulties and challenges II
+## Challenges and gaps - Ecology and Health
 
-- Updating and digitisation of disease cases and intervention data
+- Lack of baseline distribution information
+- Updating and digitisation of disease cases and intervention data, data still missing in large parts of the world
 - Harmonisation of records at different levels and from different systems
-- Facilitating data access and public access to aggregated health data 
-- Training of staff
-- Development of standardised, reproducible and scalable methods
-- Commitment and allocation of resources
+- Facilitating data access and public access to (aggregated) health data 
+- Political decision and resource allocation
 
-## New missions
+## Opportunities: the low hanging fruits
 
-## UAVs
+- SAR data, e.g., SAOCOM
+- LiDAR data, e.g., GEDI - ISS
+- GEE, openEO, actinia
 
+## New missions and UAVs: brighter future?
+
+A number of recent and upcoming missions for hyperspectral data: PRISMA, EnMap, Sentinel CHIME, TIRS (<http://database.eohandbook.com/database/instrumenttable.aspx>)
+
+Cheaper UAVs with different types of cameras, e.g. thermal multi or hyperspectral to detect and count animals in a forest
+
+![](assets/img/lecture/map_monkeys_with_drones_tir.png)
 
 ## Insaludables at Gulich Institute { background-color="#1A428A" }
 
