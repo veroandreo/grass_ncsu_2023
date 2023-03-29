@@ -43,6 +43,7 @@ leaflet() %>%
 
 {{< fa globe >}} <https://veroandreo.gitlab.io/>
 
+
 ## Overview { background-color="#1A428A" }
 
 - Motivation
@@ -69,6 +70,7 @@ leaflet() %>%
 <https://sdgs.un.org/goals/goal3>
 :::
 
+
 ---
 
 ### Neglected Tropical Diseases (NTD)
@@ -86,6 +88,12 @@ leaflet() %>%
 :::
 
 :::
+
+![](assets/img/lecture/aedesaegypti_blood.png){.fragment .absolute bottom=40 right=380 width=150}
+
+![](assets/img/lecture/sandfly.png){.fragment .absolute top=5 right=-30 width=170}
+
+![](assets/img/lecture/tick.png){.fragment .absolute bottom=130 right=-30 width=120}
 
 ---
 
@@ -107,6 +115,7 @@ You all have seen this, right?
 ![](assets/img/lecture/John_Snow.jpg)
 :::
 :::
+
 
 ## Health Geography
 
@@ -138,13 +147,16 @@ Health geography is the application of geographical information, perspectives, a
 Mencionar potenciales usos y aplicaciones del SR en los 3 campos
 :::
 
+
 ## Health Geography
 
 <br>
 
 ::: {.columns}
 ::: {.column width="33%"}
-
+::: {.color-box-light-blue}
+**Environmental health**: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.
+:::
 :::
 
 ::: {.column width="33%"}
@@ -154,14 +166,17 @@ Mencionar potenciales usos y aplicaciones del SR en los 3 campos
 :::
 
 ::: {.column width="33%"}
-
+::: {.color-box-light-blue}
+**Health care delivery and access**: spatial patterns of health care
+provision and patient behavior.
+:::
 :::
 :::
 
 ::: {.notes}
-While RS has applications in all fields, I'll focus on those related to disease 
-ecology as it is where I have worked the most
+While RS has applications in all fields, I'll focus on those related to disease ecology as it is where I have worked the most
 :::
+
 
 ## Disease Ecology I
 
@@ -182,10 +197,11 @@ decision making, planning of prevention, management or response actions, etc.
 :::
 :::
 
+
 ## Disease Ecology II 
 
 ::: {.r-stack}
-![Epidemiology triad](assets/img/lecture/disease_triad.jpg){.fragment width="150%" fig-align="center"}
+![](assets/img/lecture/disease_triad.jpg){.fragment width="150%" fig-align="center"}
 
 ![](assets/img/lecture/lambin_2010.png){.fragment width="85%" fig-align="center"}
 
@@ -194,7 +210,7 @@ decision making, planning of prevention, management or response actions, etc.
 :::
 
 ::: footer
-[Lambin et al., 2010]()
+@lambin_pathogenic_2010
 :::
 
 :::{.notes}
@@ -210,9 +226,23 @@ decision making, planning of prevention, management or response actions, etc.
 10. Human behaviour is a crucial controlling factor of vector-human contacts, and of infection
 :::
 
+
+## Use of RS in Health applications
+
+![](assets/img/lecture/growth_papers_health_and_RS.png){width="90%"}
+
+::: footer
+@viana_remote_2017
+:::
+
+
 ## Most common RS variables used
 
 ![](assets/img/lecture/most_used_RS_vars.png){fig-align="center"}
+
+::: footer
+@parselia_satellite_2019
+:::
 
 
 ## Remote sensing basic features 
@@ -220,8 +250,7 @@ decision making, planning of prevention, management or response actions, etc.
 ![](assets/img/lecture/all_resolutions_relation.png){fig-align="center"}
 
 ::: {.notes}
-However, we should take into account some basic features of remote sensing before
-selecting which data to use
+However, we should take into account some basic features of remote sensing before selecting which data to use
 :::
 
 
@@ -230,8 +259,9 @@ selecting which data to use
 <br>
 
 ![](assets/img/lecture/scale_vs_variables_spp_distr.png){fig-align="center"}
+
 ::: footer
-Pearson & Dawson, 2002
+@pearson_predicting_2003
 :::
 
 ## Remote sensing & scale II
@@ -251,11 +281,15 @@ Pearson & Dawson, 2002
 ![](assets/img/lecture/resolution_vs_movement_a.png){width="65%" fig-align="center"}
 :::
 
+::: footer
+@leitao_improving_2019, @lechner_applications_2020, @rumiano_movement_2020
+:::
+
 ## How to apply RS in disease ecology?
 
 <br>
 
-:::{.r-stack}
+::: {.r-stack}
 
 ![General approach used in (disease) ecology](assets/img/lecture/workflow_sdm_other.png) 
 
@@ -304,6 +338,10 @@ Let's have a look at some real cases...
 :::
 :::
 
+::: footer
+@wang_surveying_2019
+:::
+
 ---
 
 ### Detecting and mapping species occurrences
@@ -311,6 +349,10 @@ Let's have a look at some real cases...
 <br>
 
 ![Pine beetle infection](https://woodwright.net/wp-content/uploads/2019/06/Mountain-Pine-Beetle-Feature-image-Woodwright.jpg)
+
+::: footer
+@meng_landsat_based_2022
+:::
 
 ---
 
@@ -336,7 +378,7 @@ Let's have a look at some real cases...
 :::
 
 ::: footer
-[Metz et al., 2017](https://https://www.mdpi.com/2072-4292/9/12/1333/htm), [Andreo et al., 2018](https://ieeexplore.ieee.org/document/8519542)
+@metz_new_2017, @andreo_identifying_2018
 :::
 
 ---
@@ -349,7 +391,7 @@ Let's have a look at some real cases...
 ![[CONAE Geoportal](https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal)](assets/img/lecture/riesgo_dengue_por_localidad.png)
 
 ::: footer
-[Porcasi et al., 2012](https://geospatialhealth.net/index.php/gh/article/view/120), <https://github.com/InstitutoGulich/RiesgoAmbiental>
+@porcasi_operative_2012, <https://github.com/InstitutoGulich/RiesgoAmbiental>
 :::
 
 ---
@@ -373,14 +415,14 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 
 ::: footer
-[Andreo et al., 2011](https://link.springer.com/article/10.1007/s10393-011-0719-5), [2014](https://www.mdpi.com/1999-4915/6/1/201/htm)
+@andreo_modeling_2011, @andreo_estimating_2014
 :::
 
 ---
 
 ### Cutaneous leishmaniasis and LULCC
 
-![](assets/img/lecture/sandfly.png){.absolute top=30 right=-30 width=200}
+![](assets/img/lecture/sandfly.png){.absolute top=5 right=-30 width=120}
 
 <br>
 
@@ -399,7 +441,7 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 
 ::: footer
-[Andreo et al., 2022](https://geospatialhealth.net/index.php/gh/article/view/1033)
+@andreo_ecological_2022
 :::
 
 ---
@@ -411,18 +453,19 @@ We combined a rescaled probability map of the host with one of the human cases t
 ::: {.column width="60%"}
 ![Workflow](assets/img/lecture/workflow_dengue.png)
 
-![](assets/img/grass_gis.svg){.absolute top=200 left=2 width=80}
+![](assets/img/grass_gis.svg){.fragment .absolute top=200 left=2 width=80}
+![](assets/img/lecture/R_logo.png){.fragment .absolute top=300 left=530 width=85}
 :::
 
 ::: {.column width="40%"}
 ![](assets/img/lecture/Predictions.png)
 
-![](assets/img/lecture/aedesaegypti_blood_mirror.png){width="35%" style="float: right;"}
+![](assets/img/lecture/aedesaegypti_blood_mirror.png){width="32%" style="float: right;"}
 :::
 :::
 
 ::: footer
-[Andreo et al., 2021](https://doi.org/10.1016/j.rsase.2021.100554)
+@andreo_towards_2021
 :::
 
 ---
@@ -436,125 +479,155 @@ We combined a rescaled probability map of the host with one of the human cases t
 
 ![](assets/img/lecture/aedesaegypti_blood.png){.absolute top=220 left=200 width=120}
 
-![](assets/img/grass_gis.svg){.absolute bottom=30 right=30 width=100}
+![](assets/img/lecture/R_logo.png){.fragment .absolute bottom=30 right=420 width=130}
+
+![](assets/img/grass_gis.svg){.fragment .absolute bottom=30 right=30 width=100}
 
 ::: footer
-[Andreo et al., 2021](https://www.mdpi.com/2075-4450/12/10/919)
+@andreo_spatial_2021
 :::
 
 ---
 
 ### Urban environmental characterisation for the distribution of ovitraps
 
-::: {.columns}
+:::: {.columns}
 ::: {.column width="35%"}
 - Object-based classification of VHR imagery
-- Estimation of landscape metrics for polygons
+- Landscape metrics for polygons
 - Clustering to find groups of similar polygons
 - Stratified distribution of ovitraps
 :::
+
 ::: {.column width="65%"}
 ![](assets/img/lecture/tesis_carla.png)
 :::
-:::
+::::
 
 ::: footer
-Grippa et al., 2017; Georganos et al., 2018
+@grippa_open_source_2017, @georganos_scale_2018, Rodriguez Gonzalez et al.
 :::
 
 ---
 
 ### Predictive system based on population dynamics and weather forecasting {.smaller}
 
-::: {.columns}
+:::: {.columns}
 ::: {.column width="60%"}
 ![](assets/img/lecture/modelo_exe.png)
 :::
 
 ::: {.column width="40%"}
-![](assets/img/lecture/Fig_agui.png)
+![](assets/img/lecture/Fig_agui.png){width="75%" fig-align="center"}
+<br>
+
+::: {style="font-size: 0.8em;"}
+Development of an early warning system (EWS) for dengue. PhD candidate, **Tomás San Miguel**.
+![](assets/img/lecture/tomi.png){width="65" style="float: right;"}
 :::
 :::
-
-::: {layout="[1, 20]"}
-![](assets/img/lecture/tomi.png){width="41"}
-
-
-:::
+::::
 
 ::: footer
-[Aguirre et al., 2021](https://doi.org/10.1016/j.ecoinf.2021.101351)
-:::
-
-## Other research and applications in the pipeline {.smaller}
-
-- Online integrated surveillance system for vector-borne diseases based on spatial information 
-- GRASS, R, GeoNode, etc
-
-![](assets/img/lecture/bid_etapas_flujo_de_trabajo.drawio.png)
-
-![](assets/img/lecture/bid_logos.png) 
-
-## Other applications in the pipeline {.smaller}
-
-::: {layout="[1, 20]"}
-![](assets/img/lecture/abraham.png){width="41"}
-
-Incidence of asthma as a function of remotely sensed air quality and LULCC (citizen science and web data mining). PhD Thesis project Abraham Coiman.
-:::
-
-::: {layout="[1, 20]"}
-![](assets/img/lecture/carlita.png){width="41"}
-Distribution of congenit diseases and access to health in the triple border Argentina-Bolivia-Paraguay. PhD thesis project Carla Rodriguez Gonzalez.
+@aguirre_implementation_2021
 :::
 
 
+## {{< fa person-digging >}} Online surveillance system {{< fa person-digging >}}
+
+<br>
+
+![](assets/img/lecture/bid_etapas_flujo_de_trabajo.drawio.png){.fragment fig-align="center"}
+
+<br>
+
+![](assets/img/lecture/bid_logos.png){width="500" fig-align="center"}
+
+
+## {{< fa person-digging >}} Online surveillance system {{< fa person-digging >}}
+
+![](assets/img/lecture/bid_geonode.png){fig-align="center"} 
+
+
+## Other projects under development {.smaller}
+
+<br>
+
 ::: {layout="[1, 20]"}
-- Epidemiological characterisation of intestinal parasite infection in children (Doctoral thesis project Matias Scavuzzo - CONICET).
+![](assets/img/lecture/abraham.png){width="51"}
+
+Incidence of asthma as a function of remotely sensed air quality and LULCC. PhD candidate, **Abraham Coiman**.
 :::
 
 ::: {layout="[1, 20]"}
-- Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
+![](assets/img/lecture/carlita.png){width="51"}
+
+Distribution of congenital diseases and access to health. PhD candidate, **Carla Rodriguez Gonzalez**.
+:::
+
+
+::: {layout="[1, 20]"}
+![](assets/img/lecture/mati.png){width="51"}
+
+Epidemiological characterisation of intestinal parasite infection in children. PhD candidate, **Matias Scavuzzo**.
 :::
 
 ::: {layout="[1, 20]"}
-- Environmental variables associated with non-communicable diseases (Postdoctoral fellow Juan Diego Pinotti)
+![](assets/img/lecture/mica.png){width="51"}
+
+Geospatial modelling of malnutrition in children and adolescents. PhD candidate, **Micaela Campero**.
+:::
+
+::: {layout="[3, 18]"}
+![](assets/img/lecture/juan_diego.png){width="51"}
+![](assets/img/lecture/xime.png){width="51"}
+
+Environmental variables associated with non-communicable diseases. **Dr. Juan Diego Pinotti** and **Dr. Ximena Porcasi**.
 :::
 
 ---
 
 ## Challenges and gaps - RS
+![](assets/img/lecture/satellite_b.png){.absolute top=10 right=5 width=120}
 
-- Compromise between different RS resolutions, the problem under study, the data and methods available
-- Limited access to certain type of data: VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet, NICFI)
-- Missing data, clouds, shadows (spatial and temporal interpolations)
-- Need for corrections of various types if the high level data is not suitable (ARD)
-- Large volumes of data vs. bandwidth, storage and computational capacity (cloud computing, parallelisation, learning time and US$)
+- **Trade-off** between different RS resolutions, the problem under study, the data and methods available
+- **Gaps in optical RS**: clouds, shadows in optical RS (spatial and temporal interpolations)
+- Need for **corrections** if high level data is not suitable (ARD)
+- **Limited access** to VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet)
+- Investment and capacity building: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)
 
-Field data will always be needed! :)
+[**Field data will always be needed! :)**]{style="color: #e81f76;"}
 
-![](assets/img/lecture/satellite_b.png){.absolute top=100 right=5 width=150}
 
 ## Challenges and gaps - Ecology and Health
 
-- Lack of baseline distribution information
+<br>
+
+- Missing **baseline** distribution information of hosts, vectors, infection
 - Updating and digitisation of disease cases and intervention data, data still missing in large parts of the world
-- Harmonisation of records at different levels and from different systems
-- Facilitating data access and public access to (aggregated) health data 
-- Political decision and resource allocation
+- **Harmonisation of records** at different levels, i.e., municipal, provincial, national
+- Facilitating access to (aggregated) health data 
+- __Political decision and resource allocation__
 
-## Opportunities: the low hanging fruits
 
-- SAR data, e.g., SAOCOM to estimate soil moisture
-- LiDAR data, e.g., GEDI onboard of ISS
+## Opportunities: some low hanging fruits
+
+- SAR data to avoid clouds, e.g., **SAOCOM** to estimate soil moisture
+- Open LiDAR data, e.g., GEDI onboard of ISS
 - GEE, openEO, actinia
+
 
 ## New missions and UAVs: brighter future?
 
-- A number of recent and upcoming missions for hyperspectral data: PRISMA, EnMap, Sentinel CHIME, TIRS (<http://database.eohandbook.com/database/instrumenttable.aspx>)
-- Cheaper UAVs with different types of cameras, e.g. thermal multi or hyperspectral to detect and count animals in a forest
+- A number of recent and upcoming missions for hyper-spectral data: PRISMA, EnMap, Sentinel CHIME, TIRS 
+- Cheaper UAVs with different types of cameras, e.g. thermal multi or hyper-pectral to detect and count animals
 
-![](assets/img/lecture/map_monkeys_with_drones_tir.png)
+![](assets/img/lecture/map_monkeys_with_drones_tir.png){fig-align="center"}
+
+::: footer
+<http://database.eohandbook.com/database/instrumenttable.aspx>, 
+@carrasco_escobar_use_2022
+:::
 
 # { background-image="assets/img/lecture/CONAE_aereo.png" }
 
@@ -572,18 +645,25 @@ Thanks!
 [{{< fa brands twitter >}} VeronicaAndreo](https://twitter.com/VeronicaAndreo)
 :::
 
-::: {.fragment style="float: left;"}
+::: {.fragment style="float: left;" .color-box-white}
+Unhealthy lab
+
 ![](assets/img/lecture/insaludables.png)
 :::
 
-## References
+## References {.tiny}
+
+::: {#refs .tiny}
+:::
 
 
-# Extras { background-color="#1A428A" }
+# Extra slides { background-color="#1A428A" }
 
 ---
 
 ### App to count mosquito eggs in ovitraps pics
+
+<br>
 
 [https://ovitrap-monitor.netlify.app/](https://ovitrap-monitor.netlify.app/)
 
@@ -597,20 +677,3 @@ Thanks!
 :::
 :::
 
-<!-- ## Easy Navigation -->
-
-<!-- ::: {style="margin-bottom: 0.9em;"} -->
-<!-- Quickly jump to other parts of your presentation -->
-<!-- ::: -->
-
-<!-- ::: {layout="[1, 20]"} -->
-<!-- ![](images/presentation-menu.png){width="41"} -->
-
-<!-- Toggle the slide menu with the menu button (bottom left of slide) to go to other slides and access presentation tools. -->
-<!-- ::: -->
-
-<!-- You can also press `m` to toggle the menu open and closed. -->
-
-<!-- ::: footer -->
-<!-- Learn more: [Navigation](https://quarto.org/docs/presentations/revealjs/presenting.html#navigation-menu) -->
-<!-- ::: -->

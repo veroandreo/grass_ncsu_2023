@@ -12,7 +12,7 @@ $presentation-h2-font-size:	1.75em !default;
 $presentation-h3-font-size:	1.5em !default;
 $presentation-h4-font-size:	1.2em !default;
 $presentation-font-size-root: 30px !default;
-$presentation-font-smaller: 0.8 !default; 
+$presentation-font-smaller: 0.8em !default; 
 
 // colors
 $body-bg: #ffffff !default;
@@ -40,6 +40,7 @@ html * {
 }
 
 .reveal .footer {
+  color: $link-color !important;
   background-color: $footer-bg;
   height: 48px !important;
   bottom: 0px !important;
@@ -82,10 +83,21 @@ html * {
   word-wrap: normal;
 }
 
+.color-box-white {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.75);
+  opacity: 93%;
+  padding: 15px 15px 15px 15px !important;
+  word-wrap: normal;
+}
+
 .center {
   text-align: center;
 }
 
+.tiny {
+  font-size: 0.7em !important;
+}
 
 // .reveal .slide blockquote {
 //   border-left: 3px solid $text-muted;

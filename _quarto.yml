@@ -37,6 +37,7 @@ execute:
 bibliography: references.bib
 csl: american-statistical-association.csl
 citations-hover: true
+footnotes-hover: true
 knitr:
   opts_chunk: 
     #collapse: true
