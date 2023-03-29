@@ -52,7 +52,7 @@ leaflet() %>%
   - Resolution vs scale
   - How can we use RS?
   - Examples
-- Gaps, opportunities and challenges: are new EO missions enough?
+- Gaps, challenges and opportunities
 - Conclusion
 
 ---
@@ -135,7 +135,7 @@ provision and patient behavior.
 
 ::: {.notes}
 Health geography is the application of geographical information, perspectives, and methods to the study of health, disease, and health care.
-Mencionar usos y aplicaciones del SR en los 3 campos
+Mencionar potenciales usos y aplicaciones del SR en los 3 campos
 :::
 
 ## Health Geography
@@ -159,7 +159,8 @@ Mencionar usos y aplicaciones del SR en los 3 campos
 :::
 
 ::: {.notes}
-While RS has applications in all fields, I'll focus on those related to disease ecology
+While RS has applications in all fields, I'll focus on those related to disease 
+ecology as it is where I have worked the most
 :::
 
 ## Disease Ecology I
@@ -209,23 +210,29 @@ decision making, planning of prevention, management or response actions, etc.
 10. Human behaviour is a crucial controlling factor of vector-human contacts, and of infection
 :::
 
+## Most common RS variables used
+
+![](assets/img/lecture/most_used_RS_vars.png){fig-align="center"}
+
+
 ## Remote sensing basic features 
 
 ![](assets/img/lecture/all_resolutions_relation.png){fig-align="center"}
 
 ::: {.notes}
-What can we see with remote sensing to contribute to disease ecology?
+However, we should take into account some basic features of remote sensing before
+selecting which data to use
 :::
 
-## Most common RS variables used
-
-![](assets/img/lecture/most_used_RS_vars.png)
 
 ## Remote sensing & scale I
 
 <br>
 
-![](assets/img/lecture/scale_vs_variables_spp_distr.png)
+![](assets/img/lecture/scale_vs_variables_spp_distr.png){fig-align="center"}
+::: footer
+Pearson & Dawson, 2002
+:::
 
 ## Remote sensing & scale II
 
@@ -281,8 +288,9 @@ Let's have a look at some real cases...
 
 <br>
 
-- Very high resolution imagery
+- Very high resolution (VHR) imagery
 - Hyperspectral data (esp. for plant species)
+- Direct and indirect counting
 
 ::: {.columns}
 ::: {.column width="53%"}
@@ -296,9 +304,13 @@ Let's have a look at some real cases...
 :::
 :::
 
-:::{.notes}
-Add example about plants - pine beetle, bark beetle
-:::
+---
+
+### Detecting and mapping species occurrences
+
+<br>
+
+![Pine beetle infection](https://woodwright.net/wp-content/uploads/2019/06/Mountain-Pine-Beetle-Feature-image-Woodwright.jpg)
 
 ---
 
@@ -332,7 +344,7 @@ Add example about plants - pine beetle, bark beetle
 ### Environmental risk of Dengue
 
 
-- MODIS LST is used to estimate number of EIP, the higher this number, the higher the environmental risk
+- MODIS LST is used to estimate number of extrinsic incubation periods (EIP) that virus might complete; the higher this number, the higher the environmental risk
 
 ![[CONAE Geoportal](https://geoportal.conae.gov.ar/mapstore/#/viewer/openlayers/geoportal)](assets/img/lecture/riesgo_dengue_por_localidad.png)
 
@@ -368,6 +380,8 @@ We combined a rescaled probability map of the host with one of the human cases t
 
 ### Cutaneous leishmaniasis and LULCC
 
+![](assets/img/lecture/sandfly.png){.absolute top=30 right=-30 width=200}
+
 <br>
 
 ::: {.columns}
@@ -379,10 +393,9 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 
 ::: {.column width="50%"}
-![Prediction map](assets/img/lecture/fig_ensemble_final.png)
-
-![](assets/img/lecture/sandfly.png){.absolute bottom=30 right=-30 width=200}
+![CL Prediction map](assets/img/lecture/fig_ensemble_final.png)
 :::
+
 :::
 
 ::: footer
@@ -396,10 +409,9 @@ We combined a rescaled probability map of the host with one of the human cases t
 ::: {.columns}
 
 ::: {.column width="60%"}
-![](assets/img/lecture/workflow_dengue.png)
+![Workflow](assets/img/lecture/workflow_dengue.png)
 
 ![](assets/img/grass_gis.svg){.absolute top=200 left=2 width=80}
-
 :::
 
 ::: {.column width="40%"}
@@ -446,6 +458,10 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 :::
 
+::: footer
+Grippa et al., 2017; Georganos et al., 2018
+:::
+
 ---
 
 ### Predictive system based on population dynamics and weather forecasting {.smaller}
@@ -460,21 +476,52 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 :::
 
+::: {layout="[1, 20]"}
+![](assets/img/lecture/tomi.png){width="41"}
+
+
+:::
+
 ::: footer
 [Aguirre et al., 2021](https://doi.org/10.1016/j.ecoinf.2021.101351)
 :::
 
 ## Other research and applications in the pipeline {.smaller}
 
-- Integrated surveillance system for vector-borne diseases based on spatial information (FMS, kan; BID funding).
-- Incidence of asthma as a function of remotely sensed air quality and LULCC (citizen science and web data mining) (PhD Thesis project Abraham Coiman - CONAE)
-- Distribution of congenit diseases and access to health in the triple border Argentina-Bolivia-Paraguay (PhD thesis project Carla Rodriguez Gonzalez - CONICET)
+- Online integrated surveillance system for vector-borne diseases based on spatial information 
+- GRASS, R, GeoNode, etc
+
+![](assets/img/lecture/bid_etapas_flujo_de_trabajo.drawio.png)
+
+![](assets/img/lecture/bid_logos.png) 
 
 ## Other applications in the pipeline {.smaller}
 
+::: {layout="[1, 20]"}
+![](assets/img/lecture/abraham.png){width="41"}
+
+Incidence of asthma as a function of remotely sensed air quality and LULCC (citizen science and web data mining). PhD Thesis project Abraham Coiman.
+:::
+
+::: {layout="[1, 20]"}
+![](assets/img/lecture/carlita.png){width="41"}
+Distribution of congenit diseases and access to health in the triple border Argentina-Bolivia-Paraguay. PhD thesis project Carla Rodriguez Gonzalez.
+:::
+
+
+::: {layout="[1, 20]"}
 - Epidemiological characterisation of intestinal parasite infection in children (Doctoral thesis project Matias Scavuzzo - CONICET).
+:::
+
+::: {layout="[1, 20]"}
 - Geospatial modelling of malnutrition in children and adolescents in Argentina (Doctoral thesis project Micaela Campero - CONICET)
+:::
+
+::: {layout="[1, 20]"}
 - Environmental variables associated with non-communicable diseases (Postdoctoral fellow Juan Diego Pinotti)
+:::
+
+---
 
 ## Challenges and gaps - RS
 
@@ -498,22 +545,16 @@ Field data will always be needed! :)
 
 ## Opportunities: the low hanging fruits
 
-- SAR data, e.g., SAOCOM
-- LiDAR data, e.g., GEDI - ISS
+- SAR data, e.g., SAOCOM to estimate soil moisture
+- LiDAR data, e.g., GEDI onboard of ISS
 - GEE, openEO, actinia
 
 ## New missions and UAVs: brighter future?
 
-A number of recent and upcoming missions for hyperspectral data: PRISMA, EnMap, Sentinel CHIME, TIRS (<http://database.eohandbook.com/database/instrumenttable.aspx>)
-
-Cheaper UAVs with different types of cameras, e.g. thermal multi or hyperspectral to detect and count animals in a forest
+- A number of recent and upcoming missions for hyperspectral data: PRISMA, EnMap, Sentinel CHIME, TIRS (<http://database.eohandbook.com/database/instrumenttable.aspx>)
+- Cheaper UAVs with different types of cameras, e.g. thermal multi or hyperspectral to detect and count animals in a forest
 
 ![](assets/img/lecture/map_monkeys_with_drones_tir.png)
-
-## Insaludables at Gulich Institute { background-color="#1A428A" }
-
-![](assets/img/lecture/insaludables.png)
-
 
 # { background-image="assets/img/lecture/CONAE_aereo.png" }
 
@@ -530,6 +571,13 @@ Thanks!
 
 [{{< fa brands twitter >}} VeronicaAndreo](https://twitter.com/VeronicaAndreo)
 :::
+
+::: {.fragment style="float: left;"}
+![](assets/img/lecture/insaludables.png)
+:::
+
+## References
+
 
 # Extras { background-color="#1A428A" }
 
