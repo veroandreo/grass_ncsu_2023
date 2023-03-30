@@ -27,11 +27,18 @@ Spoiler alert! GRASS GIS is one of the main characters in this journey.
 ## Contents
 
 1.  Lecture: "**Environmental drivers of vector-borne and zoonotic diseases: Leveraging remote sensing for Public Health**"
-    1.  bla
-    2.  bla
+    1. Motivation
+    2. Health Geography
+    3. Disease Ecology
+    4. Leveraging remote sensing for Disease Ecology
+       - Resolution vs scale
+       - How can we use RS?
+       - Examples
+    5. Gaps, challenges and opportunities
+    6. Conclusion
 2.  Studio: "**Using satellite data for species distribution modeling with GRASS GIS and R**"
-    1.  GRASS GIS
-    2.  Interface GRASS-R
-    3.  
+    1. GRASS GIS
+    2. Interface GRASS-R
+    3. Demo session
 
 

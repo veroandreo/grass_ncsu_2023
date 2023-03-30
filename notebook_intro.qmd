@@ -1,6 +1,5 @@
 ---
 title: "Introduction to GRASS GIS"
-#subtitle: "Create beautiful interactive slide decks with Reveal.js"
 author: "Veronica Andreo"
 date: '`r Sys.Date()`'
 format:

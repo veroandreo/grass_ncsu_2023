@@ -62,12 +62,10 @@ format:
     highlight-style: arrow
     #title-block-banner: "#546e7a"
     #title-block-banner-color: "white"
-    code-block-bg: true
     code-block-background: true
     code-block-border-left: true
     fontsize: 12pt
-    code-overflow: "wrap"
-    #code-overflow: "scroll"
+    code-overflow: "scroll"
     code-line-numbers: true
 
     
