@@ -1,0 +1,14 @@
+{
+  "hash": "e098d82f93fc94c0b5cae61d69aad312",
+  "result": {
+    "markdown": "---\ntitle: \"Leveraging remote sensing for Public Health\"\nsubtitle: \"Visiting the Geospatial Analytics Center at NCSU\"\ndate: '2023-03-30'\nauthor: \"Verónica Andreo\"\ntoc: true\n---\n\n\n## Overview\n\nVector-borne and zoonotic diseases are responsible for one-sixth of disease \nand disability worldwide. Their distribution and spread is highly dependent \non the environment. In the face of the environmental changes brought about \nby the Earth system crisis, remote sensing has gained renewed relevance for\npublic health applications. For example, time series of remotely sensed \nvariables can be used to understand the spatio-temporal conditions that \nfavor mosquito populations and may pose a high risk of West Nile Fever \noutbreaks. In this talk I'll show how we use remote sensing data of different\nspatial and temporal resolutions to predict the risk of diseases such as \nhantavirus, dengue and leishmaniasis, to allocate sensors for mosquito \nsampling, and to quantify access to health care, among others. I will also \ndiscuss various limitations, challenges, and future directions in the use of\nremote sensing for operational early warning systems and applications to \nsupport timely decision making in the field of Public Health. \nSpoiler alert! GRASS GIS is one of the main characters in this journey.\n\n## Contents\n\n1.  Lecture: \"**Environmental drivers of vector-borne and zoonotic diseases: Leveraging remote sensing for Public Health**\"\n    1. Motivation\n    2. Health Geography\n    3. Disease Ecology\n    4. Leveraging remote sensing for Disease Ecology\n       - Resolution vs scale\n       - How can we use RS?\n       - Examples\n    5. Gaps, challenges and opportunities\n    6. Conclusion\n2.  Studio: \"**Using satellite data for species distribution modeling with GRASS GIS and R**\"\n    1. GRASS GIS\n    2. Interface GRASS-R\n    3. Demo session\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

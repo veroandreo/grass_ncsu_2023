@@ -407,8 +407,11 @@ Let's have a look at some real cases...
 ![](assets/img/grass_gis.svg){width="30%" fig-align="center"}
 :::
 
-::: {.column width="50%"}
+::: {.column width="50%" .smaller}
 We combined a rescaled probability map of the host with one of the human cases to determine levels of transmission risk
+
+![](assets/img/lecture/colilargo_mirror.svg){.absolute top=230 right=50 width="210"}
+<br>
 
 ![](assets/img/lecture/riesgo_sph_andreo_etal_2014.png)
 :::

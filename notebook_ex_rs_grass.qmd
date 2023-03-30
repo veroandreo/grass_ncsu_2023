@@ -1,13 +1,133 @@
 ---
-title: "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R"
+title: "Part 2: Processing data in GRASS"
 author: Verónica Andreo
 format: 
   html: 
     code-tools: true
     code-copy: true
-    code-fold: true
+    code-fold: false
 ---
 
+In this notebook we'll go through the processing of MODIS LST daily time series
+data to derive relevant predictor variables for modeling the distribution of
+*Aedes albopictus* in Northern Italy. Furthermore, we'll show how to obtain and
+process occurrence data and background points.
+
+Let's first go through some temporal concepts within GRASS GIS...
+
+
+## The TGRASS framework
+
+GRASS GIS was the first FOSS GIS that incorporated capabilities to 
+*manage, analyze, process and visualize spatio-temporal data*, as well as 
+the temporal relationships among time series.
+
+- TGRASS is fully **based on metadata** and does not duplicate any dataset
+- **Snapshot** approach, i.e., adds time stamps to maps
+- A collection of time stamped maps (snapshots) of the same variable are called **space-time datasets** or STDS
+- Maps in a STDS can have different spatial and temporal extents
+- Space-time datasets can be composed of raster, raster 3D or vector maps, and so
+we call them:
+  - Space time raster datasets (**STRDS**)
+  - Space time 3D raster datasets (**STR3DS**)
+  - Space time vector datasets (**STVDS**)
+
+
+## Temporal modules
+
+GRASS temporal modules are named and organized following GRASS core naming
+scheme. In this way, we have:
+
+- **t.\***: General modules to handle STDS of all types
+- **t.rast.\***: Modules that deal with STRDS
+- **t.rast3d.\***: Modules that deal with STR3DS
+- **t.vect.\***: Modules that deal with STVDS
+
+
+### Other TGRASS notions
+
+- Time can be defined as **intervals** (start and end time) or **instances** 
+(only start time)
+- Time can be **absolute** (e.g., 2017-04-06 22:39:49) or **relative** 
+(e.g., 4 years, 90 days)
+- **Granularity** is the greatest common divisor of the temporal extents 
+(and possible gaps) of all maps in the space-time cube
+
+<img src="https://grass.osgeo.org/grass78/manuals/timeline_2D.jpg" width="50%" align="center"/>
+
+- **Topology** refers to temporal relations between time intervals in a STDS.
+
+<img src="assets/img/studio/temp_relation.png" width="40%"/>
+
+
+### TGRASS framework and workflow
+
+<img src="assets/img/studio/tgrass_flowchart.png" width="70%" align="center"/>
+
+## Hands-on, let's start
+
+So let's start...
+
+```{python}
+import os
+import sys
+import subprocess
+```
+
+```{python}
+# data directory
+homedir = os.path.join(os.path.expanduser('~'), "grass_ncsu_2023")
+
+# GRASS GIS database variables
+grassbin = "grass"
+grassdata = os.path.join(homedir, "grassdata")
+location = "nc_spm_08_grass7"
+mapset = "PERMANENT"
+
+# create directories if not already existing
+os.makedirs(grassdata, exist_ok=True)
+```
+
+```{python}
+print(subprocess.check_output([grassbin, "--config", "version"], text=True))
+```
+
+```{python}
+# Ask GRASS GIS where its Python packages are 
+sys.path.append(
+    subprocess.check_output([grassbin, "--config", "python_path"], text=True).strip()
+)
+```
+
+```{python}
+# Import the GRASS GIS packages we need
+import grass.script as gs
+import grass.jupyter as gj
+
+# Start the GRASS GIS Session
+session = gj.init(grassdata, location, mapset)
+```
+
+```{python}
+# List vector elements in the PERMANENT mapset
+gs.list_grouped(type="vector")
+```
+
+```{python}
+import folium
+```
+
+```{python}
+# Display newly created vector
+map1 = gj.Map(width=500, use_region=True)
+map1.d_vect(map="railroads")
+map1.show()
+# python displays are not shown...
+```
+
+```{python}
+session.finish
+```
 
 #### Importing species records
 
@@ -295,6 +415,6 @@ t.rast.series input=lower_m2_consec_days \
 <img src="assets/img/median_days_lower_m2.png" width="60%">
 
 
-We have all these maps within GRASS, how do we connect with R now?
+We have all these maps within GRASS, how do we connect with R now? Let's move to #part2
 
 

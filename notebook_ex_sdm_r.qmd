@@ -1,5 +1,5 @@
 ---
-title: "Using Satellite Data for Species Distribution Modeling with GRASS GIS and R"
+title: "Part 3: Modelling with R"
 author: Verónica Andreo
 format: 
   html: 
@@ -12,11 +12,14 @@ format:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+In this third part of the studio, we'll use R to model *Aedes albopictus*
+distribution in Northern Italy. For that, we need to connect to GRASS via
+the `rgrass` package in order to read occurrence data and predictors.
 
 ## [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
 
 - `initGRASS()`: starts a GRASS GIS session from R
-- `execGRASS()`: executes GRASS GIS commands
+- `execGRASS()`: executes GRASS GIS commands 
 - `gmeta()`: shows GRASS location metadata
 - `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into *terra* objects 
 - `write_VECT()` and `write_RAST()`: write *terra* objects into GRASS GIS database
@@ -27,23 +30,25 @@ knitr::opts_chunk$set(eval = FALSE)
 A. Using [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#R_within_GRASS), i.e. starting R (or RStudio) from GRASS terminal
 <br>
 
-  - type `R` or `rstudio &` in the GRASS GIS terminal
-  - load `rgrass` library
-  - use `readVECT()`, `readRAST()` to read data from GRASS into R
-  - access GRASS GIS modules and database through `execGRASS()`
-  - write data (back) to GRASS database with `writeVECT()` and `writeRAST()`
+- type `R` or `rstudio &` in the GRASS GIS terminal
+- load `rgrass` library
+- use `read_VECT()`, `read_RAST()` to read data from GRASS into R
+- access GRASS GIS modules and database through `execGRASS()`
+- write data (back) to GRASS database with `write_VECT()` and `write_RAST()`
 
-<img src="assets/img/grass_terminal_calling_R.png" width="60%">
+<img src="assets/img/studio/grass_terminal_calling_R.png" width="60%">
 
 
 B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R), i.e. we connect to GRASS GIS database from within R (or RStudio).
 <br>
 
-  - we need to start GRASS GIS with `initGRASS()` 
-  - we access GRASS GIS modules through `execGRASS()` 
+- we need to start GRASS GIS with `initGRASS()` from R
+- we access GRASS GIS modules through `execGRASS()`
+- use `read_VECT()`, `read_RAST()`, `write_VECT()` and `write_RAST()` to read data from and to GRASS database
 
-> Originally intended to apply GRASS functions on data outside GRASS DB; hence some prefer to create throw away locations
-
+::: {.callout-note}
+Originally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations
+:::
 
 <img src="assets/img/grass_within_rstudio_session.png" width="80%">
 
@@ -61,20 +66,20 @@ B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_stat
 library(rgrass7)
 
 # path to GRASS binaries (run `grass --config path`)
-myGRASS <- "/usr/lib64/grass82"
+grassbin <- "/usr/lib64/grass82"
 # path to GRASS database
-myGISDbase <- "/home/veroandreo/grassdata/"
+grassdata <- "/home/veroandreo/grassdata/"
 # path to location
-myLocation <- "eu_laea"
+location <- "eu_laea"
 # path to mapset
-myMapset <- "italy_LST_daily"
+mapset <- "italy_LST_daily"
 
 # start GRASS GIS from R
-initGRASS(gisBase = myGRASS, 
+initGRASS(gisBase = grassbin, 
           home = tempdir(), 
-          gisDbase = myGISDbase, 
-          location = myLocation, 
-          mapset = myMapset, 
+          gisDbase = grassdata, 
+          location = location, 
+          mapset = mapset, 
           override = TRUE)
 ```
 
@@ -82,14 +87,13 @@ initGRASS(gisBase = myGRASS,
 
 ```{r ref.label='grass_init', echo=FALSE, size='tiny'}
 # start GRASS GIS from R
-initGRASS(gisBase = myGRASS, 
+initGRASS(gisBase = grassbin, 
           home = tempdir(), 
-          gisDbase = myGISDbase, 
-          location = myLocation, 
-          mapset = myMapset, 
+          gisDbase = grassdata, 
+          location = location, 
+          mapset = mapset, 
           override = TRUE)
 ```
-
 :::
 
 #### Load other packages needed
