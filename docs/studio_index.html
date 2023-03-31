@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.2.313">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Verónica Andreo">
-<meta name="dcterms.date" content="2023-03-30">
+<meta name="dcterms.date" content="2023-03-31">
 <title>Visiting NCSU - Using Satellite Data for Species Distribution Modeling with GRASS GIS and R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -82,6 +82,25 @@ code span.st { color: #4070a0; }
 code span.va { color: #19177c; } 
 code span.vs { color: #4070a0; } 
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
 </style>
 
 <script>const headroomChanged = new CustomEvent("quarto-hrChanged", {
@@ -4022,10 +4041,6 @@ vertical-align: -.125em;
     <a class="dropdown-item" href="./notebook_ex_sdm_r.html">
  <span class="dropdown-text">Part 3: Modelling with R</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./grassgis4rs.html">
- <span class="dropdown-text"><span>Extra: GRASS GIS for remote sensing</span></span></a>
-  </li>  
     </ul>
 </li>
 </ul>
@@ -4065,8 +4080,8 @@ vertical-align: -.125em;
 <a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a>
   <ul class="collapse">
 <li><a href="#grass-gis" id="toc-grass-gis" class="nav-link" data-scroll-target="#grass-gis">GRASS GIS</a></li>
-  <li><a href="#r-and-r-studio" id="toc-r-and-r-studio" class="nav-link" data-scroll-target="#r-and-r-studio">R and R-Studio</a></li>
-  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">R packages</a></li>
+  <li><a href="#python-libraries" id="toc-python-libraries" class="nav-link" data-scroll-target="#python-libraries">Python libraries</a></li>
   </ul>
 </li>
   <li><a href="#other-software" id="toc-other-software" class="nav-link" data-scroll-target="#other-software">Other software</a></li>
@@ -4095,7 +4110,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 30, 2023</p>
+      <p class="date">March 31, 2023</p>
     </div>
   </div>
   
@@ -4105,49 +4120,58 @@ vertical-align: -.125em;
 
 </header><p>Traditionally, species distribution models (SDM) use climatic data as predictors of habitat suitability for the target species. In this studio, we will explore the use of satellite data to derive relevant predictors. The satellite data processing, from download to analysis, will be performed using GRASS GIS software functionality. Then, we’ll read our predictors within R and perform SDM, visualize and analyze results there, to then exemplify how to write the output distribution maps back into GRASS.</p>
 <section id="getting-ready" class="level1"><h1>Getting ready</h1>
+<p>We’ll run this session online, however, if you want to run it locally afterwards, here are the requirements.</p>
 <section id="software" class="level2"><h2 class="anchored" data-anchor-id="software">Software</h2>
 <section id="grass-gis" class="level3"><h3 class="anchored" data-anchor-id="grass-gis">GRASS GIS</h3>
 <p>We will use <strong>GRASS GIS 8.2+</strong>. It can be installed either through standalone installers/binaries or through <a href="https://live.osgeo.org/en/index.html">OSGeo-Live</a> (a linux based virtual machine which includes all OSGeo software and packages).</p>
 <section id="ms-windows" class="level5"><h5 class="anchored" data-anchor-id="ms-windows">MS Windows</h5>
-<p>There are two different options: 1. <a href="https://grass.osgeo.org/grass78/binary/mswindows/native/x86_64/WinGRASS-7.8.5-2-Setup-x86_64.exe">Standalone installer 64-bit</a> 2. <a href="http://download.osgeo.org/osgeo4w/v2/osgeo4w-setup.exe">OSGeo4W 64-bit</a></p>
-<p>For Windows users, <strong>we strongly recommend installing GRASS GIS through the OSGeo4W package</strong> (second option), since it allows to install all OSGeo software. See this <a href="https://gitlab.com/veroandreo/grass-gis-conae/-/blob/master/pdf/00_installation.pdf"><strong>installation guide</strong></a> for details (Follow only the GRASS GIS part).</p>
+<p>There are two different options to install GRASS GIS in MS Windows:</p>
+<ol type="1">
+<li><a href="https://grass.osgeo.org/grass82/binary/mswindows/native/WinGRASS-8.2.1-1-Setup.exe">Standalone installer 64-bit</a></li>
+<li><a href="http://download.osgeo.org/osgeo4w/v2/osgeo4w-setup.exe">OSGeo4W 64-bit</a></li>
+</ol>
+<p>For Windows users, <strong>we strongly recommend installing GRASS GIS through the OSGeo4W package</strong> (second option), since it allows to install all OSGeo software and resolves dependencies.</p>
 </section><section id="ubuntu-linux" class="level5"><h5 class="anchored" data-anchor-id="ubuntu-linux">Ubuntu Linux</h5>
 <p>Install GRASS GIS 8.2+ from the “unstable” package repository:</p>
-<pre><code>sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-sudo apt-get update
-sudo apt-get install grass grass-gui grass-dev</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>  <span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">sudo</span> apt-get update</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">sudo</span> apt-get install grass grass-gui grass-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="fedora-opensuse-linux" class="level5"><h5 class="anchored" data-anchor-id="fedora-opensuse-linux">Fedora, openSuSe Linux</h5>
-<p>For other Linux distributions including <strong>Fedora</strong> and <strong>openSuSe</strong>, simply install GRASS GIS with the respective package manager. See also <a href="https://grass.osgeo.org/download/">here</a></p>
+<p>For other Linux distributions including <strong>Fedora</strong> and <strong>openSuSe</strong>, simply install GRASS GIS with the respective package manager. See also <a href="https://grass.osgeo.org/download/linux/">here</a></p>
 </section><section id="mac-os" class="level5"><h5 class="anchored" data-anchor-id="mac-os">Mac OS</h5>
-<p>Have a look at: http://grassmac.wikidot.com/downloads</p>
-</section><section id="grass-gis-add-on-that-will-be-used-during-the-demo" class="level4"><h4 class="anchored" data-anchor-id="grass-gis-add-on-that-will-be-used-during-the-demo">GRASS GIS Add-on that will be used during the demo</h4>
+<p>Find GRASS GIS binaries on <a href="http://grassmac.wikidot.com/" class="uri">http://grassmac.wikidot.com/</a> or install the latest available version from <a href="https://ports.macports.org/port/grass/">MacPorts</a>.</p>
+</section><section id="grass-gis-add-ons" class="level4"><h4 class="anchored" data-anchor-id="grass-gis-add-ons">GRASS GIS Add-ons</h4>
 <ul>
 <li>
-<a href="https://grass.osgeo.org/grass7/manuals/addons/r.bioclim.html">r.bioclim</a>: Calculates bioclimatic indices as those in <a href="https://www.worldclim.org/bioclim">WorldClim</a>.</li>
+<a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.bioclim.html">r.bioclim</a>: Calculates bioclimatic indices as those in <a href="https://www.worldclim.org/bioclim">WorldClim</a>.</li>
 </ul>
 <p>Install with <code>g.extension extension=name_of_addon</code></p>
-</section></section><section id="r-and-r-studio" class="level3"><h3 class="anchored" data-anchor-id="r-and-r-studio">R and R-Studio</h3>
-<p>The following packages should be installed beforehand:</p>
+</section></section><section id="r-packages" class="level3"><h3 class="anchored" data-anchor-id="r-packages">R packages</h3>
+<p>The following R packages should be installed beforehand:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>  <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;rgrass&quot;</span>,<span class="st">&quot;terra&quot;</span>,<span class="st">&quot;raster&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;mapview&quot;</span>,<span class="st">&quot;biomod2&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="python" class="level3"><h3 class="anchored" data-anchor-id="python">Python</h3>
+</section><section id="python-libraries" class="level3"><h3 class="anchored" data-anchor-id="python-libraries">Python libraries</h3>
+<p>The following Python libraries should be installed beforehand:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>  <span class="ex">pip</span> install folium </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section><section id="other-software" class="level2"><h2 class="anchored" data-anchor-id="other-software">Other software</h2>
-<p>We will use the software <strong>MaxEnt</strong> to model habitat suitability. The software can be downloaded from: https://biodiversityinformatics.amnh.org/open_source/maxent/</p>
+<p>We will use the software <strong>MaxEnt</strong> to model habitat suitability. It can be downloaded from: <a href="https://biodiversityinformatics.amnh.org/open_source/maxent/" class="uri">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
 </section><section id="data" class="level2"><h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>Please, create a folder in your <code>$HOME</code> directory, or under <code>Documents</code> if in Windows, and name it <strong>grassdata_ogh</strong>. Then, download the following ready to use <em>location</em> and unzip within <code>grassdata_ogh</code>:</p>
+<p>Download the following ready to use <em>location</em> with reconstructed daily LST averages (<span class="citation" data-cites="metz_new_2017">Metz et al. (<a href="#ref-metz_new_2017" role="doc-biblioref">2017</a>)</span>) for Northern Italy. This dataset is courtesy of <a href="mundialis.de/en/">mundialis GmbH &amp; Co. KG</a>.</p>
 <ul>
 <li><a href="https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing">Northern Italy (1.7 Gb)</a></li>
-</ul>
-<p>In the end, your <code>grassdata</code> folder should look like this:</p>
-<pre><code>  grassdata/
-  └── eu_laea
-      ├── italy_LST_daily
-      └── PERMANENT</code></pre>
-</section><section id="references" class="level2"><h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>https://github.com/veroandreo/foss4g2022_grass4rs</li>
-<li>https://github.com/veroandreo/grass_opengeohub2021</li>
-</ul>
-<!-- - Neteler, M. and Mitasova, H. (2008): *Open Source GIS: A GRASS GIS Approach*. Third edition. ed. Springer, New York. [Book site](https://grassbook.org/) --><!-- - Neteler, M., Bowman, M.H., Landa, M. and Metz, M. (2012): *GRASS GIS: a multi-purpose Open Source GIS*. Environmental Modelling & Software, 31: 124-130 [DOI](http://dx.doi.org/10.1016/j.envsoft.2011.11.014) --><!-- - Gebbert, S. and Pebesma, E. (2014). *A temporal GIS for field based environmental modeling*. Environmental Modelling & Software, 53, 1-12. [DOI](https://doi.org/10.1016/j.envsoft.2013.11.001) --><!-- - Gebbert, S. and Pebesma, E. (2017). *The GRASS GIS temporal framework*. International Journal of Geographical Information Science, 31, 1273-1292. [DOI](http://dx.doi.org/10.1080/13658816.2017.1306862) --><!-- - Gebbert, S., Leppelt, T. and Pebesma, E. (2019). *A Topology Based Spatio-Temporal Map Algebra for Big Data Analysis*. Data, 4, 86. [DOI](https://doi.org/10.3390/data4020086) -->
+</ul></section><section id="references" class="level2"><h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-metz_new_2017" class="csl-entry" role="doc-biblioentry">
+Metz, M., Andreo, V., and Neteler, M. (2017), <span>“A <span>New</span> <span>Fully</span> <span>Gap</span>-<span>Free</span> <span>Time</span> <span>Series</span> of <span>Land</span> <span>Surface</span> <span>Temperature</span> from <span>MODIS</span> <span>LST</span> <span>Data</span>,”</span> <em>Remote Sensing</em>, 9, 1333. <a href="https://doi.org/10.3390/rs9121333">https://doi.org/10.3390/rs9121333</a>.
+</div>
+</div>
+<!-- - https://github.com/veroandreo/foss4g2022_grass4rs -->
+<!-- - https://github.com/veroandreo/grass_opengeohub2021 -->
+<!-- - Neteler, M. and Mitasova, H. (2008): *Open Source GIS: A GRASS GIS Approach*. Third edition. ed. Springer, New York. [Book site](https://grassbook.org/) -->
+<!-- - Neteler, M., Bowman, M.H., Landa, M. and Metz, M. (2012): *GRASS GIS: a multi-purpose Open Source GIS*. Environmental Modelling & Software, 31: 124-130 [DOI](http://dx.doi.org/10.1016/j.envsoft.2011.11.014) -->
+<!-- - Gebbert, S. and Pebesma, E. (2014). *A temporal GIS for field based environmental modeling*. Environmental Modelling & Software, 53, 1-12. [DOI](https://doi.org/10.1016/j.envsoft.2013.11.001) -->
+<!-- - Gebbert, S. and Pebesma, E. (2017). *The GRASS GIS temporal framework*. International Journal of Geographical Information Science, 31, 1273-1292. [DOI](http://dx.doi.org/10.1080/13658816.2017.1306862) -->
+<!-- - Gebbert, S., Leppelt, T. and Pebesma, E. (2019). *A Topology Based Spatio-Temporal Map Algebra for Big Data Analysis*. Data, 4, 86. [DOI](https://doi.org/10.3390/data4020086) -->
+
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

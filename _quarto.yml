@@ -25,7 +25,6 @@ website:
           - href: notebook_intro.qmd
           - href: notebook_ex_rs_grass.qmd
           - href: notebook_ex_sdm_r.qmd
-          - href: grassgis4rs.ipynb
   page-footer:
     center: 
        - text: "&#169; 2023 Verónica Andreo, <span xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:dct=\"http://purl.org/dc/terms/\">licensed under <a href=\"http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1\" target=\"_blank\" rel=\"license noopener noreferrer\" style=\"display:inline-block;\">CC BY 4.0<img style=\"height:18px!important;margin-left:3px;vertical-align:text-bottom;\" src=\"https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1\"><img style=\"height:18px!important;margin-left:3px;vertical-align:text-bottom;\" src=\"https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1\"></a></p>"
@@ -51,7 +50,7 @@ format:
       light: flatly
       dark: darkly    
     code-link: true
-    code-fold: true
+    code-fold: false
     code-tools: 
       toggle: true
       source: false

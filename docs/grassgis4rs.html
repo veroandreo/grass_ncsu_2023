@@ -4020,19 +4020,15 @@ vertical-align: -.125em;
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
     <a class="dropdown-item" href="./notebook_intro.html">
- <span class="dropdown-text">Introduction to GRASS GIS</span></a>
+ <span class="dropdown-text">Part 1: Intro to GRASS GIS</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./notebook_ex_rs_grass.html">
- <span class="dropdown-text">Part 1: Processing data in GRASS</span></a>
+ <span class="dropdown-text">Part 2: Processing data in GRASS</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./notebook_ex_sdm_r.html">
- <span class="dropdown-text">Part 2: Modelling with R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./grassgis4rs.html">
- <span class="dropdown-text"><strong><span style="color:Green">GRASS GIS for remote sensing data processing and analysis</span></strong></span></a>
+ <span class="dropdown-text">Part 3: Modelling with R</span></a>
   </li>  
     </ul>
   </li>
@@ -4070,7 +4066,7 @@ vertical-align: -.125em;
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#grass-gis-for-remote-sensing-data-processing-and-analysis" id="toc-grass-gis-for-remote-sensing-data-processing-and-analysis" class="nav-link active" data-scroll-target="#grass-gis-for-remote-sensing-data-processing-and-analysis"><strong><span style="color:Green">GRASS GIS for remote sensing data processing and analysis</span></strong></a>
+  <li><a href="#extra-grass-gis-for-remote-sensing" id="toc-extra-grass-gis-for-remote-sensing" class="nav-link active" data-scroll-target="#extra-grass-gis-for-remote-sensing"><span>Extra: GRASS GIS for remote sensing</span></a>
   <ul class="collapse">
   <li><a href="#workshop-at-foss4g-2022-florence-italy" id="toc-workshop-at-foss4g-2022-florence-italy" class="nav-link" data-scroll-target="#workshop-at-foss4g-2022-florence-italy">Workshop at FOSS4G 2022, Florence (Italy)</a></li>
   <li><a href="#foreword" id="toc-foreword" class="nav-link" data-scroll-target="#foreword">Foreword</a></li>
@@ -4134,8 +4130,8 @@ vertical-align: -.125em;
 
 
 <p><a href="assets/img/grass_and_satellites.png"> <img src="assets/img/grass_and_satellites.png" width="25%" style="float:right"> </a></p>
-<section id="grass-gis-for-remote-sensing-data-processing-and-analysis" class="level1">
-<h1><strong><span style="color:Green">GRASS GIS for remote sensing data processing and analysis</span></strong></h1>
+<section id="extra-grass-gis-for-remote-sensing" class="level1">
+<h1><span>Extra: GRASS GIS for remote sensing</span></h1>
 <section id="workshop-at-foss4g-2022-florence-italy" class="level3">
 <h3 class="anchored" data-anchor-id="workshop-at-foss4g-2022-florence-italy">Workshop at FOSS4G 2022, Florence (Italy)</h3>
 <p><em>Lecturers:</em> Veronica Andreo, Markus Neteler &amp; Maris Nartiss</p>
@@ -4150,10 +4146,7 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="dependencies">Dependencies</h3>
 <p>Some Python dependencies are needed to run the proposed exercises of this notebook. Install as follows:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">!</span>pip3 install sentinelsat notebook folium scikit<span class="op">-</span>learn pandas numpy seaborn matplotlib ipywidgets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="table-of-contents" class="level3">
@@ -4334,8 +4327,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <h2 class="anchored" data-anchor-id="getting-ready-set-variables-and-download-sample-data">4. Getting ready: set variables and download sample data</h2>
 <p>For the ease of working in this notebook, we define some session variables.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> os</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co"># data directory</span></span>
@@ -4347,11 +4338,8 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb3-9"><a href="#cb3-9"></a>grassdata <span class="op">=</span> os.path.join(homedir, <span class="st">&quot;grassdata&quot;</span>)</span>
 <span id="cb3-10"><a href="#cb3-10"></a>location <span class="op">=</span> <span class="st">&quot;nc_spm_08_grass7&quot;</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a>mapset <span class="op">=</span> <span class="st">&quot;PERMANENT&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Sentinel-2 related directories</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>s2_data <span class="op">=</span> os.path.join(homedir, <span class="st">&quot;sentinel&quot;</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a>s2_timestamps <span class="op">=</span> os.path.join(homedir, s2_data, <span class="st">&quot;sentinel-timestamps.txt&quot;</span>)</span>
@@ -4365,66 +4353,45 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb4-11"><a href="#cb4-11"></a></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co"># list content</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a>os.listdir(homedir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Next we check the GRASS GIS installation:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> subprocess</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="bu">print</span>(subprocess.check_output([grassbin, <span class="st">&quot;--config&quot;</span>, <span class="st">&quot;version&quot;</span>], text<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Next, if not already there, we download <strong>North Carolina location</strong> and unpack it within the above defined <code>homedir</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># download NC sample data into target directory homedir (we use `wget` on command line here)</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">!</span>wget <span class="op">-</span>c https:<span class="op">//</span>grass.osgeo.org<span class="op">/</span>sampledata<span class="op">/</span>north_carolina<span class="op">/</span>nc_spm_08_grass7.<span class="bu">zip</span> <span class="op">-</span>O $homedir<span class="op">/</span>nc.<span class="bu">zip</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># unpack sample dataset into target directory homedir</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="op">!</span>unzip <span class="op">-</span>o <span class="op">-</span>q <span class="op">-</span>d $grassdata $homedir<span class="op">/</span>nc.<span class="bu">zip</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="bu">print</span>(<span class="st">&quot;List uploaded file(s) in target directory &quot;</span><span class="op">+</span>homedir<span class="op">+</span><span class="st">&quot;:&quot;</span>)</span>
 <span id="cb7-5"><a href="#cb7-5"></a>os.listdir(homedir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Download and unzip Sentinel-2 scenes:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># download Sentinel-2 data into target directory homedir</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="op">!</span>wget <span class="op">-</span>c https:<span class="op">//</span>data.neteler.org<span class="op">/</span>foss4g2022<span class="op">/</span>sentinel.<span class="bu">zip</span> <span class="op">-</span>O $homedir<span class="op">/</span>sentinel.<span class="bu">zip</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="co"># unpack into target directory homedir</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="op">!</span>unzip <span class="op">-</span>o <span class="op">-</span>q <span class="op">-</span>d $homedir $homedir<span class="op">/</span>sentinel.<span class="bu">zip</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Download landuse map:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># get NC landuse map 2019 in GRASS GIS format, to be used later as classification training map</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="op">!</span>wget <span class="op">-</span>c https:<span class="op">//</span>data.neteler.org<span class="op">/</span>foss4g2022<span class="op">/</span>nc_nlcd2019.pack <span class="op">-</span>O $homedir<span class="op">/</span>nc_nlcd2019.pack</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="bu">print</span>(<span class="st">&quot;List uploaded file(s) in target directory &quot;</span><span class="op">+</span>homedir<span class="op">+</span><span class="st">&quot;:&quot;</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a>os.listdir(homedir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="imports-and-initialization-of-grass-gis" class="level2">
 <h2 class="anchored" data-anchor-id="imports-and-initialization-of-grass-gis">5. Imports and initialization of GRASS GIS</h2>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Import standard Python packages we need</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="im">import</span> sys</span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
@@ -4432,128 +4399,85 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb11-5"><a href="#cb11-5"></a>sys.path.append(</span>
 <span id="cb11-6"><a href="#cb11-6"></a>    subprocess.check_output([grassbin, <span class="st">&quot;--config&quot;</span>, <span class="st">&quot;python_path&quot;</span>], text<span class="op">=</span><span class="va">True</span>).strip()</span>
 <span id="cb11-7"><a href="#cb11-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Import the GRASS GIS packages we need</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="im">import</span> grass.script <span class="im">as</span> gs</span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="im">import</span> grass.jupyter <span class="im">as</span> gj</span>
 <span id="cb12-4"><a href="#cb12-4"></a></span>
 <span id="cb12-5"><a href="#cb12-5"></a><span class="co"># Start the GRASS GIS Session</span></span>
 <span id="cb12-6"><a href="#cb12-6"></a>session <span class="op">=</span> gj.init(grassdata, location, mapset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Show current GRASS GIS settings, this also checks if the session works</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>gs.gisenv()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Before we start, we list the elements in the mapset <code>PERMANENT</code>. If you only want to see the raster or vector type elements, just change the <code>type</code> option in the following command. As you can see, since the output is of text type, we use <code>read_command()</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># List vector elements in the PERMANENT mapset</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;vector&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Now we import the landuse map into the PERMANENT mapset (so it is visible in all other mapsets).</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">## Import of the North Carolina NLCD2019 raster map (subset; resampled to 10m)</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>gs.run_command(<span class="st">&quot;r.unpack&quot;</span>, <span class="bu">input</span><span class="op">=</span>os.path.join(homedir, <span class="st">&quot;nc_nlcd2019.pack&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># show metadata</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.report&quot;</span>, <span class="bu">map</span><span class="op">=</span><span class="st">&quot;nc_nlcd2019&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Next, we create a new mapset or project, where we will work with this notebook and import Sentinel-2 data.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Create a new mapset and switch to it</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>gs.run_command(<span class="st">&quot;g.mapset&quot;</span>, mapset<span class="op">=</span><span class="st">&quot;sentinel2&quot;</span>, flags<span class="op">=</span><span class="st">&quot;c&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Another way would be to use the grass.grassdb functions:</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a></span>
 <span id="cb18-3"><a href="#cb18-3"></a><span class="co"># import grass.grassdb.create as gsdb</span></span>
 <span id="cb18-4"><a href="#cb18-4"></a><span class="co"># gsdb.create_mapset(grassdata, location, &quot;sentinel2&quot;)</span></span>
 <span id="cb18-5"><a href="#cb18-5"></a><span class="co"># session.switch_mapset(&quot;sentinel2&quot;)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Check current mapset</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;g.mapset&quot;</span>, flags<span class="op">=</span><span class="st">&quot;p&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Print accessible mapsets within the location</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;g.mapsets&quot;</span>, flags<span class="op">=</span><span class="st">&quot;p&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="creating-an-area-of-interest-map" class="level2">
 <h2 class="anchored" data-anchor-id="creating-an-area-of-interest-map">6. Creating an area of interest map</h2>
 <p>To search for Sentinel 2 images, we need an area of interest. This area can be defined by a vector map or the computational region. Here, will use a map of urban areas that we already have in the PERMANENT mapset to define the region. Since we are interested in the city of Raleigh, we use the function <a href="https://grass.osgeo.org/grass-stable/manuals/v.extract.html">v.extract</a> to create a new polygon corresponding to that urban area only. Note that in this case we use <code>run_command()</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Check `urbanarea` vector attributes</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>gs.vector_db_select(<span class="st">&#39;urbanarea&#39;</span>)[<span class="st">&#39;values&#39;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Extract Raleigh urban area from `urbanarea` vector map</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a>gs.run_command(<span class="st">&quot;v.extract&quot;</span>, </span>
 <span id="cb22-3"><a href="#cb22-3"></a>               <span class="bu">input</span><span class="op">=</span><span class="st">&quot;urbanarea&quot;</span>, </span>
 <span id="cb22-4"><a href="#cb22-4"></a>               where<span class="op">=</span><span class="st">&quot;NAME == &#39;Raleigh&#39;&quot;</span>, </span>
 <span id="cb22-5"><a href="#cb22-5"></a>               output<span class="op">=</span><span class="st">&quot;urban_area_raleigh&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># show attributes</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>gs.vector_db_select(<span class="st">&#39;urban_area_raleigh&#39;</span>)[<span class="st">&#39;values&#39;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We set the computational region to the boundaries of the newly created vector. This will be the bounding box we’ll use for the Sentinel scenes search.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Set the computational region to the extent of Cordoba urban area</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>region <span class="op">=</span> gs.parse_command(<span class="st">&quot;g.region&quot;</span>, vector<span class="op">=</span><span class="st">&quot;urban_area_raleigh&quot;</span>, flags<span class="op">=</span><span class="st">&quot;g&quot;</span>)</span>
 <span id="cb24-3"><a href="#cb24-3"></a>region</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We now use the <code>grass.jupyter</code> functions to display the newly obtained vector over the OpenStreetMap basemap.</p>
 <div class="cell" data-scrolled="true">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Display newly created vector</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>raleigh_map <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">500</span>, use_region<span class="op">=</span><span class="va">True</span>, tiles<span class="op">=</span><span class="st">&quot;OpenStreetMap&quot;</span>)</span>
 <span id="cb25-3"><a href="#cb25-3"></a>raleigh_map.add_vector(<span class="st">&quot;urban_area_raleigh&quot;</span>)</span>
 <span id="cb25-4"><a href="#cb25-4"></a>raleigh_map.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb25-5"><a href="#cb25-5"></a>raleigh_map.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="sentinel-2-processing-overview" class="level2">
@@ -4570,17 +4494,11 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 </ul>
 <p>Let’s install it:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>gs.run_command(<span class="st">&quot;g.extension&quot;</span>, extension<span class="op">=</span><span class="st">&quot;i.sentinel&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Check if the module is there by running it with optional arguments:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>gs.core.find_program(<span class="st">&quot;i.sentinel.download&quot;</span>, <span class="st">&quot;--help&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <section id="sentinel-2-data-search-and-download" class="level3">
 <h3 class="anchored" data-anchor-id="sentinel-2-data-search-and-download">Sentinel 2 data search and download</h3>
@@ -4594,8 +4512,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
     password</code></pre>
 <p>and move it within your working directory</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># list available Sentinel-2 L2A scenes for AOI</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a><span class="co"># note that we use parse_command() in order to intercept the output</span></span>
 <span id="cb29-3"><a href="#cb29-3"></a>gs.parse_command(<span class="st">&quot;i.sentinel.download&quot;</span>, </span>
@@ -4603,12 +4519,9 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb29-5"><a href="#cb29-5"></a>                 producttype<span class="op">=</span><span class="st">&quot;S2MSI2A&quot;</span>,</span>
 <span id="cb29-6"><a href="#cb29-6"></a>                 <span class="bu">map</span><span class="op">=</span><span class="st">&quot;urban_area_raleigh&quot;</span>,</span>
 <span id="cb29-7"><a href="#cb29-7"></a>                 settings<span class="op">=</span>os.path.join(homedir, <span class="st">&quot;esa_credentials.txt&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>By default, the module returns all the products meeting the defined criteria for the last 60 days. Let’s change the search period setting <code>start</code> and <code>end</code> options. We will also limit products by <code>clouds</code> coverage percentage threshold and <code>sort</code> them by ingestion date.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>gs.parse_command(<span class="st">&quot;i.sentinel.download&quot;</span>, </span>
 <span id="cb30-2"><a href="#cb30-2"></a>                 flags<span class="op">=</span><span class="st">&quot;l&quot;</span>, </span>
 <span id="cb30-3"><a href="#cb30-3"></a>                 producttype<span class="op">=</span><span class="st">&quot;S2MSI2A&quot;</span>, </span>
@@ -4619,14 +4532,11 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb30-8"><a href="#cb30-8"></a>                 clouds<span class="op">=</span><span class="st">&quot;5&quot;</span>,</span>
 <span id="cb30-9"><a href="#cb30-9"></a>                 sort<span class="op">=</span><span class="st">&quot;ingestiondate&quot;</span>,</span>
 <span id="cb30-10"><a href="#cb30-10"></a>                 limit<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="alert alert-info">
 <p>If a long list of products have been found, you can limit the amount with the <code>limit</code> option as we did above.</p>
 <p>Let’s save the output of the search into a list and then beautify the display by creating a pandas table.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>list_prod <span class="op">=</span> gs.read_command(<span class="st">&quot;i.sentinel.download&quot;</span>, </span>
 <span id="cb31-2"><a href="#cb31-2"></a>                            flags<span class="op">=</span><span class="st">&quot;l&quot;</span>, </span>
 <span id="cb31-3"><a href="#cb31-3"></a>                            producttype<span class="op">=</span><span class="st">&quot;S2MSI2A&quot;</span>, </span>
@@ -4638,55 +4548,39 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb31-9"><a href="#cb31-9"></a>                            clouds<span class="op">=</span><span class="st">&quot;5&quot;</span>,</span>
 <span id="cb31-10"><a href="#cb31-10"></a>                            sort<span class="op">=</span><span class="st">&quot;ingestiondate&quot;</span>,</span>
 <span id="cb31-11"><a href="#cb31-11"></a>                            limit<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># print plain list</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>list_prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
 <span id="cb33-3"><a href="#cb33-3"></a></span>
 <span id="cb33-4"><a href="#cb33-4"></a>pd.read_csv(StringIO(list_prod), delimiter<span class="op">=</span><span class="st">&quot; &quot;</span>, usecols<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>],</span>
 <span id="cb33-5"><a href="#cb33-5"></a>            names<span class="op">=</span>[<span class="st">&#39;uuid&#39;</span>, <span class="st">&#39;scene&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;cloud&#39;</span>, <span class="st">&#39;product&#39;</span>, <span class="st">&#39;size&#39;</span>, <span class="st">&#39;unit&#39;</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># list available vector maps in sentinel2</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;vector&quot;</span>)[<span class="st">&quot;sentinel2&quot;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># diplay footprints (you may want to zoom out a bit)</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>fp_map <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>, tiles<span class="op">=</span><span class="st">&quot;OpenStreetMap&quot;</span>)</span>
 <span id="cb35-3"><a href="#cb35-3"></a>fp_map.add_vector(<span class="st">&quot;s2_footprints&quot;</span>)</span>
 <span id="cb35-4"><a href="#cb35-4"></a>fp_map.add_vector(<span class="st">&quot;urban_area_raleigh&quot;</span>)</span>
 <span id="cb35-5"><a href="#cb35-5"></a>fp_map.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb35-6"><a href="#cb35-6"></a>fp_map.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>The next step is to download the scene or scenes of interest. Just remove the <code>-l</code> flag and add the <code>output</code> option in order to define the path to the output directory where data should be saved.</p>
 <p>As download might take quite some time, we’ll <strong>skip this part</strong> and directly use an already prepared set of smaller, ready to import scenes which we downloaded above. Still, we leave an example below for future reference :)</p>
 <p>Go to section <strong>“Importing Sentinel 2 data”</strong></p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Example: download of a selected scene (2022-06-17, T15:58:29Z)</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="co"># gs.run_command(&quot;i.sentinel.download&quot;, </span></span>
 <span id="cb36-3"><a href="#cb36-3"></a><span class="co">#               settings=s2_credentials, </span></span>
 <span id="cb36-4"><a href="#cb36-4"></a><span class="co">#               uuid=&quot;cfa30609-5627-4788-b7ff-768e2df99975&quot;, </span></span>
 <span id="cb36-5"><a href="#cb36-5"></a><span class="co">#               output=s2_data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </div></section>
 </section>
@@ -4695,29 +4589,21 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <p>Before importing or linking Sentinel-2 data we print a list of filtered raster files including projection match (1 for match, otherwise 0). If the CRS of the input data differs from that of the current location, you should consider reprojection (<code>-r</code>flag) or creating a new location for import.</p>
 <p><em>Important</em>: Data will be imported into the new location by means of the <a href="https://grass.osgeo.org/grass-stable/manuals/addons/i.sentinel.import.html">i.sentinel.import</a> tool. The command will, by default, import <strong>all</strong> Sentinel bands from <code>input</code> directory recursively. Before importing the data, let’s check content of the input directory by means of the <code>-p</code> flag.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># Check list of pre-downloaded Sentinel-2 scenes, with i.sentinel.import (-p: print)</span></span>
 <span id="cb37-2"><a href="#cb37-2"></a>gs.parse_command(<span class="st">&quot;i.sentinel.import&quot;</span>, </span>
 <span id="cb37-3"><a href="#cb37-3"></a>                 flags<span class="op">=</span><span class="st">&quot;p&quot;</span>, </span>
 <span id="cb37-4"><a href="#cb37-4"></a>                 <span class="bu">input</span><span class="op">=</span>s2_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>To speed up things, we’ll limit the S2 data import to the RGB and NIR bands (2, 3, 4, 8A) in 10 m spatial resolution using the <code>pattern</code> option. Let’s first print the bands that will be imported:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># print only to test band selection</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a>gs.parse_command(<span class="st">&quot;i.sentinel.import&quot;</span>, </span>
 <span id="cb38-3"><a href="#cb38-3"></a>                 flags<span class="op">=</span><span class="st">&quot;p&quot;</span>, </span>
 <span id="cb38-4"><a href="#cb38-4"></a>                 <span class="bu">input</span><span class="op">=</span>s2_data, </span>
 <span id="cb38-5"><a href="#cb38-5"></a>                 pattern<span class="op">=</span><span class="st">&quot;B(02|03|04|08)_10m&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>By default, input data are imported into GRASS and converted into GRASS native data format. Alternatively, data can be linked if the <code>-l</code> flag is provided. It is also useful to import cloud mask vector features (<code>-c</code> flag). In addition, we’ll use the <code>register_output</code> option to produce a timestamp plain text file which will be used later on to create a time series.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># for S2 import, allow for using 2GB of RAM for faster operations.</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a><span class="co"># (s2_data and s2_timestamps are defined above)</span></span>
 <span id="cb39-3"><a href="#cb39-3"></a><span class="co"># this takes up to a few minutes...</span></span>
@@ -4728,31 +4614,21 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb39-8"><a href="#cb39-8"></a>                 memory<span class="op">=</span><span class="dv">4000</span>, </span>
 <span id="cb39-9"><a href="#cb39-9"></a>                 extent<span class="op">=</span><span class="st">&quot;input&quot;</span>,</span>
 <span id="cb39-10"><a href="#cb39-10"></a>                 register_output<span class="op">=</span>s2_timestamps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># list selected raster maps</span></span>
 <span id="cb40-2"><a href="#cb40-2"></a>gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;raster&quot;</span>)[<span class="st">&#39;sentinel2&#39;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># check metadata of one of the imported bands</span></span>
 <span id="cb41-2"><a href="#cb41-2"></a>gs.raster_info(<span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B03_10m&quot;</span>)[<span class="st">&quot;comments&quot;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># print timestamp file for inspection</span></span>
 <span id="cb42-2"><a href="#cb42-2"></a><span class="cf">with</span> <span class="bu">open</span>(s2_timestamps, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</span>
 <span id="cb42-3"><a href="#cb42-3"></a>    content <span class="op">=</span> f.read()</span>
 <span id="cb42-4"><a href="#cb42-4"></a>    <span class="bu">print</span>(content)</span>
 <span id="cb42-5"><a href="#cb42-5"></a>    f.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="alert alert-success">
 <p><b>Semantic labels</b><br> A fairly new concept within GRASS GIS is semantic labels. These are especially relevant for satellite imagery as they allow us to identify to which sensor and band a given raster corresponds to. These labels are particularly relevant when working with satellite image collections and also when classifying different scenes. We will see it later, but by generating a spectral signature for a given set of bands, it can be re-used to classify another scene as long as the semantic labels are the same. Be ware – although it is possible to re-use spectral signatures to any scene with the same bands, temporal changes (seasons, weather impact) limit their applicability only to scenes obtained more or less at the same time.</p>
@@ -4760,8 +4636,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <section id="displaying-maps-with-grass.jupyter-functions" class="level3">
 <h3 class="anchored" data-anchor-id="displaying-maps-with-grass.jupyter-functions">Displaying maps with <code>grass.jupyter</code> functions</h3>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># create Map instance</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a>b3_map <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">400</span>)</span>
 <span id="cb43-3"><a href="#cb43-3"></a><span class="co"># add a raster, vector and legend to the map</span></span>
@@ -4773,48 +4647,35 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb43-9"><a href="#cb43-9"></a>b3_map.d_barscale()</span>
 <span id="cb43-10"><a href="#cb43-10"></a><span class="co"># display map</span></span>
 <span id="cb43-11"><a href="#cb43-11"></a>b3_map.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># set color table of bands 4, 3 and 2 to grey</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a>gs.run_command(<span class="st">&quot;r.colors&quot;</span>, </span>
 <span id="cb44-3"><a href="#cb44-3"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B04_10m,T17SQV_20220617T155829_B03_10m,T17SQV_20220617T155829_B02_10m&quot;</span>, </span>
 <span id="cb44-4"><a href="#cb44-4"></a>               color<span class="op">=</span><span class="st">&quot;grey&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># color enhancing for RGB composition</span></span>
 <span id="cb45-2"><a href="#cb45-2"></a>gs.run_command(<span class="st">&quot;i.colors.enhance&quot;</span>, </span>
 <span id="cb45-3"><a href="#cb45-3"></a>               red<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B04_10m&quot;</span>,</span>
 <span id="cb45-4"><a href="#cb45-4"></a>               green<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B03_10m&quot;</span>, </span>
 <span id="cb45-5"><a href="#cb45-5"></a>               blue<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B02_10m&quot;</span>,</span>
 <span id="cb45-6"><a href="#cb45-6"></a>               strength<span class="op">=</span><span class="dv">92</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># set region to &quot;elevation&quot; map and align to the S2 data</span></span>
 <span id="cb46-2"><a href="#cb46-2"></a>gs.run_command(<span class="st">&quot;g.region&quot;</span>, </span>
 <span id="cb46-3"><a href="#cb46-3"></a>               raster<span class="op">=</span><span class="st">&quot;elevation&quot;</span>,</span>
 <span id="cb46-4"><a href="#cb46-4"></a>               align<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B04_10m&quot;</span>,</span>
 <span id="cb46-5"><a href="#cb46-5"></a>               flags<span class="op">=</span><span class="st">&quot;p&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="co"># display the enhanced RGB combination</span></span>
 <span id="cb47-2"><a href="#cb47-2"></a>rgb <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb47-3"><a href="#cb47-3"></a>rgb.d_rgb(red<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B04_10m&quot;</span>,</span>
 <span id="cb47-4"><a href="#cb47-4"></a>          green<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B03_10m&quot;</span>, </span>
 <span id="cb47-5"><a href="#cb47-5"></a>          blue<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B02_10m&quot;</span>)</span>
 <span id="cb47-6"><a href="#cb47-6"></a>rgb.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 </section>
@@ -4822,8 +4683,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <h2 class="anchored" data-anchor-id="spectral-indices-of-vegetation-and-water">8. Spectral indices of vegetation and water</h2>
 <p>We will use i.vi and i.wi (addon) to estimate NDVI and NDWI vegetation and water indices. See <a href="https://grass.osgeo.org/grass-stable/manuals/i.vi.html">i.vi</a> and <a href="https://grass.osgeo.org/grass-stable/manuals/addons/i.wi.html">i.wi</a> for more other available indices.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># estimate vegetation indices</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a>gs.run_command(<span class="st">&quot;i.vi&quot;</span>, </span>
 <span id="cb48-3"><a href="#cb48-3"></a>               red<span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_B04_10m&quot;</span>, </span>
@@ -4835,18 +4694,12 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb48-9"><a href="#cb48-9"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb48-10"><a href="#cb48-10"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDVI_10m&quot;</span>, </span>
 <span id="cb48-11"><a href="#cb48-11"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_NDVI&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># install extension</span></span>
 <span id="cb49-2"><a href="#cb49-2"></a>gs.run_command(<span class="st">&quot;g.extension&quot;</span>, extension<span class="op">=</span><span class="st">&quot;i.wi&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># estimate water indices</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a>gs.run_command(<span class="st">&quot;i.wi&quot;</span>, </span>
 <span id="cb50-3"><a href="#cb50-3"></a>               green<span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_B03_10m&quot;</span>, </span>
@@ -4861,18 +4714,12 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb50-12"><a href="#cb50-12"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb50-13"><a href="#cb50-13"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDWI_10m&quot;</span>, </span>
 <span id="cb50-14"><a href="#cb50-14"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_NDWI&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="co"># check metadata of NDVI</span></span>
 <span id="cb51-2"><a href="#cb51-2"></a>gs.raster_info(<span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDVI_10m&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># interactive maps</span></span>
 <span id="cb52-2"><a href="#cb52-2"></a>idx_map <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>, tiles<span class="op">=</span><span class="st">&quot;OpenStreetMap&quot;</span>)</span>
 <span id="cb52-3"><a href="#cb52-3"></a>idx_map.add_raster(<span class="st">&quot;T17SQV_20220528T155819_NDVI_10m&quot;</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span>
@@ -4880,14 +4727,11 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb52-5"><a href="#cb52-5"></a>idx_map.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb52-6"><a href="#cb52-6"></a>idx_map.show()</span>
 <span id="cb52-7"><a href="#cb52-7"></a><span class="co"># ... use the layer selector in the corner to enable/disable the NDVI/NDWI layers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <section id="grass-gis-maps-as-numpy-arrays" class="level4">
 <h4 class="anchored" data-anchor-id="grass-gis-maps-as-numpy-arrays">GRASS GIS maps as numpy arrays</h4>
 <p>GRASS maps can be read as numpy arrays thanks to the array function of the grass.script library. This facilitates many operations with python libraries that require an array as input. In this case, we demonstrate its use plotting an histogram.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># Import required libraries</span></span>
 <span id="cb53-2"><a href="#cb53-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb53-3"><a href="#cb53-3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -4898,18 +4742,14 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb53-8"><a href="#cb53-8"></a>ndvi <span class="op">=</span> garray.array(mapname<span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDVI_10m&quot;</span>, null<span class="op">=</span><span class="st">&quot;nan&quot;</span>)</span>
 <span id="cb53-9"><a href="#cb53-9"></a>ndwi <span class="op">=</span> garray.array(mapname<span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDWI_10m&quot;</span>, null<span class="op">=</span><span class="st">&quot;nan&quot;</span>)</span>
 <span id="cb53-10"><a href="#cb53-10"></a><span class="bu">print</span>(ndvi.shape,ndwi.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell" data-scrolled="true">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="co"># Plot NDVI and NDWI</span></span>
 <span id="cb54-2"><a href="#cb54-2"></a>sns.set_style(<span class="st">&#39;darkgrid&#39;</span>)</span>
 <span id="cb54-3"><a href="#cb54-3"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
 <span id="cb54-4"><a href="#cb54-4"></a>sns.histplot(ax<span class="op">=</span>axs[<span class="dv">0</span>], data<span class="op">=</span>ndvi.ravel(), kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">&quot;olive&quot;</span>)</span>
 <span id="cb54-5"><a href="#cb54-5"></a>sns.histplot(ax<span class="op">=</span>axs[<span class="dv">1</span>], data<span class="op">=</span>ndwi.ravel(), kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">&quot;skyblue&quot;</span>)</span>
 <span id="cb54-6"><a href="#cb54-6"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 </section>
@@ -4930,8 +4770,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <h3 class="anchored" data-anchor-id="create-space-time-dataset">Create space-time dataset</h3>
 <p>At this moment a new space-time dataset can be created by means of <a href="https://grass.osgeo.org/grass-stable/manuals/t.create.html">t.create</a> and all imported Sentinel bands registered with <a href="https://grass.osgeo.org/grass-stable/manuals/t.register.html">t.register</a> and the timestamps file we created when we imported S2 bands.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>gs.run_command(<span class="st">&quot;t.create&quot;</span>, </span>
 <span id="cb55-2"><a href="#cb55-2"></a>               output<span class="op">=</span><span class="st">&quot;s2_nc&quot;</span>, </span>
 <span id="cb55-3"><a href="#cb55-3"></a>               title<span class="op">=</span><span class="st">&quot;Sentinel L2A - North Carolina&quot;</span>, </span>
@@ -4940,144 +4778,102 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb55-6"><a href="#cb55-6"></a>gs.run_command(<span class="st">&quot;t.register&quot;</span>, </span>
 <span id="cb55-7"><a href="#cb55-7"></a>               <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_nc&quot;</span>, </span>
 <span id="cb55-8"><a href="#cb55-8"></a>               <span class="bu">file</span><span class="op">=</span>s2_timestamps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Let’s check basic metadata with <a href="https://grass.osgeo.org/grass-stable/manuals/t.info.html">t.info</a> and list the registered maps with <a href="https://grass.osgeo.org/grass-stable/manuals/t.rast.list.html">t.rast.list</a>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># Print time series info</span></span>
 <span id="cb56-2"><a href="#cb56-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.info&quot;</span>, <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_nc&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="co"># List registered bands in the space-time cube</span></span>
 <span id="cb57-2"><a href="#cb57-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.rast.list&quot;</span>, </span>
 <span id="cb57-3"><a href="#cb57-3"></a>                      <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_nc&quot;</span>, </span>
 <span id="cb57-4"><a href="#cb57-4"></a>                      columns<span class="op">=</span><span class="st">&quot;name,start_time,semantic_label&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We’ll now use a special syntaxis to list only band 4 raster maps withing the time series:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># List only band 4 maps</span></span>
 <span id="cb58-2"><a href="#cb58-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.rast.list&quot;</span>, </span>
 <span id="cb58-3"><a href="#cb58-3"></a>                      <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_nc.S2_4&quot;</span>, </span>
 <span id="cb58-4"><a href="#cb58-4"></a>                      columns<span class="op">=</span><span class="st">&quot;name,start_time,semantic_label&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="ndvi-space-time-computation" class="level3">
 <h3 class="anchored" data-anchor-id="ndvi-space-time-computation">NDVI Space-Time computation</h3>
 <p>For NDVI computation the 4th and 8th bands are required, as we saw above for a single map. Now, we will create a time series of NDVI maps. We will take advantage of the semantic labels syntax and use <a href="https://grass.osgeo.org/grass-stable/manuals/t.rast.mapcalc.html">t.rast.mapcalc</a> to estimate NDVI for all the timestamps in the time series, using band 4 and 8 subsets.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>gs.run_command(<span class="st">&quot;t.rast.mapcalc&quot;</span>, </span>
 <span id="cb59-2"><a href="#cb59-2"></a>               inputs<span class="op">=</span><span class="st">&quot;s2_nc.S2_8,s2_nc.S2_4&quot;</span>, </span>
 <span id="cb59-3"><a href="#cb59-3"></a>               output<span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>, </span>
 <span id="cb59-4"><a href="#cb59-4"></a>               basename<span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>,</span>
 <span id="cb59-5"><a href="#cb59-5"></a>               expression<span class="op">=</span><span class="st">&quot;float(s2_nc.S2_8 - s2_nc.S2_4) / (s2_nc.S2_8 + s2_nc.S2_4)&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>When computation is finished, the <em>ndvi</em> color table can be set with <a href="https://grass.osgeo.org/grass-stable/manuals/t.rast.colors.html">t.rast.colors</a>:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>gs.run_command(<span class="st">&quot;t.rast.colors&quot;</span>, <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>, color<span class="op">=</span><span class="st">&quot;ndvi&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.info&quot;</span>, <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="time-series-plots" class="level3">
 <h3 class="anchored" data-anchor-id="time-series-plots">Time series plots</h3>
 <p>Let’s check content of the new dataset by means of <a href="https://grass.osgeo.org/grass-stable/manuals/t.rast.list.html">t.rast.list</a>:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.rast.list&quot;</span>, </span>
 <span id="cb62-2"><a href="#cb62-2"></a>                      <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>, </span>
 <span id="cb62-3"><a href="#cb62-3"></a>                      columns<span class="op">=</span><span class="st">&quot;name,start_time,min,max&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>If we save the previous output to a file, we can then plot the min and max time series:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a>gs.run_command(<span class="st">&quot;t.rast.list&quot;</span>, </span>
 <span id="cb63-2"><a href="#cb63-2"></a>                <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>, </span>
 <span id="cb63-3"><a href="#cb63-3"></a>                columns<span class="op">=</span><span class="st">&quot;name,start_time,min,max&quot;</span>,</span>
 <span id="cb63-4"><a href="#cb63-4"></a>                <span class="bu">format</span><span class="op">=</span><span class="st">&quot;csv&quot;</span>,</span>
 <span id="cb63-5"><a href="#cb63-5"></a>                separator<span class="op">=</span><span class="st">&quot;comma&quot;</span>,</span>
 <span id="cb63-6"><a href="#cb63-6"></a>                output<span class="op">=</span>os.path.join(homedir,<span class="st">&quot;ndvi.csv&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="co"># Read the csv and plot</span></span>
 <span id="cb64-2"><a href="#cb64-2"></a>ndvi <span class="op">=</span> pd.read_csv(os.path.join(homedir,<span class="st">&quot;ndvi.csv&quot;</span>))</span>
 <span id="cb64-3"><a href="#cb64-3"></a>ndvi.plot(<span class="dv">0</span>, [<span class="dv">2</span>,<span class="dv">3</span>], subplots<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We could also use <a href="https://grass.osgeo.org/grass-stable/manuals/t.rast.univar.html">t.rast.univar</a> to obtain extended statistics:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a><span class="co"># Get extended univar stats and save them as a csv file</span></span>
 <span id="cb65-2"><a href="#cb65-2"></a>gs.run_command(<span class="st">&quot;t.rast.univar&quot;</span>,</span>
 <span id="cb65-3"><a href="#cb65-3"></a>                flags<span class="op">=</span><span class="st">&quot;e&quot;</span>,</span>
 <span id="cb65-4"><a href="#cb65-4"></a>                <span class="bu">input</span><span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>,</span>
 <span id="cb65-5"><a href="#cb65-5"></a>                output<span class="op">=</span>os.path.join(homedir,<span class="st">&quot;ndvi_ext_stats.csv&quot;</span>),</span>
 <span id="cb65-6"><a href="#cb65-6"></a>                separator<span class="op">=</span><span class="st">&quot;comma&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="co"># Read the csv and plot</span></span>
 <span id="cb66-2"><a href="#cb66-2"></a>ndvi <span class="op">=</span> pd.read_csv(os.path.join(homedir,<span class="st">&quot;ndvi_ext_stats.csv&quot;</span>))</span>
 <span id="cb66-3"><a href="#cb66-3"></a>ndvi[<span class="st">&#39;start&#39;</span>] <span class="op">=</span> pd.to_datetime(ndvi.start, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;%Y-%m-</span><span class="sc">%d</span><span class="st">&quot;</span>, exact<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb66-4"><a href="#cb66-4"></a>ndvi.plot.line(<span class="dv">1</span>, [<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>], subplots<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="query-time-series-in-a-single-point" class="level3">
 <h3 class="anchored" data-anchor-id="query-time-series-in-a-single-point">Query time series in a single point</h3>
 <p><code>g.region</code> command allows us to get the coordinates of the center of the computational region, we’ll use those to query the NDVI time series.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a><span class="co"># Get region center coordinates for query (center_easting, center_northing values)</span></span>
 <span id="cb67-2"><a href="#cb67-2"></a>gs.region(complete<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a><span class="co"># Query map at center coordinates</span></span>
 <span id="cb68-2"><a href="#cb68-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;t.rast.what&quot;</span>, </span>
 <span id="cb68-3"><a href="#cb68-3"></a>                      strds<span class="op">=</span><span class="st">&quot;s2_ndvi&quot;</span>, </span>
 <span id="cb68-4"><a href="#cb68-4"></a>                      coordinates<span class="op">=</span><span class="st">&quot;637500,221750&quot;</span>, </span>
 <span id="cb68-5"><a href="#cb68-5"></a>                      layout<span class="op">=</span><span class="st">&quot;col&quot;</span>, </span>
 <span id="cb68-6"><a href="#cb68-6"></a>                      flags<span class="op">=</span><span class="st">&quot;n&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="time-series-animation" class="level3">
 <h3 class="anchored" data-anchor-id="time-series-animation">Time series animation</h3>
 <p>Note: <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html?highlight=timeseriesmap#module-grass.jupyter.timeseriesmap">TimeSeriesMap()</a> of <code>grass.jupyter</code> is still experimental and under development.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a><span class="co">### YET TO BE SKIPPED - in GRASS GIS 8.2.0 it takes &quot;forever&quot;, bugfix pending.</span></span>
 <span id="cb69-2"><a href="#cb69-2"></a></span>
 <span id="cb69-3"><a href="#cb69-3"></a><span class="co">## reduce resolution for faster display of time series, save original first for later</span></span>
@@ -5093,14 +4889,10 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb69-13"><a href="#cb69-13"></a></span>
 <span id="cb69-14"><a href="#cb69-14"></a><span class="co"># optionally, write out to animated GIF</span></span>
 <span id="cb69-15"><a href="#cb69-15"></a><span class="co"># ndviseries.save(&quot;image.gif&quot;)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a><span class="co">## restore original region</span></span>
 <span id="cb70-2"><a href="#cb70-2"></a><span class="co">#gs.parse_command(&quot;g.region&quot;, region=&quot;default_res&quot;)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 </section>
@@ -5109,39 +4901,28 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <p><strong>Stack of maps = imagery group</strong></p>
 <p>When you work with a stack of raster maps (e.g., R-G-B channels or more) in GRASS GIS, you can best handle this stack by creating a raster group with <a href="https://grass.osgeo.org/grass-stable/manuals/i.group.html">i.group</a>. It is just based on metadata, so it does not take up more disk space.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="co"># Since imagery groups can not be overwritten, </span></span>
 <span id="cb71-2"><a href="#cb71-2"></a><span class="co"># we delete a potentially leftover &quot;s2&quot; group from a previous run</span></span>
 <span id="cb71-3"><a href="#cb71-3"></a>gs.run_command(<span class="st">&quot;g.remove&quot;</span>, </span>
 <span id="cb71-4"><a href="#cb71-4"></a>               <span class="bu">type</span><span class="op">=</span><span class="st">&quot;group&quot;</span>, </span>
 <span id="cb71-5"><a href="#cb71-5"></a>               name<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb71-6"><a href="#cb71-6"></a>               flags<span class="op">=</span><span class="st">&quot;f&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1"></a><span class="co"># Generate list of selected S2 maps</span></span>
 <span id="cb72-2"><a href="#cb72-2"></a>s2_maps <span class="op">=</span> gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;raster&quot;</span>, pattern<span class="op">=</span><span class="st">&quot;*20220528T155819*&quot;</span>)[<span class="st">&#39;sentinel2&#39;</span>]</span>
 <span id="cb72-3"><a href="#cb72-3"></a><span class="bu">print</span>(s2_maps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="co"># Create group and subgroup with S2 bands</span></span>
 <span id="cb73-2"><a href="#cb73-2"></a>gs.run_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, subgroup<span class="op">=</span><span class="st">&quot;s2&quot;</span>, <span class="bu">input</span><span class="op">=</span>s2_maps)</span>
 <span id="cb73-3"><a href="#cb73-3"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, flags<span class="op">=</span><span class="st">&quot;l&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="object-recognition-with-image-segmentation" class="level2">
 <h2 class="anchored" data-anchor-id="object-recognition-with-image-segmentation">12. Object recognition with image segmentation</h2>
 <p>We’ll use <a href="https://grass.osgeo.org/grass-stable/manuals/i.segment.html">i.segment</a> to perform image segmentation. The resulting map will be used together with S2 bands, NDVI and NDWI to perform supervised classification.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="co"># Threshold = 0 merges only identical segments; threshold = 1 merges all</span></span>
 <span id="cb74-2"><a href="#cb74-2"></a>gs.run_command(<span class="st">&quot;i.segment&quot;</span>, </span>
 <span id="cb74-3"><a href="#cb74-3"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
@@ -5150,48 +4931,35 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb74-6"><a href="#cb74-6"></a>               output<span class="op">=</span><span class="st">&quot;sentinel_segments_min100&quot;</span>, </span>
 <span id="cb74-7"><a href="#cb74-7"></a>               goodness<span class="op">=</span><span class="st">&quot;sentinel_segments_goodness_min100&quot;</span>,</span>
 <span id="cb74-8"><a href="#cb74-8"></a>               memory<span class="op">=</span><span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a><span class="co"># Display newly created segments raster map</span></span>
 <span id="cb75-2"><a href="#cb75-2"></a>segments <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb75-3"><a href="#cb75-3"></a>segments.add_raster(<span class="st">&quot;sentinel_segments_min100&quot;</span>, opacity<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb75-4"><a href="#cb75-4"></a>segments.add_raster(<span class="st">&quot;s2_ndvi_4&quot;</span>, opacity<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb75-5"><a href="#cb75-5"></a>segments.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb75-6"><a href="#cb75-6"></a>segments.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a><span class="co"># Show univariate statistics of goodness-of-fit raster map, with extended statistics (quartiles)</span></span>
 <span id="cb76-2"><a href="#cb76-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.univar&quot;</span>,</span>
 <span id="cb76-3"><a href="#cb76-3"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_segments_goodness_min100&quot;</span>, </span>
 <span id="cb76-4"><a href="#cb76-4"></a>                      flags<span class="op">=</span><span class="st">&quot;ge&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1"></a><span class="co"># Assign color table (low fit values: blue; high fit values: green)</span></span>
 <span id="cb77-2"><a href="#cb77-2"></a>gs.run_command(<span class="st">&quot;r.colors&quot;</span>, </span>
 <span id="cb77-3"><a href="#cb77-3"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_segments_goodness_min100&quot;</span>, </span>
 <span id="cb77-4"><a href="#cb77-4"></a>               color<span class="op">=</span><span class="st">&quot;byg&quot;</span>, </span>
 <span id="cb77-5"><a href="#cb77-5"></a>               flags<span class="op">=</span><span class="st">&quot;e&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a><span class="co"># Display newly created goodness-of-fit raster map</span></span>
 <span id="cb78-2"><a href="#cb78-2"></a>segments <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb78-3"><a href="#cb78-3"></a>segments.add_raster(<span class="st">&quot;sentinel_segments_goodness_min100&quot;</span>, opacity<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb78-4"><a href="#cb78-4"></a>segments.add_vector(<span class="st">&quot;urban_area_raleigh&quot;</span>)</span>
 <span id="cb78-5"><a href="#cb78-5"></a>segments.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb78-6"><a href="#cb78-6"></a>segments.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="supervised-classification-randomforest" class="level2">
@@ -5205,37 +4973,26 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 </ul>
 <p>First we inspect the raster maps available in the current mapset (i.e., <code>sentinel2</code>), just to recall their names.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a>gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;raster&quot;</span>)[<span class="st">&quot;sentinel2&quot;</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <section id="creation-of-a-classification-training-map-by-sampling-from-existing-data" class="level3">
 <h3 class="anchored" data-anchor-id="creation-of-a-classification-training-map-by-sampling-from-existing-data">Creation of a classification training map by sampling from existing data</h3>
 <p>In order to generate training data for the Sentinel-2 image classification, we will use the <a href="https://www.lib.ncsu.edu/gis/lulc">National Land Cover Database (NLCD) 2019</a>. It is available for download (30m raster map) from <a href="https://drive.google.com/open?id=18D99kuotQp_BkxBnkn8OS3qgCeLVwovb&amp;authuser=0">here</a>. However, we have already prepared the dataset (the <code>nc_nlcd2019</code> landuse map). We will use it to perform stratified sampling to retrieve training data.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="co"># Check raster categories of landuse map</span></span>
 <span id="cb80-2"><a href="#cb80-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.category&quot;</span>, </span>
 <span id="cb80-3"><a href="#cb80-3"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;nc_nlcd2019&quot;</span>, </span>
 <span id="cb80-4"><a href="#cb80-4"></a>                      separator<span class="op">=</span><span class="st">&quot;comma&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a><span class="co"># display nc_nlcd2019 landuse raster map</span></span>
 <span id="cb81-2"><a href="#cb81-2"></a>lulc <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>, tiles<span class="op">=</span><span class="st">&quot;OpenStreetMap&quot;</span>)</span>
 <span id="cb81-3"><a href="#cb81-3"></a>lulc.add_raster(<span class="st">&quot;nc_nlcd2019&quot;</span>, opacity<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb81-4"><a href="#cb81-4"></a>lulc.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb81-5"><a href="#cb81-5"></a>lulc.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We already note differences between the underlying OpenStreetMap data and the 30m NLCD map.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a><span class="co"># show simple legend</span></span>
 <span id="cb82-2"><a href="#cb82-2"></a>legend <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb82-3"><a href="#cb82-3"></a><span class="co"># at=bottom,top,left,right, percentage of screen coordinates (0,0 is lower left)</span></span>
@@ -5244,7 +5001,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb82-6"><a href="#cb82-6"></a>                fontsize<span class="op">=</span><span class="dv">10</span>, at<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">90</span>, <span class="dv">50</span>, <span class="dv">90</span>), </span>
 <span id="cb82-7"><a href="#cb82-7"></a>                flags<span class="op">=</span><span class="st">&quot;n&quot;</span>)</span>
 <span id="cb82-8"><a href="#cb82-8"></a>legend.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="random-sampling-from-rasterized-simplified-landuse-map" class="level3">
@@ -5252,58 +5008,38 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <p>We now perform stratified sampling, i.e. we extract for each land use class <code>n</code> sampling points, using the GRASS GIS addon <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.sample.category.html">r.sample.category</a>.</p>
 <p>First, we install this addon.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>gs.run_command(<span class="st">&quot;g.extension&quot;</span>, extension<span class="op">=</span><span class="st">&quot;r.sample.category&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1"></a><span class="co"># Stratified random sampling, generated vector points</span></span>
 <span id="cb84-2"><a href="#cb84-2"></a>gs.run_command(<span class="st">&quot;r.sample.category&quot;</span>, </span>
 <span id="cb84-3"><a href="#cb84-3"></a>               <span class="bu">input</span><span class="op">=</span><span class="st">&quot;nc_nlcd2019&quot;</span>, </span>
 <span id="cb84-4"><a href="#cb84-4"></a>               output<span class="op">=</span><span class="st">&quot;landuse_train&quot;</span>, </span>
 <span id="cb84-5"><a href="#cb84-5"></a>               n<span class="op">=</span><span class="st">&quot;100&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a><span class="co"># display newly created vector points map</span></span>
 <span id="cb85-2"><a href="#cb85-2"></a>train <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb85-3"><a href="#cb85-3"></a>train.add_raster(<span class="st">&quot;nc_nlcd2019&quot;</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb85-4"><a href="#cb85-4"></a>train.add_vector(<span class="st">&quot;landuse_train&quot;</span>)</span>
 <span id="cb85-5"><a href="#cb85-5"></a>train.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb85-6"><a href="#cb85-6"></a>train.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1"></a><span class="co"># List column names of vector points map</span></span>
 <span id="cb86-2"><a href="#cb86-2"></a>gs.vector_columns(<span class="st">&quot;landuse_train&quot;</span>, </span>
 <span id="cb86-3"><a href="#cb86-3"></a>                  getDict<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a><span class="co"># Show vector attribute table</span></span>
 <span id="cb87-2"><a href="#cb87-2"></a>gs.vector_db_select(<span class="st">&quot;landuse_train&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1"></a><span class="co"># Check column data types</span></span>
 <span id="cb88-2"><a href="#cb88-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;v.info&quot;</span>, <span class="bu">map</span><span class="op">=</span><span class="st">&quot;landuse_train&quot;</span>, flags<span class="op">=</span><span class="st">&quot;c&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Since the machine learning classifier expects raster points as input, we convert the vector sampling points accordingly using <a href="https://grass.osgeo.org/grass-stable/manuals/v.to.rast.html">v.to.rast</a>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a><span class="co"># Convert points from vector to raster model</span></span>
 <span id="cb89-2"><a href="#cb89-2"></a>gs.run_command(<span class="st">&quot;v.to.rast&quot;</span>, </span>
 <span id="cb89-3"><a href="#cb89-3"></a>               <span class="bu">input</span><span class="op">=</span><span class="st">&quot;landuse_train&quot;</span>, </span>
@@ -5311,42 +5047,30 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb89-5"><a href="#cb89-5"></a>               use<span class="op">=</span><span class="st">&quot;attr&quot;</span>, </span>
 <span id="cb89-6"><a href="#cb89-6"></a>               attribute_column<span class="op">=</span><span class="st">&quot;nc_nlcd2019&quot;</span>, </span>
 <span id="cb89-7"><a href="#cb89-7"></a>               label_column<span class="op">=</span><span class="st">&quot;label&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1"></a><span class="co"># Check raster categories of new raster training map</span></span>
 <span id="cb90-2"><a href="#cb90-2"></a><span class="co"># Skip reporting on empty cells</span></span>
 <span id="cb90-3"><a href="#cb90-3"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.report&quot;</span>, </span>
 <span id="cb90-4"><a href="#cb90-4"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;landuse_train&quot;</span>,</span>
 <span id="cb90-5"><a href="#cb90-5"></a>                      flags<span class="op">=</span><span class="st">&quot;n&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1"></a><span class="co"># Display newly created raster map - zoom in to better spot the raster sampling points</span></span>
 <span id="cb91-2"><a href="#cb91-2"></a>train <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb91-3"><a href="#cb91-3"></a>train.add_raster(<span class="st">&quot;landuse_train&quot;</span>, opacity<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb91-4"><a href="#cb91-4"></a>train.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb91-5"><a href="#cb91-5"></a>train.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="perform-machine-learning-model-training-randomforest" class="level3">
 <h3 class="anchored" data-anchor-id="perform-machine-learning-model-training-randomforest">Perform machine learning model training (RandomForest)</h3>
 <p>First we have to install the <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.learn.ml2.html">r.learn.ml2</a> extention. It consists of two modules: <code>r.learn.train</code> and <code>r.learn.predict</code>.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1"></a><span class="co"># Install ML extension</span></span>
 <span id="cb92-2"><a href="#cb92-2"></a>gs.run_command(<span class="st">&quot;g.extension&quot;</span>, extension<span class="op">=</span><span class="st">&quot;r.learn.ml2&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1"></a><span class="co"># Add segmentation map created above to group and subgroup already populated with S2 bands, NDWI and NDVI</span></span>
 <span id="cb93-2"><a href="#cb93-2"></a>gs.run_command(<span class="st">&quot;i.group&quot;</span>, </span>
 <span id="cb93-3"><a href="#cb93-3"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
@@ -5355,12 +5079,9 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb93-6"><a href="#cb93-6"></a></span>
 <span id="cb93-7"><a href="#cb93-7"></a><span class="co"># List group content</span></span>
 <span id="cb93-8"><a href="#cb93-8"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, flags<span class="op">=</span><span class="st">&quot;l&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>We now train the ML model using <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.learn.train.html">r.learn.train</a>, with model “RandomForestClassifier”.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1"></a><span class="co"># Train a random forest classification model using r.learn.train</span></span>
 <span id="cb94-2"><a href="#cb94-2"></a>gs.run_command(<span class="st">&quot;r.learn.train&quot;</span>, </span>
 <span id="cb94-3"><a href="#cb94-3"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
@@ -5368,54 +5089,39 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb94-5"><a href="#cb94-5"></a>               model_name<span class="op">=</span><span class="st">&quot;RandomForestClassifier&quot;</span>,</span>
 <span id="cb94-6"><a href="#cb94-6"></a>               n_estimators<span class="op">=</span><span class="st">&quot;500&quot;</span>, </span>
 <span id="cb94-7"><a href="#cb94-7"></a>               save_model<span class="op">=</span>os.path.join(homedir, <span class="st">&quot;rf_model.gz&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>The model has been stored in the file <code>rf_model.gz</code> for use in the prediction step of the supervised classification.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1"></a>os.listdir(homedir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="perform-ml-supervised-classification" class="level3">
 <h3 class="anchored" data-anchor-id="perform-ml-supervised-classification">Perform ML supervised classification</h3>
 <p>The trained model will now be applied to the entire dataset.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1"></a><span class="co"># Perform prediction using r.learn.predict</span></span>
 <span id="cb96-2"><a href="#cb96-2"></a>gs.run_command(<span class="st">&quot;r.learn.predict&quot;</span>, </span>
 <span id="cb96-3"><a href="#cb96-3"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb96-4"><a href="#cb96-4"></a>               load_model<span class="op">=</span>os.path.join(homedir, <span class="st">&quot;rf_model.gz&quot;</span>), </span>
 <span id="cb96-5"><a href="#cb96-5"></a>               output<span class="op">=</span><span class="st">&quot;sentinel_rf&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1"></a><span class="co"># Set color table, we transfer the colors from the original landuse map</span></span>
 <span id="cb97-2"><a href="#cb97-2"></a>gs.run_command(<span class="st">&quot;r.colors&quot;</span>, <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_rf&quot;</span>, raster<span class="op">=</span><span class="st">&quot;nc_nlcd2019&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>With this, the (oversimplified) supervised classification has been completed and we can display the result.</p>
 </section>
 <section id="reporting-and-display" class="level3">
 <h3 class="anchored" data-anchor-id="reporting-and-display">Reporting and display</h3>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1"></a><span class="co"># Display newly created sentinel_rf map</span></span>
 <span id="cb98-2"><a href="#cb98-2"></a>rfmap <span class="op">=</span> gj.InteractiveMap(width <span class="op">=</span> <span class="dv">600</span>, tiles<span class="op">=</span><span class="st">&quot;OpenStreetMap&quot;</span>)</span>
 <span id="cb98-3"><a href="#cb98-3"></a>rfmap.add_raster(<span class="st">&quot;sentinel_rf&quot;</span>, opacity<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb98-4"><a href="#cb98-4"></a><span class="co"># rfmap.add_raster(&quot;nc_nlcd2019&quot;, opacity=0.7)</span></span>
 <span id="cb98-5"><a href="#cb98-5"></a>rfmap.add_layer_control(position <span class="op">=</span> <span class="st">&quot;bottomright&quot;</span>)</span>
 <span id="cb98-6"><a href="#cb98-6"></a>rfmap.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1"></a><span class="co"># Show legend</span></span>
 <span id="cb99-2"><a href="#cb99-2"></a>legend <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">400</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb99-3"><a href="#cb99-3"></a>legend.d_legend(raster<span class="op">=</span><span class="st">&quot;sentinel_rf&quot;</span>, </span>
@@ -5424,21 +5130,15 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb99-6"><a href="#cb99-6"></a>                at<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">80</span>, <span class="dv">10</span>, <span class="dv">40</span>), </span>
 <span id="cb99-7"><a href="#cb99-7"></a>                flags<span class="op">=</span><span class="st">&quot;n&quot;</span>)</span>
 <span id="cb99-8"><a href="#cb99-8"></a>legend.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1"></a><span class="co"># Show class distribution in percent</span></span>
 <span id="cb100-2"><a href="#cb100-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.report&quot;</span>, </span>
 <span id="cb100-3"><a href="#cb100-3"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_rf&quot;</span>, </span>
 <span id="cb100-4"><a href="#cb100-4"></a>                      units<span class="op">=</span><span class="st">&quot;p&quot;</span>, </span>
 <span id="cb100-5"><a href="#cb100-5"></a>                      flags<span class="op">=</span><span class="st">&quot;h&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1"></a><span class="co"># export map to COG</span></span>
 <span id="cb101-2"><a href="#cb101-2"></a>gs.run_command(<span class="st">&quot;r.out.gdal&quot;</span>, </span>
 <span id="cb101-3"><a href="#cb101-3"></a>               flags<span class="op">=</span><span class="st">&quot;fmt&quot;</span>, <span class="co">#</span></span>
@@ -5446,16 +5146,12 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb101-5"><a href="#cb101-5"></a>               output<span class="op">=</span>os.path.join(homedir, <span class="st">&quot;nc_sentinel2_RF.tif&quot;</span>),</span>
 <span id="cb101-6"><a href="#cb101-6"></a>               <span class="bu">format</span><span class="op">=</span><span class="st">&quot;COG&quot;</span>, </span>
 <span id="cb101-7"><a href="#cb101-7"></a>               overviews<span class="op">=</span><span class="st">&quot;4&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Keep in mind, this classification was just a simplified example to show how the procedure works.</p>
 <p>At this moment you should use <a href="https://grass.osgeo.org/grass-stable/manuals/r.kappa.html">r.kappa</a> to calculate accuracy of classification. As this step would require either field observation data or manual interpretation of the scene, we’ll leave this as an exercise to do at home.</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1"></a><span class="co"># Open the tif in QGIS, adapt path accordingly</span></span>
 <span id="cb102-2"><a href="#cb102-2"></a><span class="op">!</span>qgis $homedir<span class="op">/</span>nc_sentinel2_RF.tif</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 </section>
@@ -5464,59 +5160,41 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <p>We will now demonstrate the workflow to perform a supervised maximum likelihood classification which is integrated with the semantic labels metadata class, and hence allow us to use the same spectral signature to classify multiple scenes as long as the raster map order in the group is the same.</p>
 <p>Let’s first check the semantic labels of the bands in our <code>s2</code> group:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1"></a>band_list <span class="op">=</span> gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, flags<span class="op">=</span><span class="st">&quot;lg&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1"></a><span class="co"># Add semantic label to the segmentation</span></span>
 <span id="cb104-2"><a href="#cb104-2"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb104-3"><a href="#cb104-3"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_segments_min100&quot;</span>, </span>
 <span id="cb104-4"><a href="#cb104-4"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_seg&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1"></a><span class="cf">for</span> m <span class="kw">in</span> band_list.split():</span>
 <span id="cb105-2"><a href="#cb105-2"></a>    sl <span class="op">=</span> gs.raster_info(m)[<span class="st">&#39;semantic_label&#39;</span>]</span>
 <span id="cb105-3"><a href="#cb105-3"></a>    <span class="bu">print</span>(m,sl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Now, we generate the signature file based on the training sample that we obtained earlier, this will then be the input for the maximum likelihood classification</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1"></a><span class="co"># obtain signature files</span></span>
 <span id="cb106-2"><a href="#cb106-2"></a>gs.run_command(<span class="st">&quot;i.gensig&quot;</span>, </span>
 <span id="cb106-3"><a href="#cb106-3"></a>               trainingmap<span class="op">=</span><span class="st">&quot;landuse_train&quot;</span>, </span>
 <span id="cb106-4"><a href="#cb106-4"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb106-5"><a href="#cb106-5"></a>               subgroup<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb106-6"><a href="#cb106-6"></a>               signaturefile<span class="op">=</span><span class="st">&quot;sig_sentinel&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1"></a><span class="co"># perform ML supervised classification</span></span>
 <span id="cb107-2"><a href="#cb107-2"></a>gs.run_command(<span class="st">&quot;i.maxlik&quot;</span>, </span>
 <span id="cb107-3"><a href="#cb107-3"></a>               group<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb107-4"><a href="#cb107-4"></a>               subgroup<span class="op">=</span><span class="st">&quot;s2&quot;</span>, </span>
 <span id="cb107-5"><a href="#cb107-5"></a>               signaturefile<span class="op">=</span><span class="st">&quot;sig_sentinel&quot;</span>, </span>
 <span id="cb107-6"><a href="#cb107-6"></a>               output<span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1"></a><span class="co"># check classes</span></span>
 <span id="cb108-2"><a href="#cb108-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.category&quot;</span>, </span>
 <span id="cb108-3"><a href="#cb108-3"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>, </span>
 <span id="cb108-4"><a href="#cb108-4"></a>                      separator<span class="op">=</span><span class="st">&quot;comma&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>In GRASS 8.2+, <a href="https://grass.osgeo.org/grass-stable/manuals/i.maxlik.html">i.maxlik</a> classifier does not preserve the original class values in the output. Thus, here is a lookup-table for original class numbers and new category values:</p>
 <table class="table">
@@ -5592,16 +5270,11 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 </tbody>
 </table>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1"></a><span class="co"># Set color table</span></span>
 <span id="cb109-2"><a href="#cb109-2"></a>colours <span class="op">=</span> [<span class="st">&quot;1 072:109:162&quot;</span>, <span class="st">&quot;2 225:205:206&quot;</span>, <span class="st">&quot;3 220:152:129&quot;</span>, <span class="st">&quot;4 241:001:000&quot;</span>, <span class="st">&quot;5 171:001:001&quot;</span>, <span class="st">&quot;6 108:169:102&quot;</span>, <span class="st">&quot;7 029:101:051&quot;</span>, <span class="st">&quot;8 189:204:147&quot;</span>, <span class="st">&quot;9 221:216:062&quot;</span>, <span class="st">&quot;10 187:215:237&quot;</span>]</span>
 <span id="cb109-3"><a href="#cb109-3"></a>gs.write_command(<span class="st">&quot;r.colors&quot;</span>, <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>, rules<span class="op">=</span><span class="st">&quot;-&quot;</span>, stdin<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(colours))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1"></a><span class="co"># display results</span></span>
 <span id="cb110-2"><a href="#cb110-2"></a>maxlik_sup_class <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">500</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb110-3"><a href="#cb110-3"></a>maxlik_sup_class.d_rast(<span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>)</span>
@@ -5612,67 +5285,46 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb110-8"><a href="#cb110-8"></a>                          flags<span class="op">=</span><span class="st">&quot;bn&quot;</span>)</span>
 <span id="cb110-9"><a href="#cb110-9"></a>maxlik_sup_class.d_barscale()</span>
 <span id="cb110-10"><a href="#cb110-10"></a>maxlik_sup_class.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1"></a><span class="co"># percentage of each class</span></span>
 <span id="cb111-2"><a href="#cb111-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;r.report&quot;</span>, </span>
 <span id="cb111-3"><a href="#cb111-3"></a>                      <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>, </span>
 <span id="cb111-4"><a href="#cb111-4"></a>                      units<span class="op">=</span><span class="st">&quot;p&quot;</span>, </span>
 <span id="cb111-5"><a href="#cb111-5"></a>                      flags<span class="op">=</span><span class="st">&quot;h&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1"></a><span class="co"># class statistics: NDVI</span></span>
 <span id="cb112-2"><a href="#cb112-2"></a>class_stats <span class="op">=</span> gs.read_command(<span class="st">&quot;r.univar&quot;</span>, </span>
 <span id="cb112-3"><a href="#cb112-3"></a>                              <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220528T155819_NDVI_10m&quot;</span>, </span>
 <span id="cb112-4"><a href="#cb112-4"></a>                              zones<span class="op">=</span><span class="st">&quot;sentinel_maxlik&quot;</span>, </span>
 <span id="cb112-5"><a href="#cb112-5"></a>                              flags<span class="op">=</span><span class="st">&quot;t&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1"></a>pd.read_csv(StringIO(class_stats), </span>
 <span id="cb113-2"><a href="#cb113-2"></a>            delimiter<span class="op">=</span><span class="st">&quot;|&quot;</span>, </span>
 <span id="cb113-3"><a href="#cb113-3"></a>            usecols<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Next, and to demonstrate the use of semantic labels, we will classify another sentinel scene with the same signature obtained earlier. To this aim, we need to: 1. create a new imagery group for a different scene with the exact same band order 1. estimate NDVI and NDWI and assign semantic labels 1. run a segmentation and assign semantic labels 1. check group and semantic labels 1. run <code>i.maxlik</code></p>
 <div class="alert alert-warning">
 <p>Be ware – changes over time (phenology, weather) will make spectral signatures to not fit well or at all. Do not use same signatures for a different season!</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1"></a>s2_maps <span class="op">=</span> gs.list_grouped(<span class="bu">type</span><span class="op">=</span><span class="st">&quot;raster&quot;</span>, pattern<span class="op">=</span><span class="st">&quot;*20220617*&quot;</span>)[<span class="st">&#39;sentinel2&#39;</span>]</span>
 <span id="cb114-2"><a href="#cb114-2"></a>s2_maps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1"></a><span class="co"># Since imagery groups can not be overwritten, </span></span>
 <span id="cb115-2"><a href="#cb115-2"></a><span class="co"># we delete any leftover &quot;s2_new&quot; group from previous runs</span></span>
 <span id="cb115-3"><a href="#cb115-3"></a>gs.run_command(<span class="st">&quot;g.remove&quot;</span>, </span>
 <span id="cb115-4"><a href="#cb115-4"></a>               <span class="bu">type</span><span class="op">=</span><span class="st">&quot;group&quot;</span>, </span>
 <span id="cb115-5"><a href="#cb115-5"></a>               name<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, </span>
 <span id="cb115-6"><a href="#cb115-6"></a>               flags<span class="op">=</span><span class="st">&quot;f&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1"></a>gs.run_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, subgroup<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, <span class="bu">input</span><span class="op">=</span>s2_maps)</span>
 <span id="cb116-2"><a href="#cb116-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, flags<span class="op">=</span><span class="st">&quot;l&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1"></a><span class="co"># estimate NDVI</span></span>
 <span id="cb117-2"><a href="#cb117-2"></a>gs.run_command(<span class="st">&quot;i.vi&quot;</span>, </span>
 <span id="cb117-3"><a href="#cb117-3"></a>               red<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B04_10m&quot;</span>, </span>
@@ -5684,11 +5336,8 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb117-9"><a href="#cb117-9"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb117-10"><a href="#cb117-10"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_NDVI_10m&quot;</span>, </span>
 <span id="cb117-11"><a href="#cb117-11"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_NDVI&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1"></a><span class="co"># estimate NDWI</span></span>
 <span id="cb118-2"><a href="#cb118-2"></a>gs.run_command(<span class="st">&quot;i.wi&quot;</span>, </span>
 <span id="cb118-3"><a href="#cb118-3"></a>               green<span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_B03_10m&quot;</span>, </span>
@@ -5700,11 +5349,8 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb118-9"><a href="#cb118-9"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb118-10"><a href="#cb118-10"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;T17SQV_20220617T155829_NDWI_10m&quot;</span>, </span>
 <span id="cb118-11"><a href="#cb118-11"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_NDWI&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1"></a><span class="co"># add NDVI and NDWI to s2_mew group</span></span>
 <span id="cb119-2"><a href="#cb119-2"></a>gs.run_command(<span class="st">&quot;i.group&quot;</span>, </span>
 <span id="cb119-3"><a href="#cb119-3"></a>               group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, </span>
@@ -5713,11 +5359,8 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb119-6"><a href="#cb119-6"></a></span>
 <span id="cb119-7"><a href="#cb119-7"></a><span class="co"># print maps in the group</span></span>
 <span id="cb119-8"><a href="#cb119-8"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, flags<span class="op">=</span><span class="st">&quot;l&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1"></a><span class="co"># Run segmentation</span></span>
 <span id="cb120-2"><a href="#cb120-2"></a>gs.run_command(<span class="st">&quot;i.segment&quot;</span>, </span>
 <span id="cb120-3"><a href="#cb120-3"></a>               group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, </span>
@@ -5725,53 +5368,35 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb120-5"><a href="#cb120-5"></a>               minsize<span class="op">=</span><span class="st">&quot;100&quot;</span>, </span>
 <span id="cb120-6"><a href="#cb120-6"></a>               output<span class="op">=</span><span class="st">&quot;sentinel_new_segments_min100&quot;</span>, </span>
 <span id="cb120-7"><a href="#cb120-7"></a>               goodness<span class="op">=</span><span class="st">&quot;sentinel_new_segments_goodness_min100&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1"></a><span class="co"># Add semantic label to the segmentation</span></span>
 <span id="cb121-2"><a href="#cb121-2"></a>gs.run_command(<span class="st">&quot;r.support&quot;</span>, </span>
 <span id="cb121-3"><a href="#cb121-3"></a>               <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_new_segments_min100&quot;</span>, </span>
 <span id="cb121-4"><a href="#cb121-4"></a>               semantic_label<span class="op">=</span><span class="st">&quot;S2_seg&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1"></a><span class="co"># Add segmentation to the s2_new group</span></span>
 <span id="cb122-2"><a href="#cb122-2"></a>gs.parse_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, subgroup<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, <span class="bu">input</span><span class="op">=</span><span class="st">&quot;sentinel_new_segments_min100&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb123"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1"></a><span class="co"># Check</span></span>
 <span id="cb123-2"><a href="#cb123-2"></a><span class="bu">print</span>(gs.read_command(<span class="st">&quot;i.group&quot;</span>, group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, flags<span class="op">=</span><span class="st">&quot;l&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb124"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1"></a><span class="co"># Run the classification</span></span>
 <span id="cb124-2"><a href="#cb124-2"></a>gs.run_command(<span class="st">&quot;i.maxlik&quot;</span>, </span>
 <span id="cb124-3"><a href="#cb124-3"></a>               group<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, </span>
 <span id="cb124-4"><a href="#cb124-4"></a>               subgroup<span class="op">=</span><span class="st">&quot;s2_new&quot;</span>, </span>
 <span id="cb124-5"><a href="#cb124-5"></a>               signaturefile<span class="op">=</span><span class="st">&quot;sig_sentinel&quot;</span>, </span>
 <span id="cb124-6"><a href="#cb124-6"></a>               output<span class="op">=</span><span class="st">&quot;sentinel_maxlik_new&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb125-1"><a href="#cb125-1"></a><span class="co"># Set color table</span></span>
 <span id="cb125-2"><a href="#cb125-2"></a>colours <span class="op">=</span> [<span class="st">&quot;1 072:109:162&quot;</span>, <span class="st">&quot;2 225:205:206&quot;</span>, <span class="st">&quot;3 220:152:129&quot;</span>, <span class="st">&quot;4 241:001:000&quot;</span>, <span class="st">&quot;5 171:001:001&quot;</span>, <span class="st">&quot;6 108:169:102&quot;</span>, <span class="st">&quot;7 029:101:051&quot;</span>, <span class="st">&quot;8 189:204:147&quot;</span>, <span class="st">&quot;9 221:216:062&quot;</span>, <span class="st">&quot;10 187:215:237&quot;</span>]</span>
 <span id="cb125-3"><a href="#cb125-3"></a>gs.write_command(<span class="st">&quot;r.colors&quot;</span>, <span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik_new&quot;</span>, rules<span class="op">=</span><span class="st">&quot;-&quot;</span>, stdin<span class="op">=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(colours))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb126"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1"></a><span class="co"># display results</span></span>
 <span id="cb126-2"><a href="#cb126-2"></a>maxlik_sup_class <span class="op">=</span> gj.Map(width<span class="op">=</span><span class="dv">500</span>, use_region<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb126-3"><a href="#cb126-3"></a>maxlik_sup_class.d_rast(<span class="bu">map</span><span class="op">=</span><span class="st">&quot;sentinel_maxlik_new&quot;</span>)</span>
@@ -5782,7 +5407,6 @@ More info: <a href="https://grass.osgeo.org/grass-stable/manuals/grass_database.
 <span id="cb126-8"><a href="#cb126-8"></a>                          flags<span class="op">=</span><span class="st">&quot;bn&quot;</span>)</span>
 <span id="cb126-9"><a href="#cb126-9"></a>maxlik_sup_class.d_barscale()</span>
 <span id="cb126-10"><a href="#cb126-10"></a>maxlik_sup_class.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </div></section>
 <section id="whats-next" class="level2">

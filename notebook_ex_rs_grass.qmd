@@ -1,11 +1,14 @@
 ---
 title: "Part 2: Processing data in GRASS"
 author: Verónica Andreo
+date: '`r Sys.Date()`'
 format: 
   html: 
     code-tools: true
     code-copy: true
     code-fold: false
+execute: 
+  eval: false
 ---
 
 In this notebook we'll go through the processing of MODIS LST daily time series
@@ -24,7 +27,8 @@ the temporal relationships among time series.
 
 - TGRASS is fully **based on metadata** and does not duplicate any dataset
 - **Snapshot** approach, i.e., adds time stamps to maps
-- A collection of time stamped maps (snapshots) of the same variable are called **space-time datasets** or STDS
+- A collection of time stamped maps (snapshots) of the same variable are called
+**space-time datasets** or STDS
 - Maps in a STDS can have different spatial and temporal extents
 - Space-time datasets can be composed of raster, raster 3D or vector maps, and so
 we call them:
@@ -53,16 +57,16 @@ scheme. In this way, we have:
 - **Granularity** is the greatest common divisor of the temporal extents 
 (and possible gaps) of all maps in the space-time cube
 
-<img src="https://grass.osgeo.org/grass78/manuals/timeline_2D.jpg" width="50%" align="center"/>
+![](https://grass.osgeo.org/grass-stable/manuals/timeline_2D.jpg){width="50%" fig-align="center"}
 
 - **Topology** refers to temporal relations between time intervals in a STDS.
 
-<img src="assets/img/studio/temp_relation.png" width="40%"/>
-
+![](assets/img/studio/temp_relation.png){width="35%" fig-align="center"}
 
 ### TGRASS framework and workflow
 
-<img src="assets/img/studio/tgrass_flowchart.png" width="70%" align="center"/>
+![](assets/img/studio/tgrass_flowchart.png){width="70%" fig-align="center"}
+
 
 ## Hands-on, let's start
 
@@ -135,7 +139,7 @@ session.finish
 
 ## GRASS code
 
-```{bash}
+```bash
 # Import records
 v.import input=aedes_albopictus.gpkg 
   output=aedes_albopictus
@@ -152,7 +156,7 @@ d.vect aedes_albopictus icon=basic/circle \
 ```
 
 ## Map
-<img src="assets/img/wx0_aedes_lst.png" width="500px">
+<img src="assets/img/studio/wx0_aedes_lst.png" width="500px">
 
 :::
 
@@ -166,7 +170,7 @@ by means of [v.in.pygbif](https://grass.osgeo.org/grass-stable/manuals/addons/v.
 
 ## GRASS code
 
-```{bash}
+```bash
 # Create buffer around Aedes albopictus records
 v.buffer input=aedes_albopictus output=aedes_buffer distance=2000
 
@@ -186,7 +190,7 @@ v.random output=background_points npoints=1000 restrict=mask_bg seed=3749
 
 ## Map
 
-<img src="assets/img/points_aedes_background.png" width="500px">
+<img src="assets/img/studio/points_aedes_background.png" width="500px">
 
 :::
 
@@ -199,7 +203,7 @@ See extra slides for details about [*computational region*](#region) and [*masks
 
 ## GRASS code
 
-```{bash}
+```bash
 # Create time series 
 t.create type=strds temporaltype=absolute \
   output=lst_daily title="Average Daily LST" \
@@ -218,7 +222,7 @@ t.info input=lst_daily
 
 ## Output
 
-<img src="assets/img/t_info_output.png" width="50%">
+<img src="assets/img/studio/t_info_output.png" width="50%">
 
 :::
 
@@ -233,7 +237,7 @@ See [t.create](https://grass.osgeo.org/grass-stable/manuals/t.create.html) and [
 
 ## GRASS code
 
-```{bash}
+```bash
 for i in $(seq -w 1 12) ; do 
   t.rast.series input=lst_daily method=average \
     where="strftime('%m', start_time)='${i}'" \
@@ -249,7 +253,7 @@ done
 
 ## Output
 
-<img src="assets/img/list_long_term_avg_lst.png" width="70%">
+<img src="assets/img/studio/list_long_term_avg_lst.png" width="70%">
 
 :::
 
@@ -262,7 +266,7 @@ See [t.rast.series](https://grass.osgeo.org/grass-stable/manuals/t.rast.series.h
 
 ## GRASS code
 
-```{bash}
+```bash
 # Install extension
 g.extension extension=r.bioclim
  
@@ -278,11 +282,11 @@ g.list type=raster pattern="worldclim*"
 ```
 
 ## Output
-<img src="assets/img/list_worldclim_lst.png" width="80%">
+<img src="assets/img/studio/list_worldclim_lst.png" width="80%">
 
 ## Map
 
-<img src="assets/img/bio1.png" width="50%">
+<img src="assets/img/studio/bio1.png" width="50%">
 
 :::
 
@@ -295,7 +299,7 @@ See [r.bioclim](https://grass.osgeo.org/grass-stable/manuals/addons/r.bioclim.ht
 
 ## GRASS code
 
-```{bash}
+```bash
 # Annual spring warming: slope(daily Tmean february-march-april)
 t.rast.aggregate input=lst_daily output=annual_spring_warming \
   basename=spring_warming suffix=gran \
@@ -312,7 +316,7 @@ t.rast.series input=annual_spring_warming \
 
 ## Map
 
-<img src="assets/img/spring_warming.png" width="50%">
+<img src="assets/img/studio/spring_warming.png" width="50%">
 
 :::
 
@@ -325,7 +329,7 @@ See [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggre
 
 ## GRASS code
 
-```{bash}
+```bash
 # Annual autumnal cooling: slope(daily Tmean august-september-october)
 t.rast.aggregate input=lst_daily output=annual_autumnal_cooling \
   basename=autumnal_cooling suffix=gran \
@@ -342,7 +346,7 @@ t.rast.series input=annual_autumnal_cooling \
 
 ## Map
 
-<img src="assets/img/autumnal_cooling.png" width="51%">
+<img src="assets/img/studio/autumnal_cooling.png" width="51%">
 
 :::
 
@@ -372,7 +376,7 @@ t.rast.series input=count_tmean_higher20_lower30 \
 
 ## Map
 
-<img src="assets/img/count_days_higher20_lower30.png" width="50%">
+<img src="assets/img/studio/count_days_higher20_lower30.png" width="50%">
 
 :::
 
@@ -412,7 +416,7 @@ t.rast.series input=lower_m2_consec_days \
   output=median_lower_m2_consec_days method=median
 ```
 
-<img src="assets/img/median_days_lower_m2.png" width="60%">
+<img src="assets/img/studio/median_days_lower_m2.png" width="60%">
 
 
 We have all these maps within GRASS, how do we connect with R now? Let's move to #part2

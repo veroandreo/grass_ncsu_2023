@@ -15,12 +15,13 @@ used for geospatial data management and analysis, image processing, graphics
 and maps, spatial modeling, and visualization.
 - Originally developed by the U.S. Army Construction Engineering Research
 Laboratories for land management and environmental planning (1982-1995).
+- First *User Manual* published on July 29th, 1983... **GRASS is becoming 40 this year!**
 - More history: <https://grass.osgeo.org/about/history/>
 - Free and open source, you can use, modify, improve, share
 - Strong user community, commercial support
 - Large amount of tools: 500+ [core modules](#modules), 300+ [addons](#addons)
 - GUI and CLI interfaces
-- Python API and libraries - new `grass.jupyter` library can be tried
+- Python API and libraries - the lattest `grass.jupyter` library can be tried
 [online](https://mybinder.org/v2/gh/OSGeo/grass/c173461?urlpath=lab%2Ftree%2Fdoc%2Fnotebooks%2Fgrass_jupyter.ipynb)
 - Connection with R, QGIS, WPS, etc.
 - Different data types supported:
@@ -36,10 +37,8 @@ datasets](https://grass.osgeo.org/grass-stable/manuals/temporalintro.html)
 ### Open GRASS for the first time
 
 As of version 8.0, GRASS has modified its startup to make it more user friendly:
-<br> 
-<a href="assets/img/grass_start.png">
-<img src="assets/img/grass_start.png" title="First time launching GRASS 8" alt="First time launching GRASS 8" width="65%"/>
-</a>
+
+![](assets/img/studio/grass_start.png){width="85%" fig-align="center"}
 
 From the **Data** catalog tab you can manage several actions and if 
 you do not yet have imported data into the GRASS database, the 
@@ -47,23 +46,23 @@ software creates the directory structure or database automatically.
 
 ### Database
 
--   **GRASS database** (directory with projects): When running GRASS GIS for the
-    first time, a folder named "grassdata" is automatically created. Depending
-    on the operating system, it can be found in `$HOME` (\*nix) or
-    `My Documents` (MS Windows).
--   **Location** (a project): A location is defined by its coordinate reference
-    system (CRS). The location that is automatically created is in WGS84
-    (EPSG:4326). If you have data in another CRS, you should ideally create a
-    new location.
--   **Mapset** (a subproject): Each location can have many mapsets to manage
-    different aspects or sub-regions of a project. When creating a new location,
-    GRASS GIS automatically creates a special mapset called *PERMANENT* where
-    the central data of the project (e.g., base maps, road network, dem, etc.)
-    can be stored.
+- **GRASS database** (directory with projects): When running GRASS GIS for the
+  first time, a folder named "grassdata" is automatically created. Depending
+  on the operating system, it can be found in `$HOME` (\*nix) or
+  `My Documents` (MS Windows).
+- **Location** (a project): A location is defined by its coordinate reference
+  system (CRS). The location that is automatically created is in WGS84
+  (EPSG:4326). If you have data in another CRS, you should ideally create a
+  new location.
+- **Mapset** (a subproject): Each location can have many mapsets to manage
+  different aspects or sub-regions of a project. When creating a new location,
+  GRASS GIS automatically creates a special mapset called *PERMANENT* where
+  the central data of the project (e.g., base maps, road network, dem, etc.)
+  can be stored.
 
-<a href="assets/img/grass_database.png">
-<img src="assets/img/grass_database.png" title="GRASS GIS database" alt="GRASS GIS database" width="50%"/>
-</a>
+
+![](assets/img/studio/grass_database.png){width="60%" fig-align="center"}
+
 
 ::: callout-note
 More info: https://grass.osgeo.org/grass-stable/manuals/grass_database.html.
@@ -81,12 +80,11 @@ extent of a vector map, a raster or manually to some area of interest. The
 computational region*, while vector maps are always processed at their original
 extent.
 
-<a href="assets/img/region.png">
-<img src="assets/img/region.png" title="Computational region" alt="Computational region" width="50%"/>
-</a>
+![](assets/img/studio/region.png){width="60%" fig-align="center"}
+
 
 ::: callout-note
-For more details, see the wiki on [Computational Region]().
+For more details, see the wiki on [Computational Region](https://grasswiki.osgeo.org/wiki/Computational_region).
 :::
 
 ### Modules and extensions
@@ -107,9 +105,9 @@ most varied tasks:
 | [ps.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#ps) | postscript     | PostScript map creation | [ps.map](https://grass.osgeo.org/grass-stable/manuals/ps.map.html): PostScript map creation                            |
 | [t.\*](https://grass.osgeo.org/grass-stable/manuals/full_index.html#t)   | temporal       | space-time datasets     | [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggregate.html): raster time series aggregation |
 
-Extensions or **add-ons** can be installed from the [central GitHub
-repository](https://grass.osgeo.org/grass-stable/manuals/addons/) or from *other
-users' GitHub* (or similar repositories) using the command
+Extensions or [**add-ons**](https://grass.osgeo.org/grass-stable/manuals/addons/) 
+can be installed from the [central GitHub repository](https://github.com/OSGeo/grass-addons)
+or from *other users' GitHub* (or similar repositories) using the command
 [g.extension](https://grass.osgeo.org/grass-stable/manuals/g.extension.html).
 For example:
 
@@ -124,24 +122,27 @@ For example:
 
 ### Graphical User Interface (GUI)
 
-<center><img src="assets/img/GUI_description.png" width="870px"/></center>
+![](assets/img/studio/Single_Window_GUI.png){width="870px" fig-align="center"}
 
 ### Command line
 
-<center><img src="assets/img/studio/grass_command_line.png" width="65%"/></center>
+![](assets/img/studio/grass_command_line.png){width="65%" fig-align="center"}
 
-### GRASS + Python
+## GRASS + {{< fa brands python >}}
 
 ### Python package `grass.script`
 
-The **grass.script** or GRASS GIS Python Scripting Library provides functions for calling GRASS modules within Python scripts. The most commonly used functions include:
+The **grass.script** or GRASS GIS Python Scripting Library provides functions
+for calling GRASS modules within Python scripts. The most commonly used 
+functions include:
 
 - `run_command`: used when the output of the modules is a raster or vector, no text type output is expected
 - `read_command`: used when the output of the modules is of text type
 - `parse_command`: used with modules whose output can be converted to `key=value` pairs
 - `write_command`: used with modules that expect text input, either in the form of a file or from stdin
 
-It also provides several wrapper functions for frequently used modules, for example:
+It also provides several wrapper functions for frequently used modules, 
+for example:
 
 - To get info from a raster, script.raster.raster_info() is used: `gs.raster_info('dsm')`
 - To get info of a vector, script.vector.vector_info() is used: `gs.vector_info('roads')`
@@ -154,7 +155,8 @@ More info: https://grass.osgeo.org/grass-stable/manuals/libpython/script_intro.h
 
 ### Python package `grass.jupyter`
 
-The **grass.jupyter** library improves the integration of GRASS and Jupyter, and provides different classes to facilitate GRASS maps visualization:
+The **grass.jupyter** library improves the integration of GRASS and Jupyter, 
+and provides different classes to facilitate GRASS maps visualization:
 
 - `init`: starts a GRASS session and sets up all necessary environment variables
 - `Map`: 2D rendering
@@ -166,100 +168,64 @@ The **grass.jupyter** library improves the integration of GRASS and Jupyter, and
 More info: https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html
 :::
 
-### GRASS + R through rgrass package
+
+## GRASS + {{< fa brands r-project >}} through `rgrass` package
 
 We can use [R within a GRASS GIS
 session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#R_within_GRASS)
 or use [GRASS GIS within an R
-session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R)
+session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R).
+We'll explore this further in the last part of this session.
 
 ![](assets/img/studio/RwithinGRASS_and_Rstudio_from_grass.png)
 
-{{< fa brands r-project >}}
 
-### Demo session overview
+## Demo session overview
 
 Habitat suitability mapping for the Asian tiger mosquito in Northern Italy based
 on variables derived from daily LST data
 
--   **GRASS**
-    -   Import species records
-    -   Create random background points
-    -   Create different environmental layers from daily LST data
--   **R**
-    -   Read data from GRASS into R
-    -   Model species distribution
-    -   Model evaluation
-    -   Visualization of results
+- **GRASS**
+    - Import species records
+    - Create random background points
+    - Create different environmental layers from daily LST data
+- **R**
+    - Read data from GRASS into R
+    - Model species distribution
+    - Model evaluation
+    - Visualization of results
 
-Jarnevich et al. 2015.
-doi:[10.1016/j.ecoinf.2015.06.007](https://doi.org/10.1016/j.ecoinf.2015.06.007)
+![](assets/img/lecture/workflow_sdm_other.png){width="85%" fig-align="center"}
 
-<img src="assets/img/studio/sdm_workflow_edited.png" width="72%"/>
 
 ### Data for the session
 
--   Records of *Aedes albopictus* (Asian tiger mosquito) in Northern Italy
-    downloaded from [GBIF](https://www.gbif.org/)
--   Daily MODIS LST reconstructed by [mundialis](https://www.mundialis.de/en/)
-    based on [Metz et al. 2017](https://www.mdpi.com/2072-4292/9/12/1333/htm)
-    -   1 km spatial resolution
-    -   Converted to Celsius degrees
+<img src="assets/img/studio/aedes_albopictus.jpg" width="30%" align="right"/>
 
-<img src="assets/img/studio/aedes_albopictus.jpg" width="47%" align="right"/> <br>
-<img src="assets/img/studio/lst_north_italy_2014.png" width="78%" align="left"/>
+- Records of *Aedes albopictus* (Asian tiger mosquito) in Northern Italy
+  downloaded from [GBIF](https://www.gbif.org/)
+- Average daily MODIS LST reconstructed by 
+  [mundialis GmbH & Co. KG](https://www.mundialis.de/en/) based on @metz_new_2017:
+    - 1 km spatial resolution
+    - Converted to Celsius degrees
 
-### Get sample location, mosquito records and code
+<img src="assets/img/studio/lst_north_italy_2014.png" width="40%" align="right" padding-right="15px"/>
 
--   Create a folder named `grassdata`
--   Download and unzip [eu_laea location with LST
-    mapset](https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing)
-    and unzip within your `grassdata` folder
--   Download the asian tiger [mosquito
-    occurrences](https://github.com/veroandreo/grass_opengeohub2021/raw/master/data/aedes_albopictus.gpkg)
-    as `.gpkg` file
 
-The `grassdata_ogh` folder's tree should look like this:
+### Get the sample location
+
+- Create a folder named `grassdata`
+- Download and unzip [eu_laea location with LST mapset](https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing)
+and unzip within your `grassdata` folder
+
+The `grassdata` folder's tree should look like this:
 
 ```         
-  grassdata_ogh/
+  grassdata/
   └── eu_laea
       ├── italy_LST_daily
       └── PERMANENT
 ```
-
-## MASK
-
-- Masks are set with [r.mask](https://grass.osgeo.org/grass76/manuals/r.mask.html) or creating a raster map called `MASK`. 
-- Masks are virtual masks, they are only actually applied when reading raster maps
-- All cells that are *NULL* in the MASK map will be ignored (also all areas outside the computational region).
-- Vector maps can be also used as masks
-
-<img src="assets/img/studio/masks.png" width="62%" >
-
-a- Elevation raster and lakes vector maps. b- Only the raster data inside the masked area are used for further analysis. c- Inverse mask.
-
-
-### MASK examples
-
-```bash
-# use vector as mask
-r.mask vector=lakes
-
-# use vector as mask, set inverse mask
-r.mask -i vector=lakes
-
-# mask categories of a raster map
-r.mask raster=landclass96 maskcats="5 thru 7"
-
-# create a raster named MASK
-r.mapcalc expression="MASK = if(elevation < 100, 1, null())"
-
-# remove mask
-r.mask -r
-```
-
-Masks are only actually applied when reading a GRASS raster map, i.e., when used as input.
 
 # GRASS GIS HELP!!!
 
@@ -275,7 +241,8 @@ Masks are only actually applied when reading a GRASS raster map, i.e., when used
 - Link to source code and history in each module manual page, eg., 
 [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html)
 
-<img src="assets/img/studio/source_code_link.png" width="650px">
+![](assets/img/studio/source_code_link.png){width="650px" fig-align="center"}
+
 
 ## Other (very) useful links
 
@@ -287,3 +254,9 @@ Masks are only actually applied when reading a GRASS raster map, i.e., when used
 - [GRASS GIS course in Jena](https://training.gismentors.eu/grass-gis-workshop-jena/index.html)
 - [GRASS GIS course IRSAE](http://training.gismentors.eu/grass-gis-irsae-winter-course-2018/index.html)
 - [GRASS GIS course in Argentina](https://gitlab.com/veroandreo/curso-grass-gis-rioiv)
+
+# References
+
+:::{#refs}
+
+:::
