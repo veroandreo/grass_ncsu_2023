@@ -1,0 +1,604 @@
+---
+title: 'Part 2: Processing data in GRASS'
+author: Verónica Andreo
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-tools: true
+    code-copy: true
+    code-fold: false
+execute:
+  eval: false
+  cache: true
+jupyter: python3
+---
+
+In this notebook we'll go through the processing of MODIS LST daily time series
+data to derive relevant predictor variables for modeling the distribution of
+*Aedes albopictus* in Northern Italy. Furthermore, we'll show how to obtain and
+process occurrence data and background points.
+
+Let's first go through some temporal concepts within GRASS GIS...
+
+
+## The TGRASS framework
+
+GRASS GIS was the first FOSS GIS that incorporated capabilities to 
+*manage, analyze, process and visualize spatio-temporal data*, as well as 
+the temporal relationships among time series.
+
+- TGRASS is fully **based on metadata** and does not duplicate any dataset
+- **Snapshot** approach, i.e., adds time stamps to maps
+- A collection of time stamped maps (snapshots) of the same variable are called **space-time datasets** or STDS
+- Maps in a STDS can have different spatial and temporal extents
+- Space-time datasets can be composed of raster, raster 3D or vector maps, and so
+we call them:
+  - Space time raster datasets (**STRDS**)
+  - Space time 3D raster datasets (**STR3DS**)
+  - Space time vector datasets (**STVDS**)
+
+
+## Temporal modules
+
+GRASS temporal modules are named and organized following GRASS core naming
+scheme. In this way, we have:
+
+- **t.\***: General modules to handle STDS of all types
+- **t.rast.\***: Modules that deal with STRDS
+- **t.rast3d.\***: Modules that deal with STR3DS
+- **t.vect.\***: Modules that deal with STVDS
+
+
+### Other TGRASS notions
+
+- Time can be defined as **intervals** (start and end time) or **instances** 
+(only start time)
+- Time can be **absolute** (e.g., 2017-04-06 22:39:49) or **relative** 
+(e.g., 4 years, 90 days)
+- **Granularity** is the greatest common divisor of the temporal extents 
+(and possible gaps) of all maps in the space-time cube
+
+![](https://grass.osgeo.org/grass-stable/manuals/timeline_2D.jpg){width="50%" fig-align="center"}
+
+- **Topology** refers to temporal relations between time intervals in a STDS.
+
+![](assets/img/studio/temp_relation.png){width="35%" fig-align="center"}
+
+### TGRASS framework and workflow
+
+![](assets/img/studio/tgrass_flowchart.png){width="70%" fig-align="center"}
+
+## Hands-on
+
+So let's start... We begin by setting variables, checking GRASS installation and initializing GRASS GIS
+
+```{python}
+import os
+
+# Data directory
+homedir = os.path.join(os.path.expanduser('~'), "grass_ncsu_2023")
+
+# GRASS GIS database variables
+#grassbin = "grassdev"
+grassbin = "grass"
+grassdata = os.path.join(homedir, "grassdata")
+location = "eu_laea"
+mapset = "italy_LST_daily"
+
+# Create directories if not already existing
+os.makedirs(grassdata, exist_ok=True)
+```
+
+```{python}
+# Check the GRASS GIS installation
+import subprocess
+print(subprocess.check_output([grassbin, "--config", "version"], text=True))
+```
+
+```{python}
+# Ask GRASS GIS where its Python packages are 
+import sys
+sys.path.append(
+    subprocess.check_output([grassbin, "--config", "python_path"], text=True).strip()
+)
+```
+
+```{python}
+# Import the GRASS GIS packages we need
+import grass.script as gs
+import grass.jupyter as gj
+
+# Start the GRASS GIS Session
+session = gj.init(grassdata, location, mapset)
+```
+
+### Explore data in the mapset
+
+```{python}
+# List vector elements
+gs.list_grouped(type="vector")['italy_LST_daily']
+```
+
+```{python}
+# Display vector map
+it_map = gj.Map(width=500, use_region=True)
+it_map.d_vect(map="italy_borders_0")
+it_map.show()
+```
+
+```{python}
+# List raster elements
+gs.list_grouped(type="raster", pattern="lst*")['italy_LST_daily']
+```
+
+```{python}
+# Display raster map with interactive class
+lst_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+lst_map.add_raster("lst_2014.005_avg")
+lst_map.add_layer_control(position = "bottomright")
+lst_map.show()
+```
+
+## SDM workflow
+
+In this part of the Studio we'll be addressing the left part of the SDM workflow, occurrence and background data and predictors:
+
+![](assets/img/lecture/workflow_sdm_other.png)
+
+### Importing species records
+
+We will use occurrence data already downloaded and cleaned. We need to import it into GRASS GIS first.
+
+```{python}
+# Import mosquito records
+gs.run_command("v.import",
+               input=os.path.join(homedir,"aedes_albopictus.gpkg"),
+               output="aedes_albopictus")
+```
+
+Let's add the occurrence points over the previous interactive map
+
+```{python}
+# Display raster map with interactive class
+lst_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+lst_map.add_raster("lst_2014.005_avg")
+lst_map.add_vector("aedes_albopictus")
+lst_map.add_layer_control(position = "bottomright")
+lst_map.show()
+```
+
+You can also get the mosquito occurrences (or any other species or taxa) directly from [GBIF](https://www.gbif.org/) into GRASS
+by means of [v.in.pygbif](https://grass.osgeo.org/grass-stable/manuals/addons/v.in.pygbif.html) as follows: 
+
+```{python}
+# Set computational region
+# region = gs.parse_command("g.region", raster="lst_2014.001_avg", flags="g")
+# region
+```
+
+```{python}
+# Install extension (requires pygbif: pip install pygbif)
+# gs.run_command("g.extension",
+#                extension="v.in.pygbif")
+```
+
+```{python}
+# Import data from GBIF
+# gs.run_command("v.in.pygbif", 
+#                output="aedes_albopictus",
+#                taxa="Aedes albopictus",
+#                date_from="2014-01-01",
+#                date_to="2018-12-31")
+```
+
+### Creating random background points
+
+The algorithm MaxEnt that we will use in the next part of this session requires not only the locations of known occurrences, but also information on the rest of the environment available. These are not absences but background data, we actually do not know if the species is there or not, but we need it to compare with the features of the places where the species does occur. 
+
+To avoid getting background points exactly where occurrences are, we'll create buffers around them. Then, we need to ensure that background points are only over land within our computational region. In order to do that, we'll create a mask over land and we'll overlay the buffers with the mask. Can you guess what the ooutput will be?
+
+```{python}
+# Create buffer around Aedes albopictus records
+gs.run_command("v.buffer",
+               input="aedes_albopictus",
+               output="aedes_buffer",
+               distance=2000)
+```
+
+```{python}
+# Set computational region
+region = gs.parse_command("g.region", raster="lst_2014.001_avg", flags="g")
+region
+```
+
+```{python}
+# Create a vector mask to limit background points
+expression="MASK = if(lst_2014.001_avg, 1, null())"
+gs.raster.mapcalc(exp=expression)
+
+gs.run_command("r.to.vect", 
+               input="MASK",
+               output="vect_mask",
+               type="area")
+```
+
+```{python}
+# Subtract buffers from vector mask
+gs.run_command("v.overlay",
+               ainput="vect_mask",
+               binput="aedes_buffer",
+               operator="xor",
+               output="mask_bg")
+```
+
+Let's display the result
+
+```{python}
+# Display raster map with interactive class
+mask_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+mask_map.add_vector("mask_bg")
+mask_map.add_layer_control(position = "bottomright")
+mask_map.show()
+```
+
+```{python}
+# Generate random background points
+gs.run_command("v.random",
+               output="background_points",
+               npoints=1000,
+               restrict="mask_bg",
+               seed=3749)
+```
+
+Let's now display occurence and background points together over an LST map
+
+```{python}
+# Display vector map
+pb_map = gj.Map(width=500, use_region=True)
+pb_map.d_rast(map="lst_2014.005_avg")
+pb_map.d_vect(map="italy_borders_0", type="boundary")
+pb_map.d_vect(map="background_points")
+pb_map.d_vect(map="aedes_albopictus", icon="basic/diamond", fill_color="red", size=8)
+pb_map.show()
+```
+
+### Create daily LST STRDS
+
+Now we'll start processing the raster data to derive potentially relevant predictors to include in the model. Our data consists of a time series of daily LST averages. We'll use the GRASS temporal framework for this and the first step is to create the time series object and register maps in it. See [t.create](https://grass.osgeo.org/grass-stable/manuals/t.create.html) and [t.register](https://grass.osgeo.org/grass-stable/manuals/t.register.html) for further details.
+
+```{python}
+# Create time series 
+gs.run_command("t.create",
+               type="strds",
+               temporaltype="absolute",
+               output="lst_daily",
+               title="Average Daily LST",
+               description="Average daily LST in degree C - 2014-2018")
+```
+
+```{python}
+# Check it is created
+gs.run_command("t.list",
+              type="strds")
+```
+
+```{python}
+# Get list of maps 
+map_list=gs.list_grouped(type="raster", pattern="lst_201*")['italy_LST_daily']
+map_list
+```
+
+```{python}
+# Register maps in strds  
+gs.run_command("t.register", 
+               input="lst_daily",
+               maps=map_list,
+               increment="1 days",
+               start="2014-01-01", 
+               flags="i")
+```
+
+```{python}
+# Get info about the strds
+gs.run_command("t.info",
+               input="lst_daily")
+```
+
+### Generate environmental variables from LST STRDS
+
+#### Long term monthly avg, min and max LST - Climatologies
+
+```{python}
+# January average LST
+gs.run_command("t.rast.series",
+               input="lst_daily",
+               method="average",
+               where="strftime('%m', start_time)='01'",
+               output="lst_average_jan")
+```
+
+```{python}
+gs.raster_info("lst_average_jan")
+```
+
+If we want to estimate climatologies for all months, let's try first to get the list of maps that will be the input for [t.rast.series](https://grass.osgeo.org/grass-stable/manuals/t.rast.series.html), for that we'll test the condition in [t.rast.list](https://grass.osgeo.org/grass-stable/manuals/t.rast.list.html) first.
+
+```{python}
+# Define list of months as required
+months=['{0:02d}'.format(m) for m in range(1,13)]
+
+for m in months:
+    gs.run_command("t.rast.list",
+                   input="lst_daily",
+                   where=f"strftime('%m', start_time)='{m}'")
+```
+
+```{python}
+# Now we estimate the climatologies for all months and methods
+months=['{0:02d}'.format(m) for m in range(1,13)]
+methods=["average","minimum","maximum"]
+
+for m in months:
+    for me in methods:
+        gs.run_command("t.rast.series", 
+                       input="lst_daily",
+                       method=me,
+                       where=f"strftime('%m', start_time)='{m}'",
+                       output="lst_{}_{}".format(me,m))
+```
+
+```{python}
+# List newly created maps
+gs.list_grouped(type="raster", pattern="*{average,minimum,maximum}*")['italy_LST_daily']
+```
+
+```{python}
+# Remove lst_average_jan
+gs.run_command("g.remove", type="raster", name="lst_average_jan", flags="f")
+```
+
+#### Bioclimatic variables
+
+Perhaps you have heard of [Worldclim](https://www.worldclim.org/) or [CHELSA](https://chelsa-climate.org/) bioclimatic variables? Well, this are 19 variables that represent potentially limiting conditions for species. They derive from the combination of temperature and precipitation long term averages. As we do not have precipitation data in this exercise, we'll only estimate the bioclimatic variables that include temperature. See [r.bioclim](https://grass.osgeo.org/grass-stable/manuals/addons/r.bioclim.html) manual for further details.
+
+```{python}
+# Install extension
+gs.run_command("g.extension",
+               extension="r.bioclim")
+```
+
+```{python}
+# Get lists of maps needed
+tmin=gs.list_grouped(type="raster", pattern="lst_minimum_??")['italy_LST_daily']
+tmax=gs.list_grouped(type="raster", pattern="lst_maximum_??")['italy_LST_daily']
+tavg=gs.list_grouped(type="raster", pattern="lst_average_??")['italy_LST_daily']
+
+print(tmin,tmax,tavg)
+```
+
+```{python}
+# Estimate temperature related bioclimatic variables
+gs.run_command("r.bioclim", 
+               tmin=tmin, 
+               tmax=tmax,
+               tavg=tavg, 
+               output="worldclim_") 
+```
+
+```{python}
+# List output maps
+gs.list_grouped(type="raster", pattern="worldclim*")['italy_LST_daily']
+```
+
+Let's have a look at some of the maps we just created
+
+```{python}
+# Display raster map with interactive class
+bio_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+bio_map.add_raster("worldclim_bio01")
+bio_map.add_raster("worldclim_bio02")
+bio_map.add_layer_control(position = "bottomright")
+bio_map.show()
+```
+
+#### Spring warming
+
+We define spring warming as the velocity with which temperature increases from winter into spring and we calculate it as `slope(daily Tmean february-march-april)`. We will use [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggregate.html).
+
+```{python}
+# Define list of months
+months=['{0:02d}'.format(m) for m in range(2,5)]
+```
+
+```{python}
+# Annual spring warming
+gs.run_command("t.rast.aggregate",
+               input="lst_daily",
+               output="annual_spring_warming",
+               basename="spring_warming",
+               suffix="gran",
+               method="slope",
+               granularity="1 years",
+               where=f"strftime('%m',start_time)='{months[0]}' or strftime('%m',start_time)='{months[1]}' or strftime('%m', start_time)='{months[2]}'")
+```
+
+```{python}
+# Check raster maps in the STRDS
+gs.run_command("t.rast.list", input="annual_spring_warming")
+```
+
+```{python}
+# Average spring warming
+gs.run_command("t.rast.series",
+               input="annual_spring_warming",
+               output="avg_spring_warming",
+               method="average")
+```
+
+```{python}
+# Display raster map with interactive class
+auc_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+auc_map.add_raster("avg_spring_warming")
+auc_map.add_layer_control(position = "bottomright")
+auc_map.show()
+```
+
+#### Autumnal cooling
+
+We define autumnal cooling as the velocity with which temperature decreases from summer into fall and we calculate it as `slope(daily Tmean august-september-october)`.
+
+```{python}
+# Define list of months
+months=['{0:02d}'.format(m) for m in range(8,11)]
+```
+
+```{python}
+# Annual autumnal cooling
+gs.run_command("t.rast.aggregate",
+               input="lst_daily",
+               output="annual_autumnal_cooling",
+               basename="autumnal_cooling",
+               suffix="gran",
+               method="slope",
+               granularity="1 years",
+               where=f"strftime('%m',start_time)='{months[0]}' or strftime('%m',start_time)='{months[1]}' or strftime('%m', start_time)='{months[2]}'")
+```
+
+```{python}
+# Check raster maps in the STRDS
+gs.run_command("t.rast.list", input="annual_autumnal_cooling")
+```
+
+```{python}
+# Average autumnal cooling
+gs.run_command("t.rast.series",
+               input="annual_autumnal_cooling",
+               output="avg_autumnal_cooling",
+               method="average")
+```
+
+```{python}
+# Display raster map with interactive class
+spw_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+spw_map.add_raster("avg_autumnal_cooling")
+spw_map.add_layer_control(position = "bottomright")
+spw_map.show()
+```
+
+#### Number of days with LSTmean >= 20 and <= 30
+
+```{python}
+# Keep only pixels meeting the condition
+expression="tmean_higher20_lower30 = if(lst_daily >= 20.0 && lst_daily <= 30.0, 1, null())"
+
+gs.run_command("t.rast.algebra",
+               expression=expression, 
+               basename="tmean_higher20_lower30",
+               suffix="gran",
+               nproc=7, 
+               flags="n")
+```
+
+```{python}
+# Count how many times per year the condition is met
+gs.run_command("t.rast.aggregate",
+               input="tmean_higher20_lower30", 
+               output="count_tmean_higher20_lower30",
+               basename="tmean_higher20_lower30",
+               suffix="gran",
+               method="count",
+               granularity="1 years")
+```
+
+```{python}
+# Check raster maps in the STRDS
+gs.run_command("t.rast.list", 
+               input="count_tmean_higher20_lower30", 
+               columns="name,start_time,min,max")
+```
+
+```{python}
+# Average number of days with LSTmean >= 20 and <= 30
+gs.run_command("t.rast.series",
+               input="count_tmean_higher20_lower30",
+               output="avg_count_tmean_higher20_lower30",
+               method="average")
+```
+
+```{python}
+# Display raster map with interactive class
+h20_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+h20_map.add_raster("avg_count_tmean_higher20_lower30")
+h20_map.add_layer_control(position = "bottomright")
+h20_map.show()
+```
+
+See [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html) manual for further details.
+
+#### Number of consecutive days with LSTmean <= -10.0
+
+```{python}
+# Create annual mask
+gs.run_command("t.rast.aggregate",
+               input="lst_daily",
+               output="annual_mask",
+               basename="annual_mask",
+               suffix="gran",
+               granularity="1 year",
+               method="count")
+```
+
+```{python}
+# Replace values by zero
+expression="if(annual_mask, 0)"
+
+gs.run_command("t.rast.mapcalc",
+               input="annual_mask",
+               output="annual_mask_0",
+               expression=expression,
+               basename="annual_mask_0")
+```
+
+```{python}
+# Calculate consecutive days with LST <= -10.0
+expression="lower_m2_consec_days = annual_mask_0 {+,contains,l} if(lst_daily <= -10.0 && lst_daily[-1] <= -10.0 || lst_daily[1] <= -10.0 && lst_daily <= -10.0, 1, 0)"
+
+gs.run_command("t.rast.algebra",
+               expression=expression,
+               basename="lower_m2_",
+               suffix="gran",
+               nproc=7)
+```
+
+```{python}
+# Inspect values
+gs.run_command("t.rast.list",
+               input="lower_m2_consec_days",
+               columns="name,start_time,min,max")
+```
+
+```{python}
+# Median number of consecutive days with LST <= -2
+gs.run_command("t.rast.series",
+               input="lower_m2_consec_days",
+               output="median_lower_m2_consec_days",
+               method="median")
+```
+
+```{python}
+# Display raster map with interactive class
+lt2_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+lt2_map.add_raster("median_lower_m2_consec_days")
+lt2_map.add_layer_control(position = "bottomright")
+lt2_map.show()
+```
+
+We have now derived many potentially relevant predictors for the mosquito habitat suitability and we could still derive some more, for example, the number of mosquito or virus cycles per year based on development temperature thresholds and growing degree days (GDD). This could be achieved with [t.rast.accumulate](https://grass.osgeo.org/grass-stable/manuals/t.rast.accumulate.html) and [t.rast.accdetect](https://grass.osgeo.org/grass-stable/manuals/t.rast.accdetect.html). 
+
+We will now close this session as we will open it again from R in the last part of this session.
+
+```{python}
+session.finish
+```
+
+
