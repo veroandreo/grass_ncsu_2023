@@ -10,28 +10,32 @@ format:
 ---
 
 ```{r setup, include = FALSE}
-# knitr::opts_chunk$set(eval = FALSE)
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
+# knitr::opts_chunk$set(cache = TRUE)
 ```
 
 In this third part of the studio, we'll use R to model *Aedes albopictus*
 distribution in Northern Italy. For that, we need to connect to GRASS via
-the `rgrass` package by @rgrass in order to read occurrence data and 
-predictors.
+the `rgrass` package in order to read occurrence data and predictors. The 
+*rgrass* package is developed by @rgrass and can be found at: 
+<https://github.com/rsbivand/rgrass/>. See the vignette with explanations
+and examples at: <https://rsbivand.github.io/rgrass/>.
 
 ## [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
 
 - `initGRASS()`: starts a GRASS GIS session from R
 - `execGRASS()`: executes GRASS GIS commands 
 - `gmeta()`: shows GRASS location metadata
-- `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into *terra* objects.
-- `write_VECT()` and `write_RAST()`: write *terra* objects into GRASS GIS database
+- `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into R *terra* objects.
+- `write_VECT()` and `write_RAST()`: write R *terra* objects into the GRASS GIS database
 
 ::: {.callout-note}
 Package `terra` is developed by @terra and will eventually replace `raster`.
 :::
 
-### GRASS GIS and R can be used together in two ways:
+## Usage
+
+GRASS GIS and R can be used together in two ways:
 
 A. Using [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#R_within_GRASS), i.e. starting R (or RStudio) from GRASS terminal
 <br>
@@ -45,7 +49,6 @@ A. Using [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_stati
 
 ![](assets/img/studio/grass_terminal_calling_R.png){width="60%" fig-align="center"}
 
-
 B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R), i.e. we connect to GRASS GIS database from within R (or RStudio).
 <br>
 
@@ -54,15 +57,14 @@ B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_stat
 - use `read_VECT()`, `read_RAST()`, `write_VECT()` and `write_RAST()` to read data from and to GRASS database
 
 ::: {.callout-note}
-Originally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations
+`rgrass` was originally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations
 :::
-
 
 ![](assets/img/studio/grass_within_rstudio_session.png){width="70%" fig-align="center"}
 
 # Let's move to R
 
-#### Load packages needed
+### Load packages needed
 
 ```{r load_libraries, message=FALSE}
 library(rgrass)
@@ -77,12 +79,12 @@ library(SDMtune)
 library(zeallot)
 ```
 
-#### Option B: Close GRASS, open Rstudio and run:
+### Initialize GRASS
 
+We'll use **option B**, i.e., we'll launch GRASS, in a defined location and mapset, from R
 
 ```{r}
 #| label: grass_init
-#| results: hide
 #| message: false
 
 # path to GRASS binaries (run `grass --config path`)
@@ -104,8 +106,9 @@ initGRASS(gisBase = grassbin,
           remove_GISRC= TRUE)
 ```
 
-#### Read vector data
+### Read vector data
 
+Now we read in the occurrence data and the background points hosted in GRASS, convert them to `sf` objects and display them with `mapview`.
 
 ```{r}
 #| label: read_vectors
@@ -122,7 +125,7 @@ background <- st_as_sf(read_VECT("background_points"))
 #| warning: false
 
 # Display vectors
-mapview(Aa_pres) + 
+mapview(presence) + 
   mapview(background, color="black", col.regions="black", cex=2)
 ```
 
@@ -180,20 +183,20 @@ mapview(predictors_r[['worldclim_bio01']]) + presence
 
 # Variables for models
 sp <- "Aedes albopictus"
-presence <- st_coordinates(presence)
+presence_coords <- st_coordinates(presence)
 background <- st_coordinates(background)
 env <- predictors_r
 
 # Prepare data: SWD
 data_sp <- prepareSWD(species = sp, 
-                      p = presence, 
+                      p = presence_coords, 
                       a = background, 
                       env = env)
 
 data_sp
 ```
 
-#### Define relevant variables
+### Define relevant variables
 
 ```{r}
 seed=49
@@ -204,7 +207,7 @@ cor_th=0.7
 perm=10
 ```
 
-#### Create train and test datasets
+### Create train and test datasets
 
 ```{r}
 # Create training and test sets
@@ -224,7 +227,7 @@ train_sp
 test_sp
 ```
 
-#### Create folds for cross-validation
+### Create folds for cross-validation
 
 ```{r}
 # Create folds 
@@ -234,7 +237,7 @@ ran_folds <- randomFolds(train_sp,
                          seed = seed)
 ```
 
-#### Train a default Maxent model with CV
+### Train a default Maxent model with CV
 
 ```{r}
 #| message: false
@@ -256,7 +259,7 @@ pred_full_model <- predict(full_model_sp,
 mapview(pred_full_model)
 ```
 
-#### Variable selection: remove highly correlated variables 
+### Variable selection: remove highly correlated variables 
 
 ```{r}
 #| warning: false
@@ -280,7 +283,7 @@ vs_sp <- varSel(full_model_sp,
 vs_sp@data
 ```
 
-#### Remove less important variables
+### Remove less important variables
 
 ```{r}
 # remove less important variables only if auc does not decrease
@@ -317,7 +320,7 @@ c(train_sp, test_sp) %<-%
                seed = seed)
 ```
 
-#### Run the best models with the full train data
+### Run the best model with the full train data
 
 ```{r}
 final_model_sp <- train(method = method, 
@@ -326,8 +329,7 @@ final_model_sp <- train(method = method,
                         reg = reduc_var_sp@models[[1]]@model@reg)
 ```
 
-
-#### Make predictions with the final model
+### Make predictions with the final model
 
 ```{r}
 map_sp_maxent <- predict(final_model_sp,
@@ -337,8 +339,7 @@ map_sp_maxent <- predict(final_model_sp,
 mapview(map_sp_maxent)
 ```
 
-
-#### Write raster of final model predictions to GRASS 
+### Write raster of final model predictions to GRASS 
 
 ```{r}
 write_RAST(rast(map_sp_maxent), 
@@ -351,8 +352,7 @@ execGRASS("g.list", parameters = list(type="raster",
                                       pattern="Aedes*"))
 ```
 
-
-#### Model evaluation
+### Model evaluation
 
 ```{r}
 # AUC
@@ -369,7 +369,7 @@ th_maxent <- thresholds(final_model_sp,
 knitr::kable(th_maxent, format = 'html', digits = 2)
 ```
 
-#### Variable importance in final model
+### Variable importance in final model
 
 ```{r}
 vi_model_sp <- maxentVarImp(final_model_sp)
@@ -381,7 +381,7 @@ plotVarImp(vi_model_sp)
 ```
 
 
-#### Response curves in final model
+### Response curves in final model
 
 ```{r}
 my_rp <- function(i){
