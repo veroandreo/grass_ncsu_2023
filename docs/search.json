@@ -557,7 +557,7 @@
     "href": "notebook_ex_sdm_r.html",
     "title": "Part 3: Modelling with R",
     "section": "",
-    "text": "In this third part of the studio, we’ll use R to model Aedes albopictus distribution in Northern Italy. For that, we need to connect to GRASS via the rgrass package in order to read occurrence data and predictors."
+    "text": "In this third part of the studio, we’ll use R to model Aedes albopictus distribution in Northern Italy. For that, we need to connect to GRASS via the rgrass package by Bivand (2022) in order to read occurrence data and predictors."
   },
   {
     "objectID": "presentation.html#boh-there",
@@ -662,7 +662,7 @@
     "href": "notebook_ex_sdm_r.html#rgrass",
     "title": "Part 3: Modelling with R",
     "section": "rgrass",
-    "text": "rgrass\n\n\ninitGRASS(): starts a GRASS GIS session from R\n\nexecGRASS(): executes GRASS GIS commands\n\ngmeta(): shows GRASS location metadata\n\nread_VECT() and read_RAST(): read vector and raster maps from GRASS into terra objects\n\nwrite_VECT() and write_RAST(): write terra objects into GRASS GIS database\n\nGRASS GIS and R can be used together in two ways:\nA. Using R within a GRASS GIS session, i.e. starting R (or RStudio) from GRASS terminal \n\ntype R or rstudio & in the GRASS GIS terminal\nload rgrass library\nuse read_VECT(), read_RAST() to read data from GRASS into R\naccess GRASS GIS modules and database through execGRASS()\n\nwrite data (back) to GRASS database with write_VECT() and write_RAST()\n\n\n\nB. Using GRASS GIS within an R session, i.e. we connect to GRASS GIS database from within R (or RStudio). \n\nwe need to start GRASS GIS with initGRASS() from R\nwe access GRASS GIS modules through execGRASS()\n\nuse read_VECT(), read_RAST(), write_VECT() and write_RAST() to read data from and to GRASS database\n\n\n\n\n\n\n\nNote\n\n\n\nOriginally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations"
+    "text": "rgrass\n\n\ninitGRASS(): starts a GRASS GIS session from R\n\nexecGRASS(): executes GRASS GIS commands\n\ngmeta(): shows GRASS location metadata\n\nread_VECT() and read_RAST(): read vector and raster maps from GRASS into terra objects.\n\nwrite_VECT() and write_RAST(): write terra objects into GRASS GIS database\n\n\n\n\n\n\n\nNote\n\n\n\nPackage terra is developed by Hijmans (2022) and will eventually replace raster.\n\n\nGRASS GIS and R can be used together in two ways:\nA. Using R within a GRASS GIS session, i.e. starting R (or RStudio) from GRASS terminal \n\ntype R or rstudio & in the GRASS GIS terminal\nload rgrass library\nuse read_VECT(), read_RAST() to read data from GRASS into R\naccess GRASS GIS modules and database through execGRASS()\n\nwrite data (back) to GRASS database with write_VECT() and write_RAST()\n\n\n\n\n\n\nB. Using GRASS GIS within an R session, i.e. we connect to GRASS GIS database from within R (or RStudio). \n\nwe need to start GRASS GIS with initGRASS() from R\nwe access GRASS GIS modules through execGRASS()\n\nuse read_VECT(), read_RAST(), write_VECT() and write_RAST() to read data from and to GRASS database\n\n\n\n\n\n\n\nNote\n\n\n\nOriginally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations"
   },
   {
     "objectID": "studio_index.html#other-software",
@@ -740,5 +740,12 @@
     "title": "Part 1: Intro to GRASS GIS",
     "section": "Demo session overview",
     "text": "Demo session overview\nHabitat suitability mapping for the Asian tiger mosquito in Northern Italy based on variables derived from daily LST data\n\n\nGRASS\n\nImport species records\nCreate random background points\nCreate different environmental layers from daily LST data\n\n\n\nR\n\nRead data from GRASS into R\nModel species distribution\nModel evaluation\nVisualization of results\n\n\n\n\n\n\n\nData for the session\n\n\nRecords of Aedes albopictus (Asian tiger mosquito) in Northern Italy downloaded from GBIF\n\nAverage daily MODIS LST reconstructed by mundialis GmbH & Co. KG based on Metz et al. (2017):\n\n1 km spatial resolution\nConverted to Celsius degrees\n\n\n\n\nGet the sample location\n\nCreate a folder named grassdata\n\nDownload and unzip eu_laea location with LST mapset and unzip within your grassdata folder\n\nThe grassdata folder’s tree should look like this:\n  grassdata/\n  └── eu_laea\n      ├── italy_LST_daily\n      └── PERMANENT"
+  },
+  {
+    "objectID": "notebook_ex_sdm_r.html#references",
+    "href": "notebook_ex_sdm_r.html#references",
+    "title": "Part 3: Modelling with R",
+    "section": "References",
+    "text": "References\n\n\nBivand, R. (2022), Rgrass: Interface between ’GRASS’ geographical information system and ’r’.\n\n\nHijmans, R. J. (2022), Terra: Spatial data analysis."
   }
 ]

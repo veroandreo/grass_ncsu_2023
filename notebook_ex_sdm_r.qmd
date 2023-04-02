@@ -1,6 +1,7 @@
 ---
 title: "Part 3: Modelling with R"
 author: Verónica Andreo
+date: '`r Sys.Date()`'
 format: 
   html: 
     code-tools: true
@@ -9,22 +10,26 @@ format:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-# knitr::opts_chunk$set(cache = TRUE)
+# knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(cache = TRUE)
 ```
 
 In this third part of the studio, we'll use R to model *Aedes albopictus*
 distribution in Northern Italy. For that, we need to connect to GRASS via
-the `rgrass` package in order to read occurrence data and predictors.
+the `rgrass` package by @rgrass in order to read occurrence data and 
+predictors.
 
 ## [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
 
 - `initGRASS()`: starts a GRASS GIS session from R
 - `execGRASS()`: executes GRASS GIS commands 
 - `gmeta()`: shows GRASS location metadata
-- `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into *terra* objects 
+- `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into *terra* objects.
 - `write_VECT()` and `write_RAST()`: write *terra* objects into GRASS GIS database
 
+::: {.callout-note}
+Package `terra` is developed by @terra and will eventually replace `raster`.
+:::
 
 ### GRASS GIS and R can be used together in two ways:
 
@@ -37,7 +42,8 @@ A. Using [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_stati
 - access GRASS GIS modules and database through `execGRASS()`
 - write data (back) to GRASS database with `write_VECT()` and `write_RAST()`
 
-<img src="assets/img/studio/grass_terminal_calling_R.png" width="60%">
+
+![](assets/img/studio/grass_terminal_calling_R.png){width="60%" fig-align="center"}
 
 
 B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R), i.e. we connect to GRASS GIS database from within R (or RStudio).
@@ -51,25 +57,38 @@ B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_stat
 Originally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations
 :::
 
-<img src="assets/img/grass_within_rstudio_session.png" width="80%">
 
+![](assets/img/studio/grass_within_rstudio_session.png){width="70%" fig-align="center"}
 
 # Let's move to R
 
+#### Load packages needed
+
+```{r load_libraries, message=FALSE}
+library(rgrass)
+library(sf)
+library(terra)
+library(raster)
+library(mapview)
+library(biomod2)
+library(dismo)
+library(usdm)
+library(SDMtune)
+library(zeallot)
+```
 
 #### Option B: Close GRASS, open Rstudio and run:
 
-::: {.panel-tabset}
 
-## R code
-
-```{r grass_init, results='hide', message=FALSE}
-library(rgrass7)
+```{r}
+#| label: grass_init
+#| results: hide
+#| message: false
 
 # path to GRASS binaries (run `grass --config path`)
 grassbin <- "/usr/lib64/grass82"
 # path to GRASS database
-grassdata <- "/home/veroandreo/grassdata/"
+grassdata <- "/home/veroandreo/grass_ncsu_2023/grassdata/"
 # path to location
 location <- "eu_laea"
 # path to mapset
@@ -81,71 +100,52 @@ initGRASS(gisBase = grassbin,
           gisDbase = grassdata, 
           location = location, 
           mapset = mapset, 
-          override = TRUE)
-```
-
-## Output
-
-```{r ref.label='grass_init', echo=FALSE, size='tiny'}
-# start GRASS GIS from R
-initGRASS(gisBase = grassbin, 
-          home = tempdir(), 
-          gisDbase = grassdata, 
-          location = location, 
-          mapset = mapset, 
-          override = TRUE)
-```
-:::
-
-#### Load other packages needed
-
-```{r load_libraries}
-library(raster)
-library(sf)
-library(mapview)
-library(biomod2)
+          override = TRUE,
+          remove_GISRC= TRUE)
 ```
 
 #### Read vector data
 
-::: {.panel-tabset}
 
-## R code
-
-```{r read_vectors, message=FALSE, warning=FALSE, results='hide'}
-# Use sf for vectors
-use_sf()
+```{r}
+#| label: read_vectors
+#| message: false
+#| warning: false
+#| results: hide
 
 # Read vector layers
-Aa_pres <- readVECT("aedes_albopictus")
-background <- readVECT("background_points")
+presence <- st_as_sf(read_VECT("aedes_albopictus"))
+background <- st_as_sf(read_VECT("background_points"))
 ```
 
-```{r plot, message=FALSE, warning=FALSE, results='hide'}
-# Quick visualization in mapview
-mapview(Aa_pres) + 
-  mapview(background, col.regions=NA, cex=2)
-```
+```{r ref.label='plot'}
+#| warning: false
 
-## Map
-
-```{r ref.label='plot', warning=FALSE, echo=FALSE}
+# Display vectors
 mapview(Aa_pres) + 
   mapview(background, color="black", col.regions="black", cex=2)
 ```
 
-:::
 
 #### Read raster data
 
-```{r read_rasters, message=FALSE, warning=FALSE, results='hide'}
-# Use sp for rasters
-use_sp()
+```{r}
+#| label: read_rasters
+#| message: false
+#| warning: false
+#| results: hide
 
 # List rasters by pattern
-worldclim <- execGRASS("g.list", parameters = list(type = "raster", pattern = "worldclim*"))
-avg <- execGRASS("g.list", parameters = list(type = "raster", pattern = "avg*"))
-median <- execGRASS("g.list", parameters = list(type = "raster", pattern = "median*", exclude = "*[1-5]"))
+worldclim <- execGRASS("g.list", 
+                       parameters = list(type = "raster", 
+                                         pattern = "worldclim*"))
+avg <- execGRASS("g.list", 
+                 parameters = list(type = "raster", 
+                                   pattern = "avg*"))
+median <- execGRASS("g.list", 
+                    parameters = list(type = "raster", 
+                                      pattern = "median*", 
+                                      exclude = "*[1-5]"))
 
 # Concatenate map lists
 to_import <- c(attributes(worldclim)$resOut, 
@@ -154,282 +154,253 @@ to_import <- c(attributes(worldclim)$resOut,
 
 # Read raster layers
 predictors <- list()
-for (i in to_import){ predictors[i] <- raster(readRAST(i)) }
+for (i in to_import){ 
+  predictors[i] <- raster(read_RAST(i)) }
+
+# Stack rasters
+predictors_r <- raster::stack(predictors)
 ```
 
 
-```{r quick_view, message=FALSE, warning=FALSE}
+```{r}
+#| label: quick_view
+#| message: false
+#| warning: false
+
 # Quick visualization in mapview
-mapview(predictors[['worldclim_bio01']]) + Aa_pres
+mapview(predictors_r[['worldclim_bio01']]) + presence
+```
+
+#### Data preparation
+
+```{r}
+#| label: data_prep1
+#| message: false
+#| warning: false
+
+# Variables for models
+sp <- "Aedes albopictus"
+presence <- st_coordinates(presence)
+background <- st_coordinates(background)
+env <- predictors_r
+
+# Prepare data: SWD
+data_sp <- prepareSWD(species = sp, 
+                      p = presence, 
+                      a = background, 
+                      env = env)
+
+data_sp
+```
+
+#### Define relevant variables
+
+```{r}
+seed=49
+perc_test = 0.2
+k = 4
+method="Maxent"
+cor_th=0.7
+perm=10
+```
+
+#### Create train and test datasets
+
+```{r}
+# Create training and test sets
+c(train_sp, test_sp) %<-% 
+  trainValTest(data_sp, 
+               test = perc_test,
+               only_presence = TRUE, 
+               seed = seed)
+
+```
+
+```{r}
+train_sp
+```
+
+```{r}
+test_sp
+```
+
+#### Create folds for cross-validation
+
+```{r}
+# Create folds 
+ran_folds <- randomFolds(train_sp, 
+                         k = k,
+                         only_presence = TRUE, 
+                         seed = seed)
+```
+
+#### Train a default Maxent model with CV
+
+```{r}
+#| message: false
+#| warning: false
+
+# Train a full model
+full_model_sp <- train(method = method,
+                       data = train_sp, 
+                       folds = ran_folds)
+
+full_model_sp
+```
+
+```{r}
+pred_full_model <- predict(full_model_sp,
+                           data = env,
+                           type = "cloglog")
+
+mapview(pred_full_model)
+```
+
+#### Variable selection: remove highly correlated variables 
+
+```{r}
+#| warning: false
+
+# Prepare background locations to test correlation
+bg_sp <- prepareSWD(species = sp, 
+                    a = background,
+                    env = env)
+
+# Remove variables with correlation higher than 0.7 
+# while accounting for the AUC
+vs_sp <- varSel(full_model_sp,
+                metric = "auc", 
+                bg4cor = bg_sp, 
+                cor_th = cor_th,
+                permut = perm)
+
+```
+
+```{r}
+vs_sp@data
+```
+
+#### Remove less important variables
+
+```{r}
+# remove less important variables only if auc does not decrease
+reduc_var_sp <- reduceVar(vs_sp,
+                          th = 10, 
+                          metric = "auc", 
+                          test = TRUE, 
+                          permut = perm, 
+                          use_jk = TRUE)
+
+reduc_var_sp
+```
+
+We need now to recreate SWD only with the selected variables to run the final 
+model and make predictions.
+
+```{r}
+# Get only relevant variables from the reduced model
+retained_varnames <- names(reduc_var_sp@models[[1]]@data@data)
+
+# Subset raster stack
+env <- subset(env, retained_varnames)
+
+# SWD with the selected vars
+subset_train_sp <- prepareSWD(species = sp, 
+                              p = presence,
+                              a = background,
+                              env = env)
+
+c(train_sp, test_sp) %<-% 
+  trainValTest(subset_train_sp, 
+               test = perc_test, 
+               only_presence = TRUE, 
+               seed = seed)
+```
+
+#### Run the best models with the full train data
+
+```{r}
+final_model_sp <- train(method = method, 
+                        data = train_sp,
+                        fc = reduc_var_sp@models[[1]]@model@fc,
+                        reg = reduc_var_sp@models[[1]]@model@reg)
 ```
 
 
-#### Data preparation and formatting
+#### Make predictions with the final model
 
-```{r data_prep1, message=FALSE, warning=FALSE, results='hide'}
-# Response variable
-n_pres <- dim(Aa_pres)[1]
-n_backg <- dim(background)[1]
-spp_name <- 'Aedes.albopictus'
+```{r}
+map_sp_maxent <- predict(final_model_sp,
+                         data = env, 
+                         type = "cloglog")
 
-pres <- rep(1, n_pres)
-backg <- rep(0, n_backg)
-myResp <- c(pres, backg)
-
-myRespXY <- rbind(st_coordinates(Aa_pres),
-		          st_coordinates(background))
-
-# Explanatory variables
-myExpl <- raster::stack(predictors)
-names(myExpl)
+mapview(map_sp_maxent)
 ```
 
-#### Data preparation and formatting
 
-::: {.panel-tabset}
+#### Write raster of final model predictions to GRASS 
 
-## R code
-
-```{r data_prep2, message=FALSE, warning=FALSE, results='hide', fig.show='hide'}
-# Format data as required by biomod
-myBiomodData <- BIOMOD_FormatingData(resp.var = myResp,
-                                     expl.var = myExpl,
-                                     resp.xy = myRespXY,
-                                     resp.name = spp_name)
-
-# Inspect data
-myBiomodData
-
-# Plot data
-plot(myBiomodData)
+```{r}
+write_RAST(rast(map_sp_maxent), 
+           "Aedes_albopictus_maxent", 
+           flags = c("o","overwrite"))
 ```
 
-## Output
-
-```{r print_data_object, warning=FALSE, echo=FALSE}
-# Inspect data
-myBiomodData
-```
-
-## Plot
-
-```{r plot_data_object, warning=FALSE, echo=FALSE, out.width='72%'}
-par(mar=c(2,2,2,2))
-plot(myBiomodData)
-```
-
-:::
-
-#### Set model(s) options
-
-::: {.panel-tabset}
-
-## R code
-
-```{r model_options, message=FALSE, warning=FALSE, results='hide'}
-# Set model options
-myBiomodOption <- BIOMOD_ModelingOptions(
-  MAXENT.Phillips = 
-    list(path_to_maxent.jar = "/home/veroandreo/software/maxent/maxent.jar",
-         maximumiterations = 200,
-         lq2lqptthreshold = 100, 
-         l2lqthreshold = 100))
-
-# Inspect all configs for MaxEnt
-myBiomodOption@MAXENT.Phillips
-```
-
-## Output
-
-```{r print_model_options, message=FALSE, warning=FALSE, echo=FALSE}
-myBiomodOption@MAXENT.Phillips
-```
-
-:::
-
-#### Run model
-
-```{r model_run, message=FALSE, warning=FALSE, results='hide'}
-# Run model
-myBiomodModelOut <- BIOMOD_Modeling(
-  myBiomodData,
-  models = c('MAXENT.Phillips'),  
-  models.options = myBiomodOption,
-  NbRunEval=5,     
-  DataSplit=80,
-  VarImport=10,
-  models.eval.meth = c('ROC','ACCURACY'),
-  SaveObj = TRUE,
-  rescal.all.models = FALSE,
-  do.full.models = FALSE,
-  modeling.id = paste(spp_name,"Habitat_Suitability",sep="_"))
-
-# Inspect the model
-myBiomodModelOut
+```{r}
+execGRASS("g.list", parameters = list(type="raster",
+                                      pattern="Aedes*"))
 ```
 
 
 #### Model evaluation
 
-::: {.panel-tabset}
-
-## R code
-
-```{r model_eval, message=FALSE, warning=FALSE, results='hold'}
-# Extract evaluation data
-myBiomodModelEval <- get_evaluations(myBiomodModelOut)
-
-# Accuracy
-myBiomodModelEval["ACCURACY","Testing.data",,,]
-
-# ROC: Receiver-operator curve
-myBiomodModelEval["ROC","Testing.data",,,]
-
-# Save run with max ROC
-max_roc <- which.max(myBiomodModelEval["ROC","Testing.data",,,])
+```{r}
+# AUC
+auc_maxent <- auc(final_model_sp, test = test_sp)
+auc_maxent
 ```
 
-## Plot
+```{r}
+# Threshold dependent evaluation
+th_maxent <- thresholds(final_model_sp, 
+                        type = "cloglog", 
+                        test = test_sp)
 
-```{r plot_model_eval, message=FALSE, warning=FALSE, echo=FALSE, out.width='60%'}
-models_scores_graph(myBiomodModelOut, 
-                    by = "cv_run", 
-                    metrics = c("ROC", "ACCURACY"))
-```
-:::
-
-#### Variable importance
-
-:::{.panel-tabset}
-
-## R code
-
-```{r vi, message=FALSE, warning=FALSE, results='hide'}
-# Variable importance
-vi <- get_variables_importance(myBiomodModelOut)
-
-# Let's see the first part
-head(vi[1:13,1, ,], n = 10L) %>% 
-  knitr::kable(format = 'html')
-
-# ... and estimate the mean
-head(apply(vi, c(1,2), mean)) %>% 
-  knitr::kable(format = 'html')
+knitr::kable(th_maxent, format = 'html', digits = 2)
 ```
 
-## Output 1
+#### Variable importance in final model
 
-```{r warning=FALSE, echo=FALSE}
-head(vi[1:13,1, ,], n = 10L) %>% 
-  knitr::kable(format = 'html')
+```{r}
+vi_model_sp <- maxentVarImp(final_model_sp)
+vi_model_sp
 ```
 
-## Output 2
-
-```{r warning=FALSE, echo=FALSE}
-head(apply(vi, c(1,2), mean), n = 10L) %>% 
-  knitr::kable(format = 'html')
+```{r}
+plotVarImp(vi_model_sp)
 ```
 
-:::
 
-#### Response curves
+#### Response curves in final model
 
-::: {.panel-tabset}
-
-## R code
-
-```{r response_curves, warning=FALSE, fig.show='hide'}
-# Extract model of interest
-Aa_maxent <- BIOMOD_LoadModels(myBiomodModelOut, models = "MAXENT.Phillips")
-
-# Plot response curves
-resp_curves <- biomod2::response.plot2(models = Aa_maxent, 
-                               Data = get_formal_data(myBiomodModelOut, 
-                                                      "expl.var"),
-                               show.variables = get_formal_data(myBiomodModelOut,
-                                                                "expl.var.names"),
-                               do.bivariate = FALSE, 
-                               fixed.var.metric = "median")
-```
-
-## Plot
-
-```{r ref.label='response_curves', warning=FALSE, echo=FALSE, out.width='60%'}
-resp_curves <- biomod2::response.plot2(models = Aa_maxent, 
-                               Data = get_formal_data(myBiomodModelOut, "expl.var"),
-                               show.variables = get_formal_data(myBiomodModelOut,
-                                                                "expl.var.names"),
-                               do.bivariate = FALSE, 
-                               fixed.var.metric = "median")
-```
-
-:::
-
-#### Model predictions
-
-:::{.panel-tabset}
-
-## R code
-
-```{r model_projection, message=FALSE, warning=FALSE, results='hide'}
-# Set parameters for model projection
-myBiomodProj <- BIOMOD_Projection(
-                modeling.output = myBiomodModelOut, 
-                new.env = myExpl,                     
-                proj.name = "current", 
-                selected.models = "all", 
-                compress = FALSE, 
-                build.clamping.mask = FALSE)
-
-# Obtain predictions
-mod_proj <- get_predictions(myBiomodProj)
-
-# Plot predicted model with highest ROC
-mapview(mod_proj[[max_roc]]) 
-```
-
-## Map
-
-```{r plot_model_proj, message=FALSE, warning=FALSE, echo=FALSE}
-# Plot predicted model
-mapview(mod_proj[[max_roc]]) + Aa_pres
-```
-
-:::
-
-#### Optionally, write data back to GRASS GIS
-
-::: {.panel-tabset}
-
-## R code
-
-```{r write_raster_grass, message=FALSE, warning=FALSE, results='hide'}
-# Export only one layer
-g <- as(mod_proj[[max_roc]], 'SpatialGridDataFrame')
-writeRAST(g, "maxent_albopictus", flags = "overwrite")
-
-# Export all MaxEnt runs
-for(i in seq_along(1:length(mod_proj@layers))){
-  writeRAST(as(mod_proj[[i]], 'SpatialGridDataFrame'), 
-            paste0("maxent_albopictus_", i, sep=""), 
-            flags = "overwrite")
+```{r}
+my_rp <- function(i){
+  plotResponse(reduc_var_sp, i)
 }
 
-# Check it's there
-execGRASS("g.list", parameters = list(type = "raster", 
-                                      pattern = "maxent*"))
+plotlist <- lapply(retained_varnames, my_rp)
+
+labels <- LETTERS[1:length(retained_varnames)]
+
+ggpubr::ggarrange(plotlist = plotlist, labels = labels)
 ```
 
-## Output
 
-```{r ref.label='write_raster_grass', message=FALSE, warning=FALSE, echo=FALSE, highlight.output = TRUE}
-# Check it's there
-execGRASS("g.list", parameters = list(type = "raster", 
-                                      pattern = "maxent*")) 
+```{r}
+# close the mapset
+unlink_.gislock()
 ```
 
-:::
 
 ### Disclaimer
 
@@ -437,9 +408,14 @@ This is only a toy example and only the beginning...
 
 - other models to test
 - hyper-parameter tuning
-- variable selection and model selection
 - ensemble modeling
 - model validation with independent data
 - uncertainty: where we can predict with confidence
 - many other relevant packages: 
-  - [*dismo*](https://cran.r-project.org/web/packages/dismo/index.html), [*sdm*](https://cran.r-project.org/web/packages/sdm/index.html), [*SDMtune*](https://cran.r-project.org/web/packages/SDMtune/index.html), [*kuenm*](https://github.com/marlonecobos/kuenm), [*caret*](https://cran.r-project.org/web/packages/caret/index.html), [*CAST*](https://cran.r-project.org/web/packages/CAST/index.html), etc.
+  - [*dismo*](https://cran.r-project.org/web/packages/dismo/index.html), [*sdm*](https://cran.r-project.org/web/packages/sdm/index.html),  [*kuenm*](https://github.com/marlonecobos/kuenm), [*caret*](https://cran.r-project.org/web/packages/caret/index.html), [*CAST*](https://cran.r-project.org/web/packages/CAST/index.html), etc.
+
+## References
+
+:::{#refs}
+
+:::
