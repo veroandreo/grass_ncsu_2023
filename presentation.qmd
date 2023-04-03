@@ -59,9 +59,9 @@ leaflet() %>%
 ---
 
 :::{.r-stack}
-![](assets/img/lecture/sdg_poster.png){.fragment fragment-index=1 .fade-in-then-out width="100%"}
+![](assets/img/lecture/sdg_poster.png){.fragment fragment-index=1 .fade-in-then-out width="90%"}
 
-![](assets/img/lecture/sdg_3.png){.fragment .fade-in-then-out fragment-index=2 width="65%" fig-align="center"}
+![](assets/img/lecture/sdg_3.png){.fragment .fade-in-then-out fragment-index=2 width="55%" fig-align="center"}
 
 ![](assets/img/lecture/sdg_3_target33.png){.fragment fragment-index=3 .fade-in width="100%" fig-align="center"}
 :::
@@ -356,7 +356,7 @@ Let's have a look at some real cases...
 
 ---
 
-### Time series analysis of satellite products
+### Time series analysis of satellite products {.smaller}
 
 - MODIS LST temporal and spatial reconstruction
 - Estimation of relevant indices (GRASS GIS temporal framework!)
@@ -366,7 +366,7 @@ Let's have a look at some real cases...
 ::: {.column width="33%"}
 ![LST gap-filling process](assets/img/lecture/fig_modis_workflow.png)
 
-![](assets/img/grass_gis.svg){.fragment .absolute top=350 left=-100 width="90"}
+![](assets/img/grass_gis.svg){.absolute top=350 left=-100 width="85"}
 :::
 
 ::: {.column width="67%"}
@@ -495,14 +495,19 @@ We combined a rescaled probability map of the host with one of the human cases t
 ### Urban environmental characterisation for the distribution of ovitraps
 
 :::: {.columns}
-::: {.column width="35%"}
+::: {.column width="40%"}
 - Object-based classification of VHR imagery
 - Landscape metrics for polygons
 - Clustering to find groups of similar polygons
 - Stratified distribution of ovitraps
+
+::: {style="font-size: 0.7em;"}
+![](assets/img/lecture/carlita.png){width="60" style="float: right;"}
+MSc thesis, **Carla Rodriguez**.
+:::
 :::
 
-::: {.column width="65%"}
+::: {.column width="60%"}
 ![](assets/img/lecture/tesis_carla.png)
 :::
 ::::
@@ -554,8 +559,6 @@ Development of an early warning system (EWS) for dengue. PhD candidate, **Tomás
 
 ## Other projects under development {.smaller}
 
-<br>
-
 ::: {layout="[1, 20]"}
 ![](assets/img/lecture/abraham.png){width="51"}
 
@@ -591,7 +594,7 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 ---
 
 ## Challenges and gaps - RS
-![](assets/img/lecture/satellite_b.png){.absolute top=10 right=5 width=120}
+![](assets/img/lecture/satellite_b.png){.absolute top=5 right=5 width=120}
 
 - **Trade-off** between different RS resolutions, the problem under study, the data and methods available
 - **Gaps in optical RS**: clouds, shadows in optical RS (spatial and temporal interpolations)
@@ -599,8 +602,9 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 - **Limited access** to VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet)
 - Investment and capacity building: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)
 
-[**Field data will always be needed! :)**]{style="color: #e81f76;"}
-
+::: {.color-box-light-blue}
+[**Field data will always be needed! :)**]{style="color: #1a428a;"}
+:::
 
 ## Challenges and gaps - Ecology and Health
 
@@ -613,14 +617,35 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 - __Political decision and resource allocation__
 
 
-## Opportunities: some low hanging fruits
+## Opportunities: low hanging fruits?
 
-- SAR data to avoid clouds, e.g., **SAOCOM** to estimate soil moisture
-- Open LiDAR data, e.g., GEDI onboard of ISS
-- GEE, openEO, actinia
+- SAR data to avoid clouds, e.g., [**SAOCOM**](https://saocom.invap.com.ar/) to estimate soil moisture
+- Open LiDAR data, e.g., [GEDI](https://gedi.umd.edu/) onboard of ISS
+- GEE vs open source solutions [openEO.cloud](https://openeo.cloud/), [actinia](https://actinia.mundialis.de/), OpenPlains? ;-)
+
+::: {.columns}
+
+::: {.column width="34%"}
+![](assets/img/lecture/satellite_saocom.png){width="180px" style="float: right;"}
+
+![](assets/img/lecture/lago_san_martin_saocom.jpg){width="200px"}
+:::
+
+::: {.column width="33%"}
+![](assets/img/lecture/gedi.jpg)
+:::
+
+::: {.column width="33%"}
+![](assets/img/lecture/openeo_logo.svg){width="80%"}
+
+![](assets/img/lecture/actinia_logo.png){width="80%"}
+:::
+
+:::
 
 
-## New missions and UAVs: brighter future?
+
+## New missions & UAVs: brighter future?
 
 - A number of recent and upcoming missions for hyper-spectral data: PRISMA, EnMap, Sentinel CHIME, TIRS 
 - Cheaper UAVs with different types of cameras, e.g. thermal multi or hyper-pectral to detect and count animals
@@ -634,7 +659,7 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 
 # { background-image="assets/img/lecture/CONAE_aereo.png" }
 
-::: {style="color: #6aaae4; font-size: 5em;" .fragment}
+::: {style="color: #ffffff; font-size: 5em;" .fragment}
 Thanks! 
 :::
 
