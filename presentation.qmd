@@ -19,7 +19,7 @@ format:
 
 <br>
 
-::: {.columns}
+:::: {.columns}
 ::: {.column width="60%"}
 - Researcher and lecturer at Instituto Gulich
 - Background: Dr. in Biology, MSc. in Spatial Information Applications
@@ -39,7 +39,7 @@ leaflet() %>%
   addMarkers(lng=-64.4653258, lat=-31.5204194, popup="IG")
 ```
 :::
-:::
+::::
 
 {{< fa globe >}} <https://veroandreo.gitlab.io/>
 
@@ -238,7 +238,26 @@ decision making, planning of prevention, management or response actions, etc.
 
 ## Most common RS variables used
 
+:::: {.columns}
+:::{.column width="70%"}
 ![](assets/img/lecture/most_used_RS_vars.png){fig-align="center"}
+:::
+
+::: {.column width="30%"}
+<br>
+
+:::{.color-box-light-blue}
+- LST
+- Precipitation
+- NDVI
+- LULC
+- Elevation
+- NDWI
+:::
+
+:::
+
+::::
 
 ::: footer
 @parselia_satellite_2019
@@ -554,9 +573,13 @@ Development of an early warning system (EWS) for dengue. PhD candidate, **Tomás
 
 ## {{< fa person-digging >}} Online surveillance system {{< fa person-digging >}}
 
-![](assets/img/lecture/bid_geonode.png){fig-align="center"} 
+::: {.r-stack}
+![](assets/img/lecture/bid_geonode.png){fig-align="center" width="67%"} 
 
+![](assets/img/lecture/bid_geonode_mosquitos.jpg){.fragment fig-align="center" width="85%"}
 
+![](assets/img/lecture/bid_geonode_dengue_2020.jpg){.fragment fig-align="center" width="82%"}
+:::
 ## Other projects under development {.smaller}
 
 ::: {layout="[1, 20]"}
@@ -594,7 +617,7 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 ---
 
 ## Challenges and gaps - RS
-![](assets/img/lecture/satellite_b.png){.absolute top=5 right=5 width=120}
+![](assets/img/lecture/satellite_b.png){.absolute top=5 right=-15 width=120}
 
 - **Trade-off** between different RS resolutions, the problem under study, the data and methods available
 - **Gaps in optical RS**: clouds, shadows in optical RS (spatial and temporal interpolations)
@@ -632,6 +655,8 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 :::
 
 ::: {.column width="33%"}
+<br>
+
 ![](assets/img/lecture/gedi.jpg)
 :::
 
@@ -644,18 +669,44 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 :::
 
 
+## New missions: hyper-spectral for all 
 
-## New missions & UAVs: brighter future?
+- A number of recent and upcoming missions for hyper-spectral data: [PRISMA](https://prismauserregistration.asi.it/) (recently made open), [EnMap](https://www.enmap.org/), [CHIME](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Going_hyperspectral_for_CHIME), TIRS 
 
-- A number of recent and upcoming missions for hyper-spectral data: PRISMA, EnMap, Sentinel CHIME, TIRS 
-- Cheaper UAVs with different types of cameras, e.g. thermal multi or hyper-pectral to detect and count animals
+:::: {.columns}
+:::{.column width="65%"}
+![](assets/img/lecture/hyperspectral.jpg){width="85%" fig-align="center"}
+:::
 
-![](assets/img/lecture/map_monkeys_with_drones_tir.png){fig-align="center"}
+::: {.column width="35%"}
+![](assets/img/lecture/logo_prisma.png){fig-align="center"}
+:::
+
+::::
 
 ::: footer
 <http://database.eohandbook.com/database/instrumenttable.aspx>, 
+:::
+
+
+## Specialized cameras onboard drones 
+
+- Cheaper UAVs with different types of cameras, e.g. thermal multi- or hyper-spectral sensors to detect and count animals in inaccessible places
+
+![](assets/img/lecture/drone.png){.absolute top=100 right=-20 width=120}
+![](assets/img/lecture/map_monkeys_with_drones_tir.png){fig-align="center" width="90%"}
+
+
+::: footer
 @carrasco_escobar_use_2022
 :::
+
+
+---
+
+
+![](assets/img/lecture/one_health_and_satellites.png){fig-align="center" width="95%"}
+
 
 # { background-image="assets/img/lecture/CONAE_aereo.png" }
 
@@ -678,6 +729,7 @@ Unhealthy lab
 
 ![](assets/img/lecture/insaludables.png)
 :::
+
 
 ## References {.tiny}
 

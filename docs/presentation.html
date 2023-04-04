@@ -382,8 +382,8 @@ Verónica Andreo
 </div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-c2878b2fc2d7f640c6ea" style="width:384px;height:384px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c2878b2fc2d7f640c6ea">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7e3a8e73d59a87524907" style="width:384px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7e3a8e73d59a87524907">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -595,8 +595,28 @@ Verónica Andreo
 </section>
 <section class="slide level2">
 <h2>Most common RS variables used</h2>
-
-<img data-src="assets/img/lecture/most_used_RS_vars.png" class="r-stretch quarto-figure-center"><div class="footer">
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/most_used_RS_vars.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:30%;">
+<p><br></p>
+<div class="color-box-light-blue">
+<ul>
+<li>LST</li>
+<li>Precipitation</li>
+<li>NDVI</li>
+<li>LULC</li>
+<li>Elevation</li>
+<li>NDWI</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="footer">
 <p><span class="citation" data-cites="parselia_satellite_2019">Parselia et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></p>
 </div>
 </section>
@@ -922,8 +942,24 @@ Verónica Andreo
 </section>
 <section class="slide level2">
 <h2><i class="fa-solid fa-person-digging" aria-label="person-digging"></i> Online surveillance system <i class="fa-solid fa-person-digging" aria-label="person-digging"></i></h2>
-
-<img data-src="assets/img/lecture/bid_geonode.png" class="r-stretch quarto-figure-center"></section>
+<div class="r-stack">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/bid_geonode.png" style="width:67.0%"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/bid_geonode_mosquitos.jpg" class="fragment" style="width:85.0%"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/bid_geonode_dengue_2020.jpg" class="fragment" style="width:82.0%"></p>
+</figure>
+</div>
+</div>
+</section>
 <section class="slide level2 smaller">
 <h2>Other projects under development</h2>
 <div class="quarto-layout-panel">
@@ -979,7 +1015,7 @@ Verónica Andreo
 </section>
 <section class="slide level2">
 <h2>Challenges and gaps - RS</h2>
-<p><img data-src="assets/img/lecture/satellite_b.png" class="absolute" style="top: 5px; right: 5px; width: 120px; "></p>
+<p><img data-src="assets/img/lecture/satellite_b.png" class="absolute" style="top: 5px; right: -15px; width: 120px; "></p>
 <ul>
 <li><strong>Trade-off</strong> between different RS resolutions, the problem under study, the data and methods available</li>
 <li><strong>Gaps in optical RS</strong>: clouds, shadows in optical RS (spatial and temporal interpolations)</li>
@@ -1014,6 +1050,7 @@ Verónica Andreo
 <p><img data-src="assets/img/lecture/satellite_saocom.png" style="float: right;" width="180"></p>
 <p><img data-src="assets/img/lecture/lago_san_martin_saocom.jpg" width="200"></p>
 </div><div class="column" style="width:33%;">
+<p><br></p>
 <p><img data-src="assets/img/lecture/gedi.jpg"></p>
 </div><div class="column" style="width:33%;">
 <p><img data-src="assets/img/lecture/openeo_logo.svg" style="width:80.0%"></p>
@@ -1022,16 +1059,43 @@ Verónica Andreo
 </div>
 </section>
 <section class="slide level2">
-<h2>New missions &amp; UAVs: brighter future?</h2>
+<h2>New missions: hyper-spectral for all</h2>
 <ul>
-<li>A number of recent and upcoming missions for hyper-spectral data: PRISMA, EnMap, Sentinel CHIME, TIRS</li>
-<li>Cheaper UAVs with different types of cameras, e.g.&nbsp;thermal multi or hyper-pectral to detect and count animals</li>
+<li>A number of recent and upcoming missions for hyper-spectral data: <a href="https://prismauserregistration.asi.it/">PRISMA</a> (recently made open), <a href="https://www.enmap.org/">EnMap</a>, <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Going_hyperspectral_for_CHIME">CHIME</a>, TIRS</li>
 </ul>
-
-<img data-src="assets/img/lecture/map_monkeys_with_drones_tir.png" class="r-stretch quarto-figure-center"><div class="footer">
-<p><a href="http://database.eohandbook.com/database/instrumenttable.aspx" class="uri">http://database.eohandbook.com/database/instrumenttable.aspx</a>, <span class="citation" data-cites="carrasco_escobar_use_2022">Carrasco-Escobar et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/hyperspectral.jpg" style="width:85.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/logo_prisma.png"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="footer">
+<p><a href="http://database.eohandbook.com/database/instrumenttable.aspx" class="uri">http://database.eohandbook.com/database/instrumenttable.aspx</a>,</p>
 </div>
 </section>
+<section class="slide level2">
+<h2>Specialized cameras onboard drones</h2>
+<ul>
+<li>Cheaper UAVs with different types of cameras, e.g.&nbsp;thermal multi- or hyper-spectral sensors to detect and count animals in inaccessible places</li>
+</ul>
+<p><img data-src="assets/img/lecture/drone.png" class="absolute" style="top: 100px; right: -20px; width: 120px; "> <img data-src="assets/img/lecture/map_monkeys_with_drones_tir.png" style="width:90.0%" data-fig-align="center"></p>
+<div class="footer">
+<p><span class="citation" data-cites="carrasco_escobar_use_2022">Carrasco-Escobar et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+
+<img data-src="assets/img/lecture/one_health_and_satellites.png" style="width:95.0%" class="r-stretch quarto-figure-center"></section>
 <section>
 <section class="title-slide slide level1 center" data-background-image="assets/img/lecture/CONAE_aereo.png">
 <h1></h1>
