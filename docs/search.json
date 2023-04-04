@@ -578,14 +578,14 @@
     "href": "presentation.html",
     "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "",
-    "text": "Researcher and lecturer at Instituto Gulich (CONAE-UNC)\nBackground: Lic. & Dr. in Biology, MSc. in Spatial Information Applications\nRemote sensing and GIS applications in disease ecology\nMember of the GRASS GIS Dev Team y project chair\nOSGeo Charter member & FOSS4G enthusiast\n\n\n\n\n\n\n https://veroandreo.gitlab.io/"
+    "text": "Researcher and lecturer at Instituto Gulich\nBackground: Dr. in Biology, MSc. in Spatial Information Applications\nRemote sensing and geospatial applications in disease ecology\nMember of the GRASS GIS Dev Team & project chair; OSGeo Charter member & FOSS4G enthusiast\n\n\n\n\n\n\n\n\n\n\n https://veroandreo.gitlab.io/"
   },
   {
     "objectID": "presentation.html#overview",
     "href": "presentation.html#overview",
     "title": "Environmental drivers of vector-borne and zoonotic diseases",
     "section": "Overview",
-    "text": "Overview\n\nbla\nbla"
+    "text": "Overview\n\nMotivation\nHealth Geography\nDisease Ecology\nLeveraging remote sensing for Disease Ecology\n\nResolution vs scale\nHow can we use RS?\nExamples\n\n\nGaps, challenges and opportunities\nConclusion\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://sdgs.un.org/goals/goal3\n\n\nNeglected Tropical Diseases (NTD)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nYou all have seen this, right?"
   },
   {
     "objectID": "presentation.html#disease-ecology",
@@ -768,5 +768,138 @@
     "title": "Part 2: Processing data in GRASS",
     "section": "SDM workflow",
     "text": "SDM workflow\nIn this part of the Studio we’ll be addressing the left part of the SDM workflow, occurrence and background data and predictors:\n\n\nImporting species records\nWe will use occurrence data already downloaded and cleaned. We need to import it into GRASS GIS first.\n\n# Import mosquito records\ngs.run_command(\"v.import\",\n               input=os.path.join(homedir,\"aedes_albopictus.gpkg\"),\n               output=\"aedes_albopictus\")\n\nLet’s add the occurrence points over the previous interactive map\n\n# Display raster map with interactive class\nlst_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nlst_map.add_raster(\"lst_2014.005_avg\")\nlst_map.add_vector(\"aedes_albopictus\")\nlst_map.add_layer_control(position = \"bottomright\")\nlst_map.show()\n\nYou can also get the mosquito occurrences (or any other species or taxa) directly from GBIF into GRASS by means of v.in.pygbif as follows:\n\n# Set computational region\n# region = gs.parse_command(\"g.region\", raster=\"lst_2014.001_avg\", flags=\"g\")\n# region\n\n\n# Install extension (requires pygbif: pip install pygbif)\n# gs.run_command(\"g.extension\",\n#                extension=\"v.in.pygbif\")\n\n\n# Import data from GBIF\n# gs.run_command(\"v.in.pygbif\", \n#                output=\"aedes_albopictus\",\n#                taxa=\"Aedes albopictus\",\n#                date_from=\"2014-01-01\",\n#                date_to=\"2018-12-31\")\n\n\n\nCreating random background points\nThe algorithm MaxEnt that we will use in the next part of this session requires not only the locations of known occurrences, but also information on the rest of the environment available. These are not absences but background data, we actually do not know if the species is there or not, but we need it to compare with the features of the places where the species does occur.\nTo avoid getting background points exactly where occurrences are, we’ll create buffers around them. Then, we need to ensure that background points are only over land within our computational region. In order to do that, we’ll create a mask over land and we’ll overlay the buffers with the mask. Can you guess what the ooutput will be?\n\n# Create buffer around Aedes albopictus records\ngs.run_command(\"v.buffer\",\n               input=\"aedes_albopictus\",\n               output=\"aedes_buffer\",\n               distance=2000)\n\n\n# Set computational region\nregion = gs.parse_command(\"g.region\", raster=\"lst_2014.001_avg\", flags=\"g\")\nregion\n\n\n# Create a vector mask to limit background points\nexpression=\"MASK = if(lst_2014.001_avg, 1, null())\"\ngs.raster.mapcalc(exp=expression)\n\ngs.run_command(\"r.to.vect\", \n               input=\"MASK\",\n               output=\"vect_mask\",\n               type=\"area\")\n\n\n# Subtract buffers from vector mask\ngs.run_command(\"v.overlay\",\n               ainput=\"vect_mask\",\n               binput=\"aedes_buffer\",\n               operator=\"xor\",\n               output=\"mask_bg\")\n\nLet’s display the result\n\n# Display raster map with interactive class\nmask_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nmask_map.add_vector(\"mask_bg\")\nmask_map.add_layer_control(position = \"bottomright\")\nmask_map.show()\n\n\n# Generate random background points\ngs.run_command(\"v.random\",\n               output=\"background_points\",\n               npoints=1000,\n               restrict=\"mask_bg\",\n               seed=3749)\n\nLet’s now display occurence and background points together over an LST map\n\n# Display vector map\npb_map = gj.Map(width=500, use_region=True)\npb_map.d_rast(map=\"lst_2014.005_avg\")\npb_map.d_vect(map=\"italy_borders_0\", type=\"boundary\")\npb_map.d_vect(map=\"background_points\")\npb_map.d_vect(map=\"aedes_albopictus\", icon=\"basic/diamond\", fill_color=\"red\", size=8)\npb_map.show()\n\n\n\nCreate daily LST STRDS\nNow we’ll start processing the raster data to derive potentially relevant predictors to include in the model. Our data consists of a time series of daily LST averages. We’ll use the GRASS temporal framework for this and the first step is to create the time series object and register maps in it. See t.create and t.register for further details.\n\n# Create time series \ngs.run_command(\"t.create\",\n               type=\"strds\",\n               temporaltype=\"absolute\",\n               output=\"lst_daily\",\n               title=\"Average Daily LST\",\n               description=\"Average daily LST in degree C - 2014-2018\")\n\n\n# Check it is created\ngs.run_command(\"t.list\",\n              type=\"strds\")\n\n\n# Get list of maps \nmap_list=gs.list_grouped(type=\"raster\", pattern=\"lst_201*\")['italy_LST_daily']\nmap_list\n\n\n# Register maps in strds  \ngs.run_command(\"t.register\", \n               input=\"lst_daily\",\n               maps=map_list,\n               increment=\"1 days\",\n               start=\"2014-01-01\", \n               flags=\"i\")\n\n\n# Get info about the strds\ngs.run_command(\"t.info\",\n               input=\"lst_daily\")\n\n\n\nGenerate environmental variables from LST STRDS\n\nLong term monthly avg, min and max LST - Climatologies\n\n# January average LST\ngs.run_command(\"t.rast.series\",\n               input=\"lst_daily\",\n               method=\"average\",\n               where=\"strftime('%m', start_time)='01'\",\n               output=\"lst_average_jan\")\n\n\ngs.raster_info(\"lst_average_jan\")\n\nIf we want to estimate climatologies for all months, let’s try first to get the list of maps that will be the input for t.rast.series, for that we’ll test the condition in t.rast.list first.\n\n# Define list of months as required\nmonths=['{0:02d}'.format(m) for m in range(1,13)]\n\nfor m in months:\n    gs.run_command(\"t.rast.list\",\n                   input=\"lst_daily\",\n                   where=f\"strftime('%m', start_time)='{m}'\")\n\n\n# Now we estimate the climatologies for all months and methods\nmonths=['{0:02d}'.format(m) for m in range(1,13)]\nmethods=[\"average\",\"minimum\",\"maximum\"]\n\nfor m in months:\n    for me in methods:\n        gs.run_command(\"t.rast.series\", \n                       input=\"lst_daily\",\n                       method=me,\n                       where=f\"strftime('%m', start_time)='{m}'\",\n                       output=\"lst_{}_{}\".format(me,m))\n\n\n# List newly created maps\ngs.list_grouped(type=\"raster\", pattern=\"*{average,minimum,maximum}*\")['italy_LST_daily']\n\n\n# Remove lst_average_jan\ngs.run_command(\"g.remove\", type=\"raster\", name=\"lst_average_jan\", flags=\"f\")\n\n\n\nBioclimatic variables\nPerhaps you have heard of Worldclim or CHELSA bioclimatic variables? Well, this are 19 variables that represent potentially limiting conditions for species. They derive from the combination of temperature and precipitation long term averages. As we do not have precipitation data in this exercise, we’ll only estimate the bioclimatic variables that include temperature. See r.bioclim manual for further details.\n\n# Install extension\ngs.run_command(\"g.extension\",\n               extension=\"r.bioclim\")\n\n\n# Get lists of maps needed\ntmin=gs.list_grouped(type=\"raster\", pattern=\"lst_minimum_??\")['italy_LST_daily']\ntmax=gs.list_grouped(type=\"raster\", pattern=\"lst_maximum_??\")['italy_LST_daily']\ntavg=gs.list_grouped(type=\"raster\", pattern=\"lst_average_??\")['italy_LST_daily']\n\nprint(tmin,tmax,tavg)\n\n\n# Estimate temperature related bioclimatic variables\ngs.run_command(\"r.bioclim\", \n               tmin=tmin, \n               tmax=tmax,\n               tavg=tavg, \n               output=\"worldclim_\") \n\n\n# List output maps\ngs.list_grouped(type=\"raster\", pattern=\"worldclim*\")['italy_LST_daily']\n\nLet’s have a look at some of the maps we just created\n\n# Display raster map with interactive class\nbio_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nbio_map.add_raster(\"worldclim_bio01\")\nbio_map.add_raster(\"worldclim_bio02\")\nbio_map.add_layer_control(position = \"bottomright\")\nbio_map.show()\n\n\n\nSpring warming\nWe define spring warming as the velocity with which temperature increases from winter into spring and we calculate it as slope(daily Tmean february-march-april). We will use t.rast.aggregate.\n\n# Define list of months\nmonths=['{0:02d}'.format(m) for m in range(2,5)]\n\n\n# Annual spring warming\ngs.run_command(\"t.rast.aggregate\",\n               input=\"lst_daily\",\n               output=\"annual_spring_warming\",\n               basename=\"spring_warming\",\n               suffix=\"gran\",\n               method=\"slope\",\n               granularity=\"1 years\",\n               where=f\"strftime('%m',start_time)='{months[0]}' or strftime('%m',start_time)='{months[1]}' or strftime('%m', start_time)='{months[2]}'\")\n\n\n# Check raster maps in the STRDS\ngs.run_command(\"t.rast.list\", input=\"annual_spring_warming\")\n\n\n# Average spring warming\ngs.run_command(\"t.rast.series\",\n               input=\"annual_spring_warming\",\n               output=\"avg_spring_warming\",\n               method=\"average\")\n\n\n# Display raster map with interactive class\nauc_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nauc_map.add_raster(\"avg_spring_warming\")\nauc_map.add_layer_control(position = \"bottomright\")\nauc_map.show()\n\n\n\nAutumnal cooling\nWe define autumnal cooling as the velocity with which temperature decreases from summer into fall and we calculate it as slope(daily Tmean august-september-october).\n\n# Define list of months\nmonths=['{0:02d}'.format(m) for m in range(8,11)]\n\n\n# Annual autumnal cooling\ngs.run_command(\"t.rast.aggregate\",\n               input=\"lst_daily\",\n               output=\"annual_autumnal_cooling\",\n               basename=\"autumnal_cooling\",\n               suffix=\"gran\",\n               method=\"slope\",\n               granularity=\"1 years\",\n               where=f\"strftime('%m',start_time)='{months[0]}' or strftime('%m',start_time)='{months[1]}' or strftime('%m', start_time)='{months[2]}'\")\n\n\n# Check raster maps in the STRDS\ngs.run_command(\"t.rast.list\", input=\"annual_autumnal_cooling\")\n\n\n# Average autumnal cooling\ngs.run_command(\"t.rast.series\",\n               input=\"annual_autumnal_cooling\",\n               output=\"avg_autumnal_cooling\",\n               method=\"average\")\n\n\n# Display raster map with interactive class\nspw_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nspw_map.add_raster(\"avg_autumnal_cooling\")\nspw_map.add_layer_control(position = \"bottomright\")\nspw_map.show()\n\n\n\nNumber of days with LSTmean >= 20 and <= 30\n\n# Keep only pixels meeting the condition\nexpression=\"tmean_higher20_lower30 = if(lst_daily >= 20.0 && lst_daily <= 30.0, 1, null())\"\n\ngs.run_command(\"t.rast.algebra\",\n               expression=expression, \n               basename=\"tmean_higher20_lower30\",\n               suffix=\"gran\",\n               nproc=7, \n               flags=\"n\")\n\n\n# Count how many times per year the condition is met\ngs.run_command(\"t.rast.aggregate\",\n               input=\"tmean_higher20_lower30\", \n               output=\"count_tmean_higher20_lower30\",\n               basename=\"tmean_higher20_lower30\",\n               suffix=\"gran\",\n               method=\"count\",\n               granularity=\"1 years\")\n\n\n# Check raster maps in the STRDS\ngs.run_command(\"t.rast.list\", \n               input=\"count_tmean_higher20_lower30\", \n               columns=\"name,start_time,min,max\")\n\n\n# Average number of days with LSTmean >= 20 and <= 30\ngs.run_command(\"t.rast.series\",\n               input=\"count_tmean_higher20_lower30\",\n               output=\"avg_count_tmean_higher20_lower30\",\n               method=\"average\")\n\n\n# Display raster map with interactive class\nh20_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nh20_map.add_raster(\"avg_count_tmean_higher20_lower30\")\nh20_map.add_layer_control(position = \"bottomright\")\nh20_map.show()\n\nSee t.rast.algebra manual for further details.\n\n\nNumber of consecutive days with LSTmean <= -10.0\n\n# Create annual mask\ngs.run_command(\"t.rast.aggregate\",\n               input=\"lst_daily\",\n               output=\"annual_mask\",\n               basename=\"annual_mask\",\n               suffix=\"gran\",\n               granularity=\"1 year\",\n               method=\"count\")\n\n\n# Replace values by zero\nexpression=\"if(annual_mask, 0)\"\n\ngs.run_command(\"t.rast.mapcalc\",\n               input=\"annual_mask\",\n               output=\"annual_mask_0\",\n               expression=expression,\n               basename=\"annual_mask_0\")\n\n\n# Calculate consecutive days with LST <= -10.0\nexpression=\"lower_m2_consec_days = annual_mask_0 {+,contains,l} if(lst_daily <= -10.0 && lst_daily[-1] <= -10.0 || lst_daily[1] <= -10.0 && lst_daily <= -10.0, 1, 0)\"\n\ngs.run_command(\"t.rast.algebra\",\n               expression=expression,\n               basename=\"lower_m2_\",\n               suffix=\"gran\",\n               nproc=7)\n\n\n# Inspect values\ngs.run_command(\"t.rast.list\",\n               input=\"lower_m2_consec_days\",\n               columns=\"name,start_time,min,max\")\n\n\n# Median number of consecutive days with LST <= -2\ngs.run_command(\"t.rast.series\",\n               input=\"lower_m2_consec_days\",\n               output=\"median_lower_m2_consec_days\",\n               method=\"median\")\n\n\n# Display raster map with interactive class\nlt2_map = gj.InteractiveMap(width = 500, use_region=True, tiles=\"OpenStreetMap\")\nlt2_map.add_raster(\"median_lower_m2_consec_days\")\nlt2_map.add_layer_control(position = \"bottomright\")\nlt2_map.show()\n\nWe have now derived many potentially relevant predictors for the mosquito habitat suitability and we could still derive some more, for example, the number of mosquito or virus cycles per year based on development temperature thresholds and growing degree days (GDD). This could be achieved with t.rast.accumulate and t.rast.accdetect.\nWe will now close this session as we will open it again from R in the last part of this session.\n\nsession.finish"
+  },
+  {
+    "objectID": "presentation.html#health-geography",
+    "href": "presentation.html#health-geography",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Health Geography",
+    "text": "Health Geography\n\n\n\n\nEnvironmental health: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.\n\n\n\nDisease ecology: study of infectious diseases (including NTDs) and the spatial distribution of environmental, social, political & economic conditions associated with disease.\n\n\n\nHealth care delivery and access: spatial patterns of health care provision and patient behavior.\n\n\n\n\nHealth geography is the application of geographical information, perspectives, and methods to the study of health, disease, and health care. Mencionar potenciales usos y aplicaciones del SR en los 3 campos"
+  },
+  {
+    "objectID": "presentation.html#health-geography-1",
+    "href": "presentation.html#health-geography-1",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Health Geography",
+    "text": "Health Geography\n\n\n\n\nEnvironmental health: focuses on environmental hazards, environmental risk assessment, and the physical and psycho-social health impacts of environmental contamination.\n\n\n\nDisease ecology: study of infectious diseases (including NTDs) and the spatial distribution of environmental, social, political & economic conditions associated with disease.\n\n\n\nHealth care delivery and access: spatial patterns of health care provision and patient behavior.\n\n\n\n\nWhile RS has applications in all fields, I’ll focus on those related to disease ecology as it is where I have worked the most"
+  },
+  {
+    "objectID": "presentation.html#disease-ecology-i",
+    "href": "presentation.html#disease-ecology-i",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Disease Ecology I",
+    "text": "Disease Ecology I\n\n\n\n\nThe main objective is to understand the influence of environmental factors and to predict when and where a disease is most likely to occur\n\n\n\ndecision making, planning of prevention, management or response actions, etc."
+  },
+  {
+    "objectID": "presentation.html#disease-ecology-ii",
+    "href": "presentation.html#disease-ecology-ii",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Disease Ecology II",
+    "text": "Disease Ecology II\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLambin et al. (2010)\n\n\n\nLandscape attributes may influence the level of transmission of an infection\nSpatial variations in disease risk depend not only on the presence and area of critical habitats but also on their spatial configuration\nDisease risk depends on the connectivity of habitats for vectors and hosts\nThe landscape is a proxy for specific associations of reservoir hosts and vectors linked with the emergence of multi-host diseases\nTo understand ecological factors influencing spatial variations of disease risk, one needs to take into account the pathways of pathogen transmission between vectors, hosts, and the physical environment\nThe emergence and distribution of infection through time and space is controlled by different factors acting at multiple scales\nLandscape and meteorological factors control not just the emergence but also the spatial concentration and spatial diffusion of infection risk\nSpatial variation in disease risk depends not only on land cover but also on land use, via the probability of contact between, on one hand, human hosts and, on the other hand, infectious vectors, animal hosts or their infected habitats\nThe relationship between land use and the probability of contact between vectors and animal hosts and human hosts is influenced by land ownership\nHuman behaviour is a crucial controlling factor of vector-human contacts, and of infection"
+  },
+  {
+    "objectID": "presentation.html#use-of-rs-in-health-applications",
+    "href": "presentation.html#use-of-rs-in-health-applications",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Use of RS in Health applications",
+    "text": "Use of RS in Health applications\n\n\nViana et al. (2017)"
+  },
+  {
+    "objectID": "presentation.html#most-common-rs-variables-used",
+    "href": "presentation.html#most-common-rs-variables-used",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Most common RS variables used",
+    "text": "Most common RS variables used\n\n\n\n\n\n\n\n\n\n\nLST\nPrecipitation\nNDVI\nLULC\nElevation\nNDWI\n\n\n\n\n\nParselia et al. (2019)"
+  },
+  {
+    "objectID": "presentation.html#remote-sensing-basic-features",
+    "href": "presentation.html#remote-sensing-basic-features",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Remote sensing basic features",
+    "text": "Remote sensing basic features\n\n\n\n\n\nHowever, we should take into account some basic features of remote sensing before selecting which data to use"
+  },
+  {
+    "objectID": "presentation.html#remote-sensing-scale-i",
+    "href": "presentation.html#remote-sensing-scale-i",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Remote sensing & scale I",
+    "text": "Remote sensing & scale I\n\n\n\n\n\n\nPearson and Dawson (2003)"
+  },
+  {
+    "objectID": "presentation.html#remote-sensing-scale-ii",
+    "href": "presentation.html#remote-sensing-scale-ii",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Remote sensing & scale II",
+    "text": "Remote sensing & scale II\n\n\nTaxonomy\nPlants\nAnimals\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLeitão and Santos (2019), Lechner et al. (2020), Rumiano et al. (2020)"
+  },
+  {
+    "objectID": "presentation.html#how-to-apply-rs-in-disease-ecology",
+    "href": "presentation.html#how-to-apply-rs-in-disease-ecology",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "How to apply RS in disease ecology?",
+    "text": "How to apply RS in disease ecology?\n\n\n\n\nGeneral approach used in (disease) ecology\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTo map the response variables, i.e., species occurrence or abundance, infections, disease cases\nTo map the predictor variables\nTo validate predictions"
+  },
+  {
+    "objectID": "presentation.html#section",
+    "href": "presentation.html#section",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "",
+    "text": "Let’s have a look at some real cases…\n\n\nDetecting and mapping species occurrences\n\n\nVery high resolution (VHR) imagery\nHyperspectral data (esp. for plant species)\nDirect and indirect counting\n\n\n\n\n\n(a) Emperor penguins. (b) Elephants\n\n\n\n\n\nGreat gerbil burrows classification\n\n\n\n\n\nWang et al. (2019)\n\nDetecting and mapping species occurrences\n\n\n\nPine beetle infection\n\n\n\nMeng et al. (2022)\n\nTime series analysis of satellite products\n\nMODIS LST temporal and spatial reconstruction\nEstimation of relevant indices (GRASS GIS temporal framework!)\nDetection of spatial and temporal clusters of favorable conditions for the occurrence of West Nile Fever cases in Greece\n\n\n\n\n\nLST gap-filling process\n\n\n\n\n\n\n\nCo-cluster of derived LST indices\n\n\n\n\n\nMetz et al. (2017), Andreo et al. (2018)\n\nEnvironmental risk of Dengue\n\nMODIS LST is used to estimate number of extrinsic incubation periods (EIP) that virus might complete; the higher this number, the higher the environmental risk\n\n\n\nCONAE Geoportal\n\n\n\nPorcasi et al. (2012), https://github.com/InstitutoGulich/RiesgoAmbiental\n\nSDM & GIS based approach for HPS risk map\n\n\n\n\n\n\n\n\n\nWe combined a rescaled probability map of the host with one of the human cases to determine levels of transmission risk\n\n\n\n\n\nAndreo et al. (2011), Andreo et al. (2014)\n\nCutaneous leishmaniasis and LULCC\n\n\n\n\n\n\nChange map\n\n\n\n\n\n\nCL Prediction map\n\n\n\n\n\nAndreo et al. (2022)\n\nMosquitoes: towards operational high res maps\n\n\n\n\nWorkflow\n\n\n\n\n\n\n\n\n\nAndreo et al. (2021a)\n\nSpatial distribution of temporal patterns\n\nTemporal and spatial patterns in Aedes aegypty in Córdoba\nAssociation with variables derived from Sentinel 2 imagery analysis to predict temporal patterns over the whole city.\n\n\n\n\n\nAndreo et al. (2021b)\n\nUrban environmental characterisation for the distribution of ovitraps\n\n\n\nObject-based classification of VHR imagery\nLandscape metrics for polygons\nClustering to find groups of similar polygons\nStratified distribution of ovitraps\n\n\n MSc thesis, Carla Rodriguez.\n\n\n\n\n\n\nGrippa et al. (2017), Georganos et al. (2018), Rodriguez Gonzalez et al.\n\nPredictive system based on population dynamics and weather forecasting\n\n\n\n\n\n\nDevelopment of an early warning system (EWS) for dengue. PhD candidate, Tomás San Miguel. \n\n\n\n\nAguirre et al. (2021)"
+  },
+  {
+    "objectID": "presentation.html#fa-person-digging-online-surveillance-system-fa-person-digging",
+    "href": "presentation.html#fa-person-digging-online-surveillance-system-fa-person-digging",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "\n Online surveillance system \n",
+    "text": "Online surveillance system"
+  },
+  {
+    "objectID": "presentation.html#fa-person-digging-online-surveillance-system-fa-person-digging-1",
+    "href": "presentation.html#fa-person-digging-online-surveillance-system-fa-person-digging-1",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "\n Online surveillance system \n",
+    "text": "Online surveillance system"
+  },
+  {
+    "objectID": "presentation.html#other-projects-under-development",
+    "href": "presentation.html#other-projects-under-development",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Other projects under development",
+    "text": "Other projects under development\n\n\n\n\n\n\nIncidence of asthma as a function of remotely sensed air quality and LULCC. PhD candidate, Abraham Coiman.\n\n\n\n\n\n\n\n\n\nDistribution of congenital diseases and access to health. PhD candidate, Carla Rodriguez Gonzalez.\n\n\n\n\n\n\n\n\n\nEpidemiological characterisation of intestinal parasite infection in children. PhD candidate, Matias Scavuzzo.\n\n\n\n\n\n\n\n\n\nGeospatial modelling of malnutrition in children and adolescents. PhD candidate, Micaela Campero.\n\n\n\n\n\n\n\n\n\nEnvironmental variables associated with non-communicable diseases. Dr. Juan Diego Pinotti and Dr. Ximena Porcasi."
+  },
+  {
+    "objectID": "presentation.html#challenges-and-gaps---rs",
+    "href": "presentation.html#challenges-and-gaps---rs",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Challenges and gaps - RS",
+    "text": "Challenges and gaps - RS\n\n\n\nTrade-off between different RS resolutions, the problem under study, the data and methods available\n\nGaps in optical RS: clouds, shadows in optical RS (spatial and temporal interpolations)\nNeed for corrections if high level data is not suitable (ARD)\n\nLimited access to VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet)\nInvestment and capacity building: huge volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)\n\n\nField data will always be needed! :)"
+  },
+  {
+    "objectID": "presentation.html#challenges-and-gaps---ecology-and-health",
+    "href": "presentation.html#challenges-and-gaps---ecology-and-health",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Challenges and gaps - Ecology and Health",
+    "text": "Challenges and gaps - Ecology and Health\n\n\nMissing baseline distribution information of hosts, vectors, infection\nUpdating and digitisation of disease cases and intervention data, data still missing in large parts of the world\n\nHarmonisation of records at different levels, i.e., municipal, provincial, national\nFacilitating access to (aggregated) health data\nPolitical decision and resource allocation"
+  },
+  {
+    "objectID": "presentation.html#opportunities-low-hanging-fruits",
+    "href": "presentation.html#opportunities-low-hanging-fruits",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Opportunities: low hanging fruits?",
+    "text": "Opportunities: low hanging fruits?\n\nSAR data to avoid clouds, e.g., SAOCOM to estimate soil moisture\nOpen LiDAR data, e.g., GEDI onboard of ISS\nGEE vs open source solutions openEO.cloud, actinia, OpenPlains? ;-)"
+  },
+  {
+    "objectID": "presentation.html#new-missions-hyper-spectral-for-all",
+    "href": "presentation.html#new-missions-hyper-spectral-for-all",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "New missions: hyper-spectral for all",
+    "text": "New missions: hyper-spectral for all\n\nA number of recent and upcoming missions for hyper-spectral data: PRISMA (recently made open), EnMap, CHIME, TIRS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttp://database.eohandbook.com/database/instrumenttable.aspx,"
+  },
+  {
+    "objectID": "presentation.html#specialized-cameras-onboard-drones",
+    "href": "presentation.html#specialized-cameras-onboard-drones",
+    "title": "Environmental drivers of vector-borne and zoonotic diseases",
+    "section": "Specialized cameras onboard drones",
+    "text": "Specialized cameras onboard drones\n\nCheaper UAVs with different types of cameras, e.g. thermal multi- or hyper-spectral sensors to detect and count animals in inaccessible places\n\n\n\nCarrasco-Escobar et al. (2022)"
   }
 ]
