@@ -147,6 +147,11 @@ preferred IDE. See the options within the GUI:
 
 ![](assets/img/studio/grass_and_python_gui.png)
 
+::: {.callout-note}
+See <https://grass.osgeo.org/grass-stable/manuals/libpython/index.html> for further 
+details.
+:::
+
 
 ## GRASS + {{< fa brands r-project >}} through `rgrass` package
 
@@ -193,17 +198,22 @@ on variables derived from daily LST data
 
 ### Get the sample location
 
-- Create a folder named `grassdata`
+- Create a folder named `grass_ncsu_2023`
+- Within `grass_ncsu_2023` create a folder named `grassdata`
 - Download and unzip [eu_laea location with LST mapset](https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing)
 and unzip within your `grassdata` folder
+- Download [mosquito data](https://github.com/veroandreo/grass_ncsu_2023/raw/main/data/aedes_albopictus.gpkg) and drop it within `grass_ncsu_2023`
 
-The `grassdata` folder's tree should look like this:
+The `grass_ncsu_2023` folder's tree should look like this:
 
 ```         
-  grassdata/
-  └── eu_laea
-      ├── italy_LST_daily
-      └── PERMANENT
+  grass_ncsu_2023/
+  ├── aedes_albopictus.gpkg
+  └── grassdata
+      └── eu_laea
+          ├── italy_LST_daily
+          └── PERMANENT
+
 ```
 
 # GRASS GIS HELP!!!

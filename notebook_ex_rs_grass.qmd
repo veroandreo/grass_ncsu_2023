@@ -148,6 +148,8 @@ sys.path.append(
 )
 ```
 
+Now we are ready to start a GRASS GIS session
+
 ```{python}
 # Import the GRASS GIS packages we need
 import grass.script as gs
@@ -158,6 +160,9 @@ session = gj.init(grassdata, location, mapset)
 ```
 
 ### Explore data in the mapset
+
+Let's first explore what we have within the `italy_LST_daily` mapset and display
+vector and raster maps using different classes from `grass.jupyter` library.
 
 ```{python}
 # List vector elements
@@ -192,7 +197,8 @@ In this part of the Studio we'll be addressing the left part of the SDM workflow
 
 ### Importing species records
 
-We will use occurrence data already downloaded and cleaned. We need to import it into GRASS GIS first.
+We will use occurrence data already downloaded and cleaned. We need to import it
+into GRASS GIS first.
 
 ```{python}
 # Import mosquito records
@@ -286,6 +292,8 @@ mask_map.add_layer_control(position = "bottomright")
 mask_map.show()
 ```
 
+Finally, let's create the random background points...
+
 ```{python}
 # Generate random background points
 gs.run_command("v.random",
@@ -295,7 +303,7 @@ gs.run_command("v.random",
                seed=3749)
 ```
 
-Let's now display occurence and background points together over an LST map
+and display occurrence and background points together over an LST map.
 
 ```{python}
 # Display vector map
@@ -351,7 +359,14 @@ gs.run_command("t.info",
 
 ### Generate environmental variables from LST STRDS
 
-#### Long term monthly avg, min and max LST - Climatologies
+Now that we created the time series or "STRDS", let's start estimating relevant 
+variables. We start by calculating long term aggregations, also called 
+*climatologies*.
+
+#### Long term monthly avg, min and max LST
+
+Let's see an example first; we'll estimate the average of all maps which start date
+is within January.
 
 ```{python}
 # January average LST
@@ -363,6 +378,7 @@ gs.run_command("t.rast.series",
 ```
 
 ```{python}
+# Get map info and check values
 gs.raster_info("lst_average_jan")
 ```
 
@@ -377,6 +393,9 @@ for m in months:
                    input="lst_daily",
                    where=f"strftime('%m', start_time)='{m}'")
 ```
+
+Now we add the `methods` and we are ready to estimate climatologies for all months
+with three different methods.
 
 ```{python}
 # Now we estimate the climatologies for all months and methods
@@ -404,7 +423,7 @@ gs.run_command("g.remove", type="raster", name="lst_average_jan", flags="f")
 
 #### Bioclimatic variables
 
-Perhaps you have heard of [Worldclim](https://www.worldclim.org/) or [CHELSA](https://chelsa-climate.org/) bioclimatic variables? Well, this are 19 variables that represent potentially limiting conditions for species. They derive from the combination of temperature and precipitation long term averages. As we do not have precipitation data in this exercise, we'll only estimate the bioclimatic variables that include temperature. See [r.bioclim](https://grass.osgeo.org/grass-stable/manuals/addons/r.bioclim.html) manual for further details.
+Perhaps you have heard of [Worldclim](https://www.worldclim.org/) or [CHELSA](https://chelsa-climate.org/) bioclimatic variables? Well, this are 19 variables that represent potentially limiting conditions for species. They derive from the combination of temperature and precipitation long term averages. As we do not have precipitation data in this exercise, we'll only estimate the bioclimatic variables that include temperature. See [r.bioclim](https://grass.osgeo.org/grass-stable/manuals/addons/r.bioclim.html) manual for further details. Note that we'll use the climatologies estimated in the previous step.
 
 ```{python}
 # Install extension
@@ -448,7 +467,7 @@ bio_map.show()
 
 #### Spring warming
 
-We define spring warming as the velocity with which temperature increases from winter into spring and we calculate it as `slope(daily Tmean february-march-april)`. We will use [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggregate.html).
+We define spring warming as the velocity with which temperature increases from winter into spring and we calculate it as `slope(daily Tmean February-March-April)`. We will use [t.rast.aggregate](https://grass.osgeo.org/grass-stable/manuals/t.rast.aggregate.html).
 
 ```{python}
 # Define list of months
@@ -490,7 +509,7 @@ auc_map.show()
 
 #### Autumnal cooling
 
-We define autumnal cooling as the velocity with which temperature decreases from summer into fall and we calculate it as `slope(daily Tmean august-september-october)`.
+We define autumnal cooling as the velocity with which temperature decreases from summer into fall and we calculate it as `slope(daily Tmean August-September-October)`.
 
 ```{python}
 # Define list of months
@@ -531,6 +550,11 @@ spw_map.show()
 ```
 
 #### Number of days with LSTmean >= 20 and <= 30
+
+Mosquitoes (and virus they might carry) tend to thrive in a certain range of 
+temperatures. Let's assume this range is from 20 to 30 °C. Here, we'll estimate
+the number of days within this range per year, and then, we'll estimate the
+average along years. See [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html) manual for further details.
 
 ```{python}
 # Keep only pixels meeting the condition
@@ -578,9 +602,18 @@ h20_map.add_layer_control(position = "bottomright")
 h20_map.show()
 ```
 
-See [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html) manual for further details.
-
 #### Number of consecutive days with LSTmean <= -10.0
+
+Likewise, there are temperature thresholds that mark a limit to mosquito survival.
+Here, we'll use the temperature lower limit to survival. Most importantly, we we'll
+count the number of consecutive days with temperatures below this threshold.
+
+Here, we'll use again the temporal algebra and we'll recall the concept of 
+topology that we defined at the beginning of the notebook. First, we need to create
+a STRDS of annual granularity that will contain only zeroes. This annual STRDS, that
+we call `annual mask`, will be the base to add 1 each time the condition of less 
+than -10 °C in consecutive days is met. Finally, we estimate the median number
+of days with LST lower than -10 °C over the 5 years.
 
 ```{python}
 # Create annual mask
