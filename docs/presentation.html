@@ -382,8 +382,8 @@ Verónica Andreo
 </div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-583db00acd175bb57ab2" style="width:384px;height:384px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-583db00acd175bb57ab2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ada27c1631224490c0db" style="width:384px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ada27c1631224490c0db">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -755,8 +755,16 @@ Verónica Andreo
 
 <h3>Detecting and mapping species occurrences</h3>
 <p><br></p>
-
-<img data-src="https://woodwright.net/wp-content/uploads/2019/06/Mountain-Pine-Beetle-Feature-image-Woodwright.jpg" class="r-stretch quarto-figure-center"><p class="caption">Pine beetle infection</p><div class="footer">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/lecture/pine_beetle_infection.jpg" style="width:70.0%"></p>
+<p></p><figcaption>Pine beetle infection</figcaption><p></p>
+</figure>
+</div>
+<div style="float: right; transform: translate(0%, -100%);">
+<p><img data-src="assets/img/lecture/pine_beetle_study_landsat.png" width="550"></p>
+</div>
+<div class="footer">
 <p><span class="citation" data-cites="meng_landsat_based_2022">Meng et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p>
 </div>
 </section>
@@ -770,21 +778,11 @@ Verónica Andreo
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
 <p><img data-src="assets/img/lecture/fig_modis_workflow.png"></p>
-<p></p><figcaption>LST gap-filling process</figcaption><p></p>
-</figure>
-</div>
 <p><img data-src="assets/img/grass_gis.svg" class="absolute" style="top: 350px; left: -100px; width: 85px; "></p>
 </div><div class="column" style="width:67%;">
 <p><br></p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
 <p><img data-src="assets/img/lecture/co_cluster_method.png" class="fragment grow"></p>
-<p></p><figcaption>Co-cluster of derived LST indices</figcaption><p></p>
-</figure>
-</div>
 </div>
 </div>
 <div class="footer">
@@ -1050,12 +1048,15 @@ Verónica Andreo
 <p><img data-src="assets/img/lecture/satellite_saocom.png" style="float: right;" width="180"></p>
 <p><img data-src="assets/img/lecture/lago_san_martin_saocom.jpg" width="200"></p>
 </div><div class="column" style="width:33%;">
-<p><br></p>
-<p><img data-src="assets/img/lecture/gedi.jpg"></p>
+<p><img data-src="assets/img/lecture/gedi.jpg" style="width:70.0%"></p>
+<p><img data-src="assets/img/lecture/gedi_forest_hh.jpg"></p>
 </div><div class="column" style="width:33%;">
 <p><img data-src="assets/img/lecture/openeo_logo.svg" style="width:80.0%"></p>
 <p><img data-src="assets/img/lecture/actinia_logo.png" style="width:80.0%"></p>
 </div>
+</div>
+<div class="footer">
+<p><span class="citation" data-cites="torresani_lidar_2023">Torresani et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></p>
 </div>
 </section>
 <section class="slide level2">
@@ -1173,6 +1174,9 @@ Porcasi, X., Rotela, C. H., Introini, M. V., Frutos, N., Lanfri, S., Peralta, G.
 <div id="ref-rumiano_movement_2020" class="csl-entry" role="doc-biblioentry">
 Rumiano, F., Wielgus, E., Miguel, E., Chamaillé-Jammes, S., Valls-Fox, H., Cornélis, D., Garine-Wichatitsky, M. D., Fritz, H., Caron, A., and Tran, A. (2020), <span>“Remote sensing of environmental drivers influencing the movement ecology of sympatric wild and domestic ungulates in semi-arid savannas, a review,”</span> <em>Remote Sensing</em>, 12. <a href="https://doi.org/10.3390/rs12193218">https://doi.org/10.3390/rs12193218</a>.
 </div>
+<div id="ref-torresani_lidar_2023" class="csl-entry" role="doc-biblioentry">
+Torresani, M., Rocchini, D., Alberti, A., Moudrý, V., Heym, M., Thouverai, E., Kacic, P., and Tomelleri, E. (2023), <span>“<span>LiDAR</span> <span>GEDI</span> derived tree canopy height heterogeneity reveals patterns of biodiversity in forest ecosystems,”</span> <em>Ecological Informatics</em>, 102082. <a href="https://doi.org/10.1016/j.ecoinf.2023.102082">https://doi.org/10.1016/j.ecoinf.2023.102082</a>.
+</div>
 <div id="ref-viana_remote_2017" class="csl-entry" role="doc-biblioentry">
 Viana, J., Santos, J. V., Neiva, R. M., Souza, J., Duarte, L., Teodoro, A. C., and Freitas, A. (2017), <span>“Remote <span>Sensing</span> in <span>Human</span> <span>Health</span>: <span>A</span> 10-<span>Year</span> <span>Bibliometric</span> <span>Analysis</span>,”</span> <em>Remote Sensing</em>, 9, 1225. <a href="https://doi.org/10.3390/rs9121225">https://doi.org/10.3390/rs9121225</a>.
 </div>
@@ -1197,6 +1201,9 @@ Wang, D., Shao, Q., and Yue, H. (2019), <span>“Surveying <span>Wild</span> <sp
 </div><div class="column" style="width:55%;">
 <p><img data-src="assets/img/lecture/app-reports.png"></p>
 </div>
+</div>
+<div class="footer">
+<p>Hamesse et al.</p>
 </div>
 
 <p><img src="https://ig.conae.unc.edu.ar/wp-content/uploads/sites/68/2022/04/G-UNC-CONAE-C.png" class="slide-logo"></p>

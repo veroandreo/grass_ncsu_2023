@@ -367,7 +367,11 @@ Let's have a look at some real cases...
 
 <br>
 
-![Pine beetle infection](https://woodwright.net/wp-content/uploads/2019/06/Mountain-Pine-Beetle-Feature-image-Woodwright.jpg)
+![Pine beetle infection](assets/img/lecture/pine_beetle_infection.jpg){width="70%"}
+
+::: {style="float: right; transform: translate(0%, -100%);"}
+![](assets/img/lecture/pine_beetle_study_landsat.png){width="550px"}
+:::
 
 ::: footer
 @meng_landsat_based_2022
@@ -383,7 +387,7 @@ Let's have a look at some real cases...
 
 ::: {.columns}
 ::: {.column width="33%"}
-![LST gap-filling process](assets/img/lecture/fig_modis_workflow.png)
+![](assets/img/lecture/fig_modis_workflow.png)
 
 ![](assets/img/grass_gis.svg){.absolute top=350 left=-100 width="85"}
 :::
@@ -392,7 +396,7 @@ Let's have a look at some real cases...
 
 <br>
 
-![Co-cluster of derived LST indices](assets/img/lecture/co_cluster_method.png){.fragment .grow}
+![](assets/img/lecture/co_cluster_method.png){.fragment .grow}
 :::
 :::
 
@@ -655,9 +659,9 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 :::
 
 ::: {.column width="33%"}
-<br>
+![](assets/img/lecture/gedi.jpg){width="70%"}
 
-![](assets/img/lecture/gedi.jpg)
+![](assets/img/lecture/gedi_forest_hh.jpg)
 :::
 
 ::: {.column width="33%"}
@@ -666,6 +670,10 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 ![](assets/img/lecture/actinia_logo.png){width="80%"}
 :::
 
+:::
+
+::: footer
+@torresani_lidar_2023
 :::
 
 
@@ -757,3 +765,6 @@ Unhealthy lab
 :::
 :::
 
+::: footer
+Hamesse et al.
+:::
