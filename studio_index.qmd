@@ -61,7 +61,7 @@ Install with `g.extension extension=name_of_addon`
 The following R packages should be installed beforehand:
 
 ```r
-  install.packages(c("rgrass","terra","raster","sf","mapview","biomod2"))
+  install.packages(c("rgrass","terra","raster","sf","mapview","biomod2","dismo","usdm","SDMtune","zeallot"))
 ```
 
 ### Python libraries
@@ -84,6 +84,10 @@ averages (@metz_new_2017) for Northern Italy. This dataset is courtesy of
 [mundialis GmbH & Co. KG](mundialis.de/en/).
 
 * [Northern Italy (1.7 Gb)](https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing)
+
+We will also use a points vector map representing *Aedes albopictus* presence data:
+
+* [Mosquito occurrence data](data/aedes_albopictus.gpkg)
 
 
 ## References

@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.2.313">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Verónica Andreo">
-<meta name="dcterms.date" content="2023-03-31">
+<meta name="dcterms.date" content="2023-04-05">
 <title>Visiting NCSU - Using Satellite Data for Species Distribution Modeling with GRASS GIS and R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -4110,7 +4110,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 31, 2023</p>
+      <p class="date">April 5, 2023</p>
     </div>
   </div>
   
@@ -4148,7 +4148,7 @@ vertical-align: -.125em;
 <p>Install with <code>g.extension extension=name_of_addon</code></p>
 </section></section><section id="r-packages" class="level3"><h3 class="anchored" data-anchor-id="r-packages">R packages</h3>
 <p>The following R packages should be installed beforehand:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>  <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;rgrass&quot;</span>,<span class="st">&quot;terra&quot;</span>,<span class="st">&quot;raster&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;mapview&quot;</span>,<span class="st">&quot;biomod2&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>  <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;rgrass&quot;</span>,<span class="st">&quot;terra&quot;</span>,<span class="st">&quot;raster&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;mapview&quot;</span>,<span class="st">&quot;biomod2&quot;</span>,<span class="st">&quot;dismo&quot;</span>,<span class="st">&quot;usdm&quot;</span>,<span class="st">&quot;SDMtune&quot;</span>,<span class="st">&quot;zeallot&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="python-libraries" class="level3"><h3 class="anchored" data-anchor-id="python-libraries">Python libraries</h3>
 <p>The following Python libraries should be installed beforehand:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>  <span class="ex">pip</span> install folium </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4158,6 +4158,10 @@ vertical-align: -.125em;
 <p>Download the following ready to use <em>location</em> with reconstructed daily LST averages (<span class="citation" data-cites="metz_new_2017">Metz et al. (<a href="#ref-metz_new_2017" role="doc-biblioref">2017</a>)</span>) for Northern Italy. This dataset is courtesy of <a href="mundialis.de/en/">mundialis GmbH &amp; Co. KG</a>.</p>
 <ul>
 <li><a href="https://drive.google.com/file/d/1z1b2NLC4Z6yzz_57RddTdRRK_gUkd7fU/view?usp=sharing">Northern Italy (1.7 Gb)</a></li>
+</ul>
+<p>We will also use a points vector map representing <em>Aedes albopictus</em> presence data:</p>
+<ul>
+<li><a href="data/aedes_albopictus.gpkg">Mosquito occurrence data</a></li>
 </ul></section><section id="references" class="level2"><h2 class="anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-metz_new_2017" class="csl-entry" role="doc-biblioentry">

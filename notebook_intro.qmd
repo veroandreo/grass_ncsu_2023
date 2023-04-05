@@ -124,49 +124,28 @@ For example:
 
 ![](assets/img/studio/Single_Window_GUI.png){width="870px" fig-align="center"}
 
+
 ### Command line
 
 ![](assets/img/studio/grass_command_line.png){width="65%" fig-align="center"}
 
+
 ## GRASS + {{< fa brands python >}}
 
-### Python package `grass.script`
+There are different Python libraries delivered with GRASS GIS, we'll use 2 of 
+them:
 
-The **grass.script** or GRASS GIS Python Scripting Library provides functions
-for calling GRASS modules within Python scripts. The most commonly used 
-functions include:
+- `grass.script` which provides Python interface to launch GRASS GIS modules in scripts
+- `grass.jupyter` which offers classes and setup functions for running GRASS GIS in Jupyter Notebooks
 
-- `run_command`: used when the output of the modules is a raster or vector, no text type output is expected
-- `read_command`: used when the output of the modules is of text type
-- `parse_command`: used with modules whose output can be converted to `key=value` pairs
-- `write_command`: used with modules that expect text input, either in the form of a file or from stdin
+Other Python libraries delivered with GRASS GIS include: pygrass, the temporal 
+framework, the testing framework, among others.
 
-It also provides several wrapper functions for frequently used modules, 
-for example:
 
-- To get info from a raster, script.raster.raster_info() is used: `gs.raster_info('dsm')`
-- To get info of a vector, script.vector.vector_info() is used: `gs.vector_info('roads')`
-- To list the raster in a location, script.core.list_grouped() is used: `gs.list_grouped(type=['raster'])`
-- To obtain the computational region, script.core.region() is used: `gs.region()`
+We can use Python within GRASS GUI, within Jupyter notebooks, or from our 
+preferred IDE. See the options within the GUI:
 
-:::{.callout-note}
-More info: https://grass.osgeo.org/grass-stable/manuals/libpython/script_intro.html
-:::
-
-### Python package `grass.jupyter`
-
-The **grass.jupyter** library improves the integration of GRASS and Jupyter, 
-and provides different classes to facilitate GRASS maps visualization:
-
-- `init`: starts a GRASS session and sets up all necessary environment variables
-- `Map`: 2D rendering
-- `Map3D`: 3D rendering
-- `InteractiveMap`: interactive visualization with folium
-- `TimeSeriesMap`: visualization for spatio-temporal data
-
-:::{.callout-note}
-More info: https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html
-:::
+![](assets/img/studio/grass_and_python_gui.png)
 
 
 ## GRASS + {{< fa brands r-project >}} through `rgrass` package

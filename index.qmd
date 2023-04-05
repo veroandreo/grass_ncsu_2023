@@ -39,6 +39,6 @@ Spoiler alert! GRASS GIS is one of the main characters in this journey.
 2.  Studio: "**Using satellite data for species distribution modeling with GRASS GIS and R**"
     1. Intro to GRASS GIS
     2. Processing data in GRASS
-    3. Modeling with R
+    3. Modeling species distributions with R
 
 
