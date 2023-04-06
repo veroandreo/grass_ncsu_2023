@@ -18,10 +18,10 @@ In this third part of the studio, we'll use R to model *Aedes albopictus*
 distribution in Northern Italy. For that, we need to connect to GRASS via
 the `rgrass` package in order to read occurrence data and predictors. The 
 *rgrass* package is developed by @rgrass and can be found at: 
-<https://github.com/rsbivand/rgrass/>. See the vignette with explanations
-and examples at: <https://rsbivand.github.io/rgrass/>.
+<https://github.com/rsbivand/rgrass/>. See the vignette with further
+explanations and examples at: <https://rsbivand.github.io/rgrass/>.
 
-## [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
+# [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
 
 - `initGRASS()`: starts a GRASS GIS session from R
 - `execGRASS()`: executes GRASS GIS commands 
@@ -62,6 +62,19 @@ B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_stat
 
 ![](assets/img/studio/grass_within_rstudio_session.png){width="70%" fig-align="center"}
 
+# SDM workflow
+
+In this part of the Studio we'll be covering the middle and right side of the
+SDM workflow, modeling and predictions.
+
+![](assets/img/lecture/workflow_sdm_other.png)
+
+There are several packages to carry out SDM, in this case we'll be using
+[SDMtune](https://cloud.r-project.org/web/packages/SDMtune/index.html) by @sdmtune. It provides functions covering the whole SDM workflow, from data 
+preparation, to variable selection, optimization and evaluation. Have a look
+at the articles on the package website for further details: <https://consbiol-unibern.github.io/SDMtune/index.html>.
+
+
 # Let's move to R
 
 ### Load packages needed
@@ -70,7 +83,6 @@ B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_stat
 library(rgrass)
 library(sf)
 library(terra)
-library(raster)
 library(mapview)
 library(biomod2)
 library(dismo)
@@ -81,11 +93,12 @@ library(zeallot)
 
 ### Initialize GRASS
 
-We'll use **option B**, i.e., we'll launch GRASS, in a defined location and mapset, from R
+We'll use **option B**, i.e., we'll launch GRASS GIS in a defined location and mapset, from R
 
 ```{r}
 #| label: grass_init
 #| message: false
+#| panel: tabset
 
 # path to GRASS binaries (run `grass --config path`)
 grassbin <- "/usr/lib64/grass82"
@@ -126,11 +139,12 @@ background <- st_as_sf(read_VECT("background_points"))
 
 # Display vectors
 mapview(presence) + 
-  mapview(background, color="black", col.regions="black", cex=2)
+  mapview(background, col.regions="black", cex=2)
 ```
 
-
 #### Read raster data
+
+We read now all the variables that we derived from the daily LST time series.
 
 ```{r}
 #| label: read_rasters
@@ -158,12 +172,14 @@ to_import <- c(attributes(worldclim)$resOut,
 # Read raster layers
 predictors <- list()
 for (i in to_import){ 
-  predictors[i] <- raster(read_RAST(i)) }
+  predictors[i] <- read_RAST(i) }
 
 # Stack rasters
-predictors_r <- raster::stack(predictors)
+predictors_r <- rast(predictors)
 ```
 
+Let's visualize imported maps. Note we convert *terra* object into *raster* 
+because `mapview` does not support terra yet. 
 
 ```{r}
 #| label: quick_view
@@ -171,10 +187,16 @@ predictors_r <- raster::stack(predictors)
 #| warning: false
 
 # Quick visualization in mapview
-mapview(predictors_r[['worldclim_bio01']]) + presence
+mapview(raster::raster(predictors_r[['worldclim_bio01']])) + presence
 ```
 
 #### Data preparation
+
+Now that we have imported presence records, background points and predictor
+variables derived from LST time series, we need to prepare the data in a
+format called *samples with data* (SWD). This is basically a table with presence
+and background coordinates plus the corresponding values in the predictor
+variables.
 
 ```{r}
 #| label: data_prep1
@@ -198,6 +220,8 @@ data_sp
 
 ### Define relevant variables
 
+We define here some of the input values required through the workflow:
+
 ```{r}
 seed=49
 perc_test = 0.2
@@ -205,9 +229,13 @@ k = 4
 method="Maxent"
 cor_th=0.7
 perm=10
+imp_th=10
 ```
 
 ### Create train and test datasets
+
+We will train the model with an 80% of presence samples, and leave the remaining
+20% for evaluation at the end.
 
 ```{r}
 # Create training and test sets
@@ -229,6 +257,11 @@ test_sp
 
 ### Create folds for cross-validation
 
+As we will use cross-validation during the model training, we create the folds
+in advance. In this case we use random folds, but other methods exist.
+Since we are limited by the number of presence records, we will create only 
+4 folds. The algorithm will iteratively use 3 folds to train and 1 to validate.
+
 ```{r}
 # Create folds 
 ran_folds <- randomFolds(train_sp, 
@@ -238,6 +271,9 @@ ran_folds <- randomFolds(train_sp,
 ```
 
 ### Train a default Maxent model with CV
+
+We will first train a so called *full model*, i.e., a model with all predictors,
+and from there we'll remove those that are highly correlated and not so important.
 
 ```{r}
 #| message: false
@@ -251,15 +287,23 @@ full_model_sp <- train(method = method,
 full_model_sp
 ```
 
+Let's see the predictions of the full model
+
 ```{r}
 pred_full_model <- predict(full_model_sp,
                            data = env,
                            type = "cloglog")
 
-mapview(pred_full_model)
+mapview(raster::raster(pred_full_model))
 ```
 
 ### Variable selection: remove highly correlated variables 
+
+We proceed then to remove correlated predictors as they provide highly redundant
+information and might affect the performance of models, i.e., as with all 
+models, we want it to be simple and of the highest possible performance. We will
+use the area under the ROC curve (AUC) as the performance metric, and eliminate 
+correlated variables only if AUC decreases if we keep them.
 
 ```{r}
 #| warning: false
@@ -275,9 +319,12 @@ vs_sp <- varSel(full_model_sp,
                 metric = "auc", 
                 bg4cor = bg_sp, 
                 cor_th = cor_th,
-                permut = perm)
+                permut = perm,
+                interactive = FALSE)
 
 ```
+
+Let's explore the output object
 
 ```{r}
 vs_sp@data
@@ -285,31 +332,39 @@ vs_sp@data
 
 ### Remove less important variables
 
+After discarding correlated variables, we will also remove variables that have a
+percent contribution or importance lower than 10%, again accounting for AUC.
+
 ```{r}
 # remove less important variables only if auc does not decrease
 reduc_var_sp <- reduceVar(vs_sp,
-                          th = 10, 
+                          th = imp_th, 
                           metric = "auc", 
                           test = TRUE, 
                           permut = perm, 
-                          use_jk = TRUE)
+                          use_jk = TRUE,
+                          interactive = FALSE)
+```
 
+Let's explore the result
+
+```{r}
 reduc_var_sp
 ```
 
-We need now to recreate SWD only with the selected variables to run the final 
-model and make predictions.
+We need now to recreate the SWD object and train/test datasets, but with the 
+selected variables only, in order to run the final model and make predictions.
 
 ```{r}
 # Get only relevant variables from the reduced model
 retained_varnames <- names(reduc_var_sp@models[[1]]@data@data)
 
-# Subset raster stack
-env <- subset(env, retained_varnames)
+# Subset stack
+env <- terra::subset(env, retained_varnames)
 
 # SWD with the selected vars
 subset_train_sp <- prepareSWD(species = sp, 
-                              p = presence,
+                              p = presence_coords,
                               a = background,
                               env = env)
 
@@ -320,7 +375,13 @@ c(train_sp, test_sp) %<-%
                seed = seed)
 ```
 
-### Run the best model with the full train data
+### Run the best model and make predictions
+
+Now we train the final model with the full training set, we no longer need
+the folds at this point. Note that we also use the feature classes (fc) and
+regularization (reg) from the best model obtained before. In this case, they 
+are default values only, but if we also do hyper-parameter optimization, they
+might differ.
 
 ```{r}
 final_model_sp <- train(method = method, 
@@ -329,36 +390,50 @@ final_model_sp <- train(method = method,
                         reg = reduc_var_sp@models[[1]]@model@reg)
 ```
 
-### Make predictions with the final model
+Let's make predictions now and explore the result
 
 ```{r}
 map_sp_maxent <- predict(final_model_sp,
                          data = env, 
                          type = "cloglog")
 
-mapview(map_sp_maxent)
+mapview(raster::raster(map_sp_maxent))
 ```
 
-### Write raster of final model predictions to GRASS 
+### Write result back to GRASS 
+
+We can now write the raster with the final model's predictions into the GRASS
+database.
 
 ```{r}
-write_RAST(rast(map_sp_maxent), 
+write_RAST(map_sp_maxent, 
            "Aedes_albopictus_maxent", 
            flags = c("o","overwrite"))
 ```
 
+Check the map is there
+
 ```{r}
-execGRASS("g.list", parameters = list(type="raster",
-                                      pattern="Aedes*"))
+execGRASS("g.list", 
+          parameters = list(type="raster",
+                            pattern="Aedes*"))
 ```
 
 ### Model evaluation
+
+We want to know how good our model is, so in this step we use the test dataset
+that we separated in the beginning. An AUC of 0.5 would mean the model performs
+like flipping a coin. AUC is what we call a threshold independent evaluation
+metric.
 
 ```{r}
 # AUC
 auc_maxent <- auc(final_model_sp, test = test_sp)
 auc_maxent
 ```
+
+Usually, however, the result of SDM is converted into presence/absence maps. To
+determine which threshold to use we perform threshold dependent evaluations.
 
 ```{r}
 # Threshold dependent evaluation
@@ -368,8 +443,21 @@ th_maxent <- thresholds(final_model_sp,
 
 knitr::kable(th_maxent, format = 'html', digits = 2)
 ```
+Let's choose one threshold and create a binary map
 
-### Variable importance in final model
+```{r}
+p = map_sp_maxent >= 0.5
+a = map_sp_maxent < 0.5
+map_sp_maxent[p] <- 1
+map_sp_maxent[a] <- 0
+
+mapview(raster::raster(map_sp_maxent))
+```
+
+
+### Variable importance
+
+Variable importance is an indicator of variable contribution to prediction.
 
 ```{r}
 vi_model_sp <- maxentVarImp(final_model_sp)
@@ -381,7 +469,10 @@ plotVarImp(vi_model_sp)
 ```
 
 
-### Response curves in final model
+### Response curves
+
+Response curves give us an idea of the relationship between predictor variables 
+and probability of occurrence.
 
 ```{r}
 my_rp <- function(i){
@@ -389,12 +480,11 @@ my_rp <- function(i){
 }
 
 plotlist <- lapply(retained_varnames, my_rp)
-
 labels <- LETTERS[1:length(retained_varnames)]
-
 ggpubr::ggarrange(plotlist = plotlist, labels = labels)
 ```
 
+We close the mapset and done
 
 ```{r}
 # close the mapset
@@ -404,13 +494,13 @@ unlink_.gislock()
 
 ### Disclaimer
 
-This is only a toy example and only the beginning...
+This is only a simple example for doing SDM and only the beginning... 
+There are:
 
 - other models to test
 - hyper-parameter tuning
 - ensemble modeling
-- model validation with independent data
-- uncertainty: where we can predict with confidence
+- uncertainty assessment: where we can predict with confidence
 - many other relevant packages: 
   - [*dismo*](https://cran.r-project.org/web/packages/dismo/index.html), [*sdm*](https://cran.r-project.org/web/packages/sdm/index.html),  [*kuenm*](https://github.com/marlonecobos/kuenm), [*caret*](https://cran.r-project.org/web/packages/caret/index.html), [*CAST*](https://cran.r-project.org/web/packages/CAST/index.html), etc.
 
