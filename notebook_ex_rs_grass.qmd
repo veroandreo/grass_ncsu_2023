@@ -10,6 +10,7 @@ format:
 execute:
   eval: false
   cache: true
+  keep-ipynb: true
 jupyter: python3
 ---
 
