@@ -130,9 +130,6 @@ grassbin = "grass"
 grassdata = os.path.join(homedir, "grassdata")
 location = "eu_laea"
 mapset = "italy_LST_daily"
-
-# Create directories if not already existing
-os.makedirs(grassdata, exist_ok=True)
 ```
 
 ```{python}
