@@ -21,6 +21,7 @@ cd grass
     --with-proj-share=/usr/share/proj \
     --with-geos=/usr/bin/geos-config \
     --with-cairo \
+    --without-pdal \
     --with-opengl-libs=/usr/include/GL \
     --with-freetype=yes --with-freetype-includes="/usr/include/freetype2/" \
     --with-sqlite=yes
