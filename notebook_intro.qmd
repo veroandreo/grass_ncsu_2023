@@ -19,10 +19,10 @@ Laboratories for land management and environmental planning (1982-1995).
 - More history: <https://grass.osgeo.org/about/history/>
 - Free and open source, you can use, modify, improve, share
 - Strong user community, commercial support
-- Large amount of tools: 500+ [core modules](#modules), 300+ [addons](#addons)
+- Large amount of tools: 500+ [core modules](#modules), 400+ [addons](#addons)
 - GUI and CLI interfaces
-- Python API and libraries - the lattest `grass.jupyter` library can be tried
-[online](https://mybinder.org/v2/gh/OSGeo/grass/c173461?urlpath=lab%2Ftree%2Fdoc%2Fnotebooks%2Fgrass_jupyter.ipynb)
+- Python API and libraries - the latest `grass.jupyter` library can be tried
+[online](https://mybinder.org/v2/gh/OSGeo/grass/8.2.2?urlpath=lab%2Ftree%2Fdoc%2Fnotebooks%2Fjupyter_example.ipynb)
 - Connection with R, QGIS, WPS, etc.
 - Different data types supported:
 [raster](https://grass.osgeo.org/grass-stable/manuals/rasterintro.html)
@@ -65,7 +65,7 @@ software creates the directory structure or database automatically.
 
 
 ::: callout-note
-More info: https://grass.osgeo.org/grass-stable/manuals/grass_database.html.
+More info: <https://grass.osgeo.org/grass-stable/manuals/grass_database.html>.
 :::
 
 ### Computational region
