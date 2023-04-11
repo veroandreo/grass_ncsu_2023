@@ -32,3 +32,17 @@ make
 mkdir -p $HOME/.local/bin/
 # create link to build
 ln -s $HOME/grass/bin.*/grass* $HOME/.local/bin/grass
+
+$HOME/.local/bin/grass --tmp-location XY --exec g.extension r.bioclim
+
+
+cd ..
+
+mkdir -p grass_ncsu_2023/grassdata \
+  && curl -SL https://tilia.cnr.ncsu.edu/GRASS-R-workshop-2023/grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB.zip > LST.zip \
+  && unzip -qq LST.zip \
+  && mv grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB/grassdata_ogh/eu_laea grass_ncsu_2023/grassdata \
+  && rm LST.zip \
+  && rm -rf grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB
+
+cp data/aedes_albopictus.gpkg  grass_ncsu_2023/
