@@ -130,9 +130,6 @@ grassbin = "grass"
 grassdata = os.path.join(homedir, "grassdata")
 location = "eu_laea"
 mapset = "italy_LST_daily"
-
-# Create directories if not already existing
-os.makedirs(grassdata, exist_ok=True)
 ```
 
 ```{python}
@@ -247,7 +244,7 @@ by means of [v.in.pygbif](https://grass.osgeo.org/grass-stable/manuals/addons/v.
 
 The algorithm MaxEnt that we will use in the next part of this session requires not only the locations of known occurrences, but also information on the rest of the environment available. These are not absences but background data, we actually do not know if the species is there or not, but we need it to compare with the features of the places where the species does occur. 
 
-To avoid getting background points exactly where occurrences are, we'll create buffers around them. Then, we need to ensure that background points are only over land within our computational region. In order to do that, we'll create a mask over land and we'll overlay the buffers with the mask. Can you guess what the ooutput will be?
+To avoid getting background points exactly where occurrences are, we'll create buffers around them. Then, we need to ensure that background points are only over land within our computational region. In order to do that, we'll create a mask over land and we'll overlay the buffers with the mask. Can you guess what the output will be?
 
 ```{python}
 # Create buffer around Aedes albopictus records
