@@ -47,4 +47,4 @@ mkdir -p grass_ncsu_2023/grassdata \
 
 wget -P grass_ncsu_2023/ https://github.com/petrasovaa/vero_grass_ncsu_2023/raw/main/data/aedes_albopictus.gpkg
 
-wget -P grass_ncsu_2023 https://github.com/mrmaxent/Maxent/raw/master/ArchivedReleases/3.4.4/maxent.jar
+#wget -P grass_ncsu_2023 https://github.com/mrmaxent/Maxent/raw/master/ArchivedReleases/3.4.4/maxent.jar
