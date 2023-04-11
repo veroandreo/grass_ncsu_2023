@@ -41,8 +41,8 @@ cd ..
 mkdir -p grass_ncsu_2023/grassdata \
   && curl -SL https://tilia.cnr.ncsu.edu/GRASS-R-workshop-2023/grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB.zip > LST.zip \
   && unzip -qq LST.zip \
-  && mv grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB/grassdata_ogh/eu_laea grass_ncsu_2023/grassdata \
+  && mv grassdata_ogh/eu_laea grass_ncsu_2023/grassdata \
   && rm LST.zip \
   && rm -rf grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB
 
-cp data/aedes_albopictus.gpkg  grass_ncsu_2023/
+wget -P grass_ncsu_2023/ https://github.com/petrasovaa/vero_grass_ncsu_2023/raw/main/data/aedes_albopictus.gpkg
