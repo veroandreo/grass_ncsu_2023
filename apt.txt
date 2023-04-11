@@ -29,6 +29,7 @@ libzstd-dev
 libxml2
 libudunits2-dev
 make
+default-jre
 netcdf-bin
 p7zip
 proj-bin
