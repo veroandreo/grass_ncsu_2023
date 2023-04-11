@@ -26,6 +26,8 @@ libsqlite3-dev
 libtiff-dev
 libxmu-dev
 libzstd-dev
+libxml2
+libudunits2-dev
 make
 netcdf-bin
 p7zip
