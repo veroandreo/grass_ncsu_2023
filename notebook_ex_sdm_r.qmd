@@ -101,9 +101,9 @@ We'll use **option B**, i.e., we'll launch GRASS GIS in a defined location and m
 #| panel: tabset
 
 # path to GRASS binaries (run `grass --config path`)
-grassbin <- "/usr/lib64/grass82"
+grassbin <- system("grass --config path", intern = TRUE)
 # path to GRASS database
-grassdata <- "/home/veroandreo/grass_ncsu_2023/grassdata/"
+grassdata <- path.expand("~/grass_ncsu_2023/grassdata/")
 # path to location
 location <- "eu_laea"
 # path to mapset

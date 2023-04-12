@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# exit on error
+set -e
+
+cd $HOME
+
+# get the source code
+git clone --branch releasebranch_8_2 --depth 1 https://github.com/OSGeo/grass.git
+
+cd grass
+
+# compile
+./configure \
+    --enable-largefile=yes \
+    --with-nls \
+    --with-cxx \
+    --with-readline \
+    --with-bzlib \
+    --with-pthread \
+    --with-proj-share=/usr/share/proj \
+    --with-geos=/usr/bin/geos-config \
+    --with-cairo \
+    --without-pdal \
+    --with-opengl-libs=/usr/include/GL \
+    --with-freetype=yes --with-freetype-includes="/usr/include/freetype2/" \
+    --with-sqlite=yes
+make
+
+# put command on path
+# ensure the user specific bin dir exists (already on path)
+mkdir -p $HOME/.local/bin/
+# create link to build
+ln -s $HOME/grass/bin.*/grass* $HOME/.local/bin/grass
+
+$HOME/.local/bin/grass --tmp-location XY --exec g.extension r.bioclim
+
+
+cd ..
+
+mkdir -p grass_ncsu_2023/grassdata \
+  && curl -SL https://tilia.cnr.ncsu.edu/GRASS-R-workshop-2023/grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB.zip > LST.zip \
+  && unzip -qq LST.zip \
+  && mv grassdata_ogh/eu_laea grass_ncsu_2023/grassdata \
+  && rm LST.zip \
+  && rm -rf grassdata_eu_laea_northern_italy_LST_1km_daily_celsius_reconstructed_ZLIB
+
+wget -P grass_ncsu_2023/ https://github.com/petrasovaa/vero_grass_ncsu_2023/raw/main/data/aedes_albopictus.gpkg
+
+#wget -P grass_ncsu_2023 https://github.com/mrmaxent/Maxent/raw/master/ArchivedReleases/3.4.4/maxent.jar
