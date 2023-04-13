@@ -660,8 +660,8 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 - **Trade-off** between different RS resolutions, the problem under study, the data and methods available
 - **Gaps in optical RS**: clouds, shadows in optical RS (spatial and temporal interpolations)
 - Need for **corrections** if high level data is not suitable
-- **Limited access** to VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet)
-- **Investment and capacity building**: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)
+- **Limited access** to VHR, LiDAR, Hyper-spectral (US$, tricky to scale yet)
+- **Investment and capacity building**: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | resources)
 
 ::: {.color-box-light-blue}
 [**Field data will always be needed! :)**]{style="color: #1a428a;"}
@@ -768,6 +768,8 @@ Thanks!
 [{{< fa envelope >}} veronica.andreo@ig.edu.ar](veronica.andreo@ig.edu.ar)
 
 [{{< fa brands twitter >}} VeronicaAndreo](https://twitter.com/VeronicaAndreo)
+
+[{{< fa presentation-screen >}} Slides](https://veroandreo.github.io/grass_ncsu_2023/introduction.html)
 :::
 
 ::: {.fragment style="float: left;" .color-box-white}
