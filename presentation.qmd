@@ -59,9 +59,9 @@ leaflet() %>%
 ---
 
 :::{.r-stack}
-![](assets/img/lecture/sdg_poster.png){.fragment fragment-index=1 .fade-in-then-out width="90%"}
+![](assets/img/lecture/sdg_poster.png){.fragment fragment-index=2 .fade-in-then-out width="90%"}
 
-![](assets/img/lecture/sdg_3.png){.fragment .fade-in-then-out fragment-index=2 width="55%" fig-align="center"}
+![](assets/img/lecture/sdg_3.png){.fragment .fade-in-then-out fragment-index=1 width="55%" fig-align="center"}
 
 ![](assets/img/lecture/sdg_3_target33.png){.fragment fragment-index=3 .fade-in width="100%" fig-align="center"}
 :::
