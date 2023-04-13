@@ -70,6 +70,9 @@ leaflet() %>%
 <https://sdgs.un.org/goals/goal3>
 :::
 
+::: {.notes}
+Vector-borne and zoonotic diseases are responsible for one-sixth of disease and disability worldwide. This is one of the reasons why good health and well being is among the 17 goals from UN for a sustainable development. More specifically, the target is to end epidemics of NTD among other communicable diseases.
+:::
 
 ---
 
@@ -95,6 +98,10 @@ leaflet() %>%
 
 ![](assets/img/lecture/tick.png){.fragment .absolute bottom=130 right=-30 width=120}
 
+::: {.notes}
+Now, which are these NTD and why is it that remote sensing might be relevant for their study? Well, as you can see most of them diseases are transmitted by animals, they need a vector to carry the pathogen from host to humans or among humans. Animals, specially hectothermic ones, are highly affected by the environmental conditions of a certain area... think of Aedes aegypti mosquitoes for example... and what information can be most easily extracted from RS? Yes, environmental 
+:::
+
 ---
 
 ::: {.center}
@@ -116,6 +123,9 @@ You all have seen this, right?
 :::
 :::
 
+::: {.notes}
+Before we reach the core of remote sensing uses and applications there are a couple of things that happened first and some definitions I'd like to share... You all have seen this right? This is the first class of a GIS course, but also, the first time that the association between health/disease and place/space was clearly mapped.
+:::
 
 ## Health Geography
 
@@ -143,8 +153,7 @@ provision and patient behavior.
 :::
 
 ::: {.notes}
-Health geography is the application of geographical information, perspectives, and methods to the study of health, disease, and health care.
-Mencionar potenciales usos y aplicaciones del SR en los 3 campos
+This was the beginning of what was the called health geography; the application of geographical information, perspectives, and methods to the study of health, disease, and health care. Within this discipline we might identify 3 fields of study: Environmental health, Health access and disease ecology
 :::
 
 
@@ -213,17 +222,14 @@ decision making, planning of prevention, management or response actions, etc.
 @lambin_pathogenic_2010
 :::
 
-:::{.notes}
-1. Landscape attributes may influence the level of transmission of an infection
-2. Spatial variations in disease risk depend not only on the presence and area of critical habitats but also on their spatial configuration
-3. Disease risk depends on the connectivity of habitats for vectors and hosts
-4. The landscape is a proxy for specific associations of reservoir hosts and vectors linked with the emergence of multi-host diseases
-5. To understand ecological factors influencing spatial variations of disease risk, one needs to take into account the pathways of pathogen transmission between vectors, hosts, and the physical environment
-6. The emergence and distribution of infection through time and space is controlled by different factors acting at multiple scales
-7. Landscape and meteorological factors control not just the emergence but also the spatial concentration and spatial diffusion of infection risk
-8. Spatial variation in disease risk depends not only on land cover but also on land use, via the probability of contact between, on one hand, human hosts and, on the other hand, infectious vectors, animal hosts or their infected habitats
-9. The relationship between land use and the probability of contact between vectors and animal hosts and human hosts is influenced by land ownership
-10. Human behaviour is a crucial controlling factor of vector-human contacts, and of infection
+::: {.notes}
+This relationship with environment is usually represented by a triad, the
+epidemiologic triad. For disease to occur (in humans) we need proper environmental 
+conditions, a pathogen and competent hosts and vectors.
+These relationships might be a bit drawn in a more complex way, but the basis is 
+the same, i.e., environment encompasses climate, LULCC, habitat fragmentation, 
+human behaviour, and all the relationships among them. This is what we usually try
+to observe with RS.
 :::
 
 
@@ -233,6 +239,11 @@ decision making, planning of prevention, management or response actions, etc.
 
 ::: footer
 @viana_remote_2017
+:::
+
+:::{.notes}
+Indeed, the use of remote sensing for public health applications has been increasing
+since 2007 according to this review, but I'd say it started even earlier. I particularly remember a set of publications from the 4 corners area when sin nombre virus appeared. 
 :::
 
 
@@ -263,13 +274,19 @@ decision making, planning of prevention, management or response actions, etc.
 @parselia_satellite_2019
 :::
 
+:::{.notes}
+The most common variables used in general are: LST, Precipitation, NDVI, 
+Elevation... This is for mosquitoes, if we think about ticks or mice, for example, 
+I beat vegetation variables are more frequently used
+:::
+
 
 ## Remote sensing basic features 
 
 ![](assets/img/lecture/all_resolutions_relation.png){fig-align="center"}
 
 ::: {.notes}
-However, we should take into account some basic features of remote sensing before selecting which data to use
+However, we should take into account some basic features of remote sensing before selecting which data to use.
 :::
 
 
@@ -282,6 +299,12 @@ However, we should take into account some basic features of remote sensing befor
 ::: footer
 @pearson_predicting_2003
 :::
+
+:::{.notes}
+To decide which RS dataset most suits our problem we also need to think about the
+scale on which variables operate. This shows for example the relationship of env var and distribution of species according to scale.
+:::
+
 
 ## Remote sensing & scale II
 
@@ -304,6 +327,11 @@ However, we should take into account some basic features of remote sensing befor
 @leitao_improving_2019, @lechner_applications_2020, @rumiano_movement_2020
 :::
 
+:::{.notes}
+Also if we study other biological or ecological phenomena we should consider scale and think which type of RS product would be the most appropriate.
+:::
+
+
 ## How to apply RS in disease ecology?
 
 <br>
@@ -324,6 +352,7 @@ However, we should take into account some basic features of remote sensing befor
 :::
 
 ::: {.notes}
+Going back to disease ecology then, what do we use RS for?
 - To map the response variables, i.e., species occurrence or abundance, infections, disease cases
 - To map the predictor variables
 - To validate predictions
@@ -343,7 +372,7 @@ Let's have a look at some real cases...
 
 - Very high resolution (VHR) imagery
 - Hyperspectral data (esp. for plant species)
-- Direct and indirect counting
+- Direct and indirect counting (CV, ML, DL)
 
 ::: {.columns}
 ::: {.column width="53%"}
@@ -381,7 +410,7 @@ Let's have a look at some real cases...
 
 ### Time series analysis of satellite products {.smaller}
 
-- MODIS LST temporal and spatial reconstruction
+- MODIS LST temporal and spatial reconstruction (LWR & splines)
 - Estimation of relevant indices (GRASS GIS temporal framework!)
 - Detection of spatial and temporal clusters of favorable conditions for the occurrence of West Nile Fever cases in Greece
 
@@ -467,32 +496,32 @@ We combined a rescaled probability map of the host with one of the human cases t
 :::
 
 ::: footer
-@andreo_ecological_2022
+@andreo_ecological_2022, [*i.cva*](https://grass.osgeo.org/grass-stable/manuals/addons/i.cva.html)
 :::
 
----
+<!-- --- -->
 
-### Mosquitoes: towards operational high res maps
+<!-- ### Mosquitoes: towards operational high res maps -->
 
-::: {.columns}
+<!-- ::: {.columns} -->
 
-::: {.column width="60%"}
-![Workflow](assets/img/lecture/workflow_dengue.png)
+<!-- ::: {.column width="60%"} -->
+<!-- ![Workflow](assets/img/lecture/workflow_dengue.png) -->
 
-![](assets/img/grass_gis.svg){.fragment .absolute top=200 left=2 width=80}
-![](assets/img/lecture/R_logo.png){.fragment .absolute top=300 left=530 width=85}
-:::
+<!-- ![](assets/img/grass_gis.svg){.fragment .absolute top=200 left=2 width=80} -->
+<!-- ![](assets/img/lecture/R_logo.png){.fragment .absolute top=300 left=530 width=85} -->
+<!-- ::: -->
 
-::: {.column width="40%"}
-![](assets/img/lecture/Predictions.png)
+<!-- ::: {.column width="40%"} -->
+<!-- ![](assets/img/lecture/Predictions.png) -->
 
-![](assets/img/lecture/aedesaegypti_blood_mirror.png){width="32%" style="float: right;"}
-:::
-:::
+<!-- ![](assets/img/lecture/aedesaegypti_blood_mirror.png){width="32%" style="float: right;"} -->
+<!-- ::: -->
+<!-- ::: -->
 
-::: footer
-@andreo_towards_2021
-:::
+<!-- ::: footer -->
+<!-- @andreo_towards_2021 -->
+<!-- ::: -->
 
 ---
 
@@ -584,6 +613,8 @@ Development of an early warning system (EWS) for dengue. PhD candidate, **Tomás
 
 ![](assets/img/lecture/bid_geonode_dengue_2020.jpg){.fragment fig-align="center" width="82%"}
 :::
+
+
 ## Other projects under development {.smaller}
 
 ::: {layout="[1, 20]"}
@@ -618,6 +649,9 @@ Geospatial modelling of malnutrition in children and adolescents. PhD candidate,
 Environmental variables associated with non-communicable diseases. **Dr. Juan Diego Pinotti** and **Dr. Ximena Porcasi**.
 :::
 
+
+## Is everything studied then?? { background-color="#1A428A" }
+
 ---
 
 ## Challenges and gaps - RS
@@ -625,30 +659,30 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 
 - **Trade-off** between different RS resolutions, the problem under study, the data and methods available
 - **Gaps in optical RS**: clouds, shadows in optical RS (spatial and temporal interpolations)
-- Need for **corrections** if high level data is not suitable (ARD)
+- Need for **corrections** if high level data is not suitable
 - **Limited access** to VHR, LiDAR, Hyper-spectral (US$, not easy to scale yet)
-- Investment and capacity building: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)
+- **Investment and capacity building**: huge  volumes of data vs. limited bandwidth, storage and computational capacity (cloud computing, parallelisation | learning time and US$)
 
 ::: {.color-box-light-blue}
 [**Field data will always be needed! :)**]{style="color: #1a428a;"}
 :::
 
-## Challenges and gaps - Ecology and Health
+<!-- ## Challenges and gaps - Ecology and Health -->
 
-<br>
+<!-- <br> -->
 
-- Missing **baseline** distribution information of hosts, vectors, infection
-- Updating and digitisation of disease cases and intervention data, data still missing in large parts of the world
-- **Harmonisation of records** at different levels, i.e., municipal, provincial, national
-- Facilitating access to (aggregated) health data 
-- __Political decision and resource allocation__
+<!-- - Missing **baseline** distribution information of hosts, vectors, infection -->
+<!-- - Updating and digitisation of disease cases and intervention data, data still missing in large parts of the world -->
+<!-- - **Harmonisation of records** at different administrative levels -->
+<!-- - Facilitating access to (aggregated) health data  -->
+<!-- - __Political decision and resource allocation__ -->
 
 
 ## Opportunities: low hanging fruits?
 
 - SAR data to avoid clouds, e.g., [**SAOCOM**](https://saocom.invap.com.ar/) to estimate soil moisture
 - Open LiDAR data, e.g., [GEDI](https://gedi.umd.edu/) onboard of ISS
-- GEE vs open source solutions [openEO.cloud](https://openeo.cloud/), [actinia](https://actinia.mundialis.de/), OpenPlains? ;-)
+- Open source solutions for the cloud [openEO.cloud](https://openeo.cloud/), [actinia](https://actinia.mundialis.de/), OpenPlains? ;-)
 
 ::: {.columns}
 
@@ -715,6 +749,10 @@ Environmental variables associated with non-communicable diseases. **Dr. Juan Di
 
 ![](assets/img/lecture/one_health_and_satellites.png){fig-align="center" width="95%"}
 
+:::{.notes}
+So, it's clearly not all done already, and RS can contribute a big deal to reach SDGs in general and SDG 3 in particular, especially if we consider that for human good health and well being, environmental health and animal health are also necessary conditions.
+:::
+
 
 # { background-image="assets/img/lecture/CONAE_aereo.png" }
 
@@ -745,26 +783,26 @@ Unhealthy lab
 :::
 
 
-# Extra slides { background-color="#1A428A" }
+<!-- # Extra slides { background-color="#1A428A" } -->
 
----
+<!-- --- -->
 
-### App to count mosquito eggs in ovitraps pics
+<!-- ### App to count mosquito eggs in ovitraps pics -->
 
-<br>
+<!-- <br> -->
 
-[https://ovitrap-monitor.netlify.app/](https://ovitrap-monitor.netlify.app/)
+<!-- [https://ovitrap-monitor.netlify.app/](https://ovitrap-monitor.netlify.app/) -->
 
-::: {.columns}
-::: {.column width="45%"}
-![](assets/img/lecture/app-count.png)
-:::
+<!-- ::: {.columns} -->
+<!-- ::: {.column width="45%"} -->
+<!-- ![](assets/img/lecture/app-count.png) -->
+<!-- ::: -->
 
-::: {.column width="55%"}
-![](assets/img/lecture/app-reports.png)
-:::
-:::
+<!-- ::: {.column width="55%"} -->
+<!-- ![](assets/img/lecture/app-reports.png) -->
+<!-- ::: -->
+<!-- ::: -->
 
-::: footer
-Hamesse et al.
-:::
+<!-- ::: footer -->
+<!-- Hamesse et al. -->
+<!-- ::: -->
