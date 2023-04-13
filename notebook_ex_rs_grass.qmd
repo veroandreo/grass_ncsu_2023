@@ -671,10 +671,6 @@ lt2_map.show()
 
 We have now derived many potentially relevant predictors for the mosquito habitat suitability and we could still derive some more, for example, the number of mosquito or virus cycles per year based on development temperature thresholds and growing degree days (GDD). This could be achieved with [t.rast.accumulate](https://grass.osgeo.org/grass-stable/manuals/t.rast.accumulate.html) and [t.rast.accdetect](https://grass.osgeo.org/grass-stable/manuals/t.rast.accdetect.html). 
 
-We will now close this session as we will open it again from R in the last part of this session.
-
-```{python}
-session.finish
-```
+We will now open a GRASS session from R and perform SDM there.
 
 
