@@ -637,11 +637,11 @@ gs.run_command("t.rast.mapcalc",
 
 ```{python}
 # Calculate consecutive days with LST <= -10.0
-expression="lower_m2_consec_days = annual_mask_0 {+,contains,l} if(lst_daily <= -10.0 && lst_daily[-1] <= -10.0 || lst_daily[1] <= -10.0 && lst_daily <= -10.0, 1, 0)"
+expression="lower_m10_consec_days = annual_mask_0 {+,contains,l} if(lst_daily <= -10.0 && lst_daily[-1] <= -10.0 || lst_daily[1] <= -10.0 && lst_daily <= -10.0, 1, 0)"
 
 gs.run_command("t.rast.algebra",
                expression=expression,
-               basename="lower_m2_",
+               basename="lower_m10_",
                suffix="gran",
                nproc=7)
 ```
@@ -649,22 +649,22 @@ gs.run_command("t.rast.algebra",
 ```{python}
 # Inspect values
 gs.run_command("t.rast.list",
-               input="lower_m2_consec_days",
+               input="lower_m10_consec_days",
                columns="name,start_time,min,max")
 ```
 
 ```{python}
-# Median number of consecutive days with LST <= -2
+# Median number of consecutive days with LST <= -10
 gs.run_command("t.rast.series",
-               input="lower_m2_consec_days",
-               output="median_lower_m2_consec_days",
+               input="lower_m10_consec_days",
+               output="median_lower_m10_consec_days",
                method="median")
 ```
 
 ```{python}
 # Display raster map with interactive class
 lt2_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
-lt2_map.add_raster("median_lower_m2_consec_days")
+lt2_map.add_raster("median_lower_m10_consec_days")
 lt2_map.add_layer_control(position = "bottomright")
 lt2_map.show()
 ```
