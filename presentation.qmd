@@ -285,6 +285,10 @@ I beat vegetation variables are more frequently used
 
 ![](assets/img/lecture/all_resolutions_relation.png){fig-align="center"}
 
+::: footer
+@dif_resolutions_2018
+:::
+
 ::: {.notes}
 However, we should take into account some basic features of remote sensing before selecting which data to use.
 :::

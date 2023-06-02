@@ -227,6 +227,7 @@ The `grass_ncsu_2023` folder's tree should look like this:
   [tutorials](https://grasswiki.osgeo.org/wiki/Category:Tutorial),
   applications, etc.
 - grass-user mailing list: [subscribe](https://lists.osgeo.org/mailman/listinfo/grass-user) and post or check the [archives](https://lists.osgeo.org/pipermail/grass-user/)
+- GRASS Gitter chat: <https://gitter.im/grassgis/community>
 - Link to source code and history in each module manual page, eg., 
 [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html)
 

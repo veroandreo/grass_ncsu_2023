@@ -8,10 +8,22 @@ Traditionally, species distribution models (SDM) use climatic data as predictors
 
 # Getting ready
 
-We'll run this session online, however, if you want to run it locally 
-afterwards, here are the requirements.
+We'll run this session online within the [Whole Tale platform](https://wholetale.org/). 
+Whole Tale is an NSF-funded Data Infrastructure Building Block (DIBBS) initiative
+to build a scalable, open source, web-based, multi-user platform for reproducible
+research. It enables the creation, publication, and execution of tales - executable
+research objects that capture data, code, and the complete software environment 
+used to produce research findings. It's also great for teaching, as participants
+do not need to install all software packages required. They only need to register 
+with institutional or personal email and they are ready to go!
+
+**Run the session online:** [Using satellite data for SDM with GRASS GIS and R](https://dashboard.wholetale.org/run/64388157b3b74e434bd8f1ac?tab=metadata)
+
 
 ## Software 
+
+If you still want to run the workshop locally, you'll find instructions and 
+requirements below.
 
 ### GRASS GIS
 
@@ -61,7 +73,7 @@ Install with `g.extension extension=name_of_addon`
 The following R packages should be installed beforehand:
 
 ```r
-  install.packages(c("rgrass","terra","raster","sf","mapview","biomod2","dismo","usdm","SDMtune","zeallot"))
+  install.packages(c("rgrass","terra","raster","sf","mapview","biomod2","dismo","usdm","SDMtune","zeallot","rJava","ggpubr"))
 ```
 
 ### Python libraries

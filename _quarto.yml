@@ -66,6 +66,6 @@ format:
     code-block-border-left: false
     fontsize: 12pt
     code-overflow: "scroll"
-    code-line-numbers: true
+    code-line-numbers: false
 
     

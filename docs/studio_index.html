@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.2.313">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Verónica Andreo">
-<meta name="dcterms.date" content="2023-04-05">
+<meta name="dcterms.date" content="2023-06-02">
 <title>Visiting NCSU - Using Satellite Data for Species Distribution Modeling with GRASS GIS and R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -4110,7 +4110,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 5, 2023</p>
+      <p class="date">June 2, 2023</p>
     </div>
   </div>
   
@@ -4120,8 +4120,10 @@ vertical-align: -.125em;
 
 </header><p>Traditionally, species distribution models (SDM) use climatic data as predictors of habitat suitability for the target species. In this studio, we will explore the use of satellite data to derive relevant predictors. The satellite data processing, from download to analysis, will be performed using GRASS GIS software functionality. Then, we’ll read our predictors within R and perform SDM, visualize and analyze results there, to then exemplify how to write the output distribution maps back into GRASS.</p>
 <section id="getting-ready" class="level1"><h1>Getting ready</h1>
-<p>We’ll run this session online, however, if you want to run it locally afterwards, here are the requirements.</p>
+<p>We’ll run this session online within the <a href="https://wholetale.org/">Whole Tale platform</a>. Whole Tale is an NSF-funded Data Infrastructure Building Block (DIBBS) initiative to build a scalable, open source, web-based, multi-user platform for reproducible research. It enables the creation, publication, and execution of tales - executable research objects that capture data, code, and the complete software environment used to produce research findings. It’s also great for teaching, as participants do not need to install all software packages required. They only need to register with institutional or personal email and they are ready to go!</p>
+<p><strong>Run the session online:</strong> <a href="https://dashboard.wholetale.org/run/64388157b3b74e434bd8f1ac?tab=metadata">Using satellite data for SDM with GRASS GIS and R</a></p>
 <section id="software" class="level2"><h2 class="anchored" data-anchor-id="software">Software</h2>
+<p>If you still want to run the workshop locally, you’ll find instructions and requirements below.</p>
 <section id="grass-gis" class="level3"><h3 class="anchored" data-anchor-id="grass-gis">GRASS GIS</h3>
 <p>We will use <strong>GRASS GIS 8.2+</strong>. It can be installed either through standalone installers/binaries or through <a href="https://live.osgeo.org/en/index.html">OSGeo-Live</a> (a linux based virtual machine which includes all OSGeo software and packages).</p>
 <section id="ms-windows" class="level5"><h5 class="anchored" data-anchor-id="ms-windows">MS Windows</h5>
@@ -4133,9 +4135,9 @@ vertical-align: -.125em;
 <p>For Windows users, <strong>we strongly recommend installing GRASS GIS through the OSGeo4W package</strong> (second option), since it allows to install all OSGeo software and resolves dependencies.</p>
 </section><section id="ubuntu-linux" class="level5"><h5 class="anchored" data-anchor-id="ubuntu-linux">Ubuntu Linux</h5>
 <p>Install GRASS GIS 8.2+ from the “unstable” package repository:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>  <span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">sudo</span> apt-get update</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">sudo</span> apt-get install grass grass-gui grass-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sudo</span> apt-get update</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sudo</span> apt-get install grass grass-gui grass-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="fedora-opensuse-linux" class="level5"><h5 class="anchored" data-anchor-id="fedora-opensuse-linux">Fedora, openSuSe Linux</h5>
 <p>For other Linux distributions including <strong>Fedora</strong> and <strong>openSuSe</strong>, simply install GRASS GIS with the respective package manager. See also <a href="https://grass.osgeo.org/download/linux/">here</a></p>
 </section><section id="mac-os" class="level5"><h5 class="anchored" data-anchor-id="mac-os">Mac OS</h5>
@@ -4148,10 +4150,10 @@ vertical-align: -.125em;
 <p>Install with <code>g.extension extension=name_of_addon</code></p>
 </section></section><section id="r-packages" class="level3"><h3 class="anchored" data-anchor-id="r-packages">R packages</h3>
 <p>The following R packages should be installed beforehand:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>  <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;rgrass&quot;</span>,<span class="st">&quot;terra&quot;</span>,<span class="st">&quot;raster&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;mapview&quot;</span>,<span class="st">&quot;biomod2&quot;</span>,<span class="st">&quot;dismo&quot;</span>,<span class="st">&quot;usdm&quot;</span>,<span class="st">&quot;SDMtune&quot;</span>,<span class="st">&quot;zeallot&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">&quot;rgrass&quot;</span>,<span class="st">&quot;terra&quot;</span>,<span class="st">&quot;raster&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;mapview&quot;</span>,<span class="st">&quot;biomod2&quot;</span>,<span class="st">&quot;dismo&quot;</span>,<span class="st">&quot;usdm&quot;</span>,<span class="st">&quot;SDMtune&quot;</span>,<span class="st">&quot;zeallot&quot;</span>,<span class="st">&quot;rJava&quot;</span>,<span class="st">&quot;ggpubr&quot;</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="python-libraries" class="level3"><h3 class="anchored" data-anchor-id="python-libraries">Python libraries</h3>
 <p>The following Python libraries should be installed beforehand:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>  <span class="ex">pip</span> install folium </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">pip</span> install folium </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section><section id="other-software" class="level2"><h2 class="anchored" data-anchor-id="other-software">Other software</h2>
 <p>We will use the software <strong>MaxEnt</strong> to model habitat suitability. It can be downloaded from: <a href="https://biodiversityinformatics.amnh.org/open_source/maxent/" class="uri">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
 </section><section id="data" class="level2"><h2 class="anchored" data-anchor-id="data">Data</h2>

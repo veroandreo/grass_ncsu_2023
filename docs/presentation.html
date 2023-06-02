@@ -341,7 +341,7 @@
       margin-right: 0; 
     }
   </style>
-  <script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
   <script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
@@ -382,8 +382,8 @@ Verónica Andreo
 </div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9cc13db0513c9a02975b" style="width:384px;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-9cc13db0513c9a02975b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9215ce50e75142821847" style="width:384px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9215ce50e75142821847">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-31.5204194,-64.4653258,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"IG",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-31.5204194,-31.5204194],"lng":[-64.4653258,-64.4653258]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -677,7 +677,10 @@ Verónica Andreo
 <section class="slide level2">
 <h2>Remote sensing basic features</h2>
 
-<img data-src="assets/img/lecture/all_resolutions_relation.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<img data-src="assets/img/lecture/all_resolutions_relation.png" class="r-stretch quarto-figure-center"><div class="footer">
+<p><span class="citation" data-cites="dif_resolutions_2018">Kasampalis et al. (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></p>
+</div>
+<aside class="notes">
 <p>However, we should take into account some basic features of remote sensing before selecting which data to use.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1227,6 +1230,9 @@ Georganos, S., Grippa, T., Lennert, M., Vanhuysse, S., and Johnson, B. A. (2018)
 </div>
 <div id="ref-grippa_open_source_2017" class="csl-entry" role="doc-biblioentry">
 Grippa, T., Lennert, M., Beaumont, B., Vanhuysse, S., Stephenne, N., Wolff, E., Grippa, T., Lennert, M., Beaumont, B., Vanhuysse, S., Stephenne, N., and Wolff, E. (2017), <span>“An <span>Open</span>-<span>Source</span> <span>Semi</span>-<span>Automated</span> <span>Processing</span> <span>Chain</span> for <span>Urban</span> <span>Object</span>-<span>Based</span> <span>Classification</span>,”</span> <em>Remote Sensing</em>, 9, 358. <a href="https://doi.org/10.3390/rs9040358">https://doi.org/10.3390/rs9040358</a>.
+</div>
+<div id="ref-dif_resolutions_2018" class="csl-entry" role="doc-biblioentry">
+Kasampalis, D. A., Alexandridis, T. K., Deva, C., Challinor, A., Moshou, D., and Zalidis, G. (2018), <span>“Contribution of remote sensing on crop models: A review,”</span> <em>Journal of Imaging</em>, 4, 52. <a href="https://doi.org/10.3390/jimaging4040052">https://doi.org/10.3390/jimaging4040052</a>.
 </div>
 <div id="ref-lambin_pathogenic_2010" class="csl-entry" role="doc-biblioentry">
 Lambin, E. F., Tran, A., Vanwambeke, S. O., Linard, C., and Soti, V. (2010), <span>“Pathogenic landscapes: <span>Interactions</span> between land, people, disease vectors, and their animal hosts,”</span> <em>International Journal of Health Geographics</em>, 9, 54. <a href="https://doi.org/10.1186/1476-072X-9-54">https://doi.org/10.1186/1476-072X-9-54</a>.

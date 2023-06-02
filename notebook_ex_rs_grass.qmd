@@ -8,7 +8,7 @@ format:
     code-copy: true
     code-fold: false
 execute:
-  eval: false
+  eval: true
   cache: true
   keep-ipynb: true
 jupyter: python3
@@ -176,7 +176,8 @@ it_map.show()
 
 ```{python}
 # List raster elements
-gs.list_grouped(type="raster", pattern="lst*")['italy_LST_daily']
+rast = gs.list_grouped(type="raster", pattern="lst*")['italy_LST_daily']
+rast[0:10]
 ```
 
 ```{python}
@@ -335,8 +336,8 @@ gs.run_command("t.list",
 
 ```{python}
 # Get list of maps 
-map_list=gs.list_grouped(type="raster", pattern="lst_201*")['italy_LST_daily']
-map_list
+map_list = gs.list_grouped(type="raster", pattern="lst_201*")['italy_LST_daily']
+map_list[0:10]
 ```
 
 ```{python}
@@ -377,12 +378,16 @@ gs.run_command("t.rast.series",
 
 ```{python}
 # Get map info and check values
-gs.raster_info("lst_average_jan")
+gs.raster_info("lst_average_jan")['min'], gs.raster_info("lst_average_jan")['max']
 ```
 
 If we want to estimate climatologies for all months, let's try first to get the list of maps that will be the input for [t.rast.series](https://grass.osgeo.org/grass-stable/manuals/t.rast.series.html), for that we'll test the condition in [t.rast.list](https://grass.osgeo.org/grass-stable/manuals/t.rast.list.html) first.
 
 ```{python}
+#| message: false
+#| warning: false
+#| results: hide
+
 # Define list of months as required
 months=['{0:02d}'.format(m) for m in range(1,13)]
 
@@ -411,7 +416,8 @@ for m in months:
 
 ```{python}
 # List newly created maps
-gs.list_grouped(type="raster", pattern="*{average,minimum,maximum}*")['italy_LST_daily']
+map_list = gs.list_grouped(type="raster", pattern="*{average,minimum,maximum}*")['italy_LST_daily']
+print(map_list)
 ```
 
 ```{python}
@@ -555,6 +561,10 @@ the number of days within this range per year, and then, we'll estimate the
 average along years. See [t.rast.algebra](https://grass.osgeo.org/grass-stable/manuals/t.rast.algebra.html) manual for further details.
 
 ```{python}
+#| message: false
+#| warning: false
+#| results: hide
+
 # Keep only pixels meeting the condition
 expression="tmean_higher20_lower30 = if(lst_daily >= 20.0 && lst_daily <= 30.0, 1, null())"
 
@@ -636,12 +646,16 @@ gs.run_command("t.rast.mapcalc",
 ```
 
 ```{python}
+#| message: false
+#| warning: false
+#| results: hide
+
 # Calculate consecutive days with LST <= -10.0
 expression="lower_m10_consec_days = annual_mask_0 {+,contains,l} if(lst_daily <= -10.0 && lst_daily[-1] <= -10.0 || lst_daily[1] <= -10.0 && lst_daily <= -10.0, 1, 0)"
 
 gs.run_command("t.rast.algebra",
                expression=expression,
-               basename="lower_m10_",
+               basename="lower_m10",
                suffix="gran",
                nproc=7)
 ```
@@ -663,10 +677,10 @@ gs.run_command("t.rast.series",
 
 ```{python}
 # Display raster map with interactive class
-lt2_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
-lt2_map.add_raster("median_lower_m10_consec_days")
-lt2_map.add_layer_control(position = "bottomright")
-lt2_map.show()
+lt10_map = gj.InteractiveMap(width = 500, use_region=True, tiles="OpenStreetMap")
+lt10_map.add_raster("median_lower_m10_consec_days")
+lt10_map.add_layer_control(position = "bottomright")
+lt10_map.show()
 ```
 
 We have now derived many potentially relevant predictors for the mosquito habitat suitability and we could still derive some more, for example, the number of mosquito or virus cycles per year based on development temperature thresholds and growing degree days (GDD). This could be achieved with [t.rast.accumulate](https://grass.osgeo.org/grass-stable/manuals/t.rast.accumulate.html) and [t.rast.accdetect](https://grass.osgeo.org/grass-stable/manuals/t.rast.accdetect.html). 

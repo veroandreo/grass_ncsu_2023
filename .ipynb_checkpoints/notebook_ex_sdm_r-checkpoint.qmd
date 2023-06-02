@@ -1,0 +1,511 @@
+---
+title: "Part 3: Modelling with R"
+author: Verónica Andreo
+date: '`r Sys.Date()`'
+format: 
+  html: 
+    code-tools: true
+    code-copy: true
+    code-fold: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+# knitr::opts_chunk$set(cache = TRUE)
+```
+
+In this third part of the studio, we'll use R to model *Aedes albopictus*
+distribution in Northern Italy. For that, we need to connect to GRASS via
+the `rgrass` package in order to read occurrence data and predictors. The 
+*rgrass* package is developed by @rgrass and can be found at: 
+<https://github.com/rsbivand/rgrass/>. See the vignette with further
+explanations and examples at: <https://rsbivand.github.io/rgrass/>.
+
+# [**rgrass**](https://cran.r-project.org/web/packages/rgrass/index.html)
+
+- `initGRASS()`: starts a GRASS GIS session from R
+- `execGRASS()`: executes GRASS GIS commands 
+- `gmeta()`: shows GRASS location metadata
+- `read_VECT()` and `read_RAST()`: read vector and raster maps from GRASS into R *terra* objects.
+- `write_VECT()` and `write_RAST()`: write R *terra* objects into the GRASS GIS database
+
+::: {.callout-note}
+Package `terra` is developed by @terra and will eventually replace `raster`.
+:::
+
+## Usage
+
+GRASS GIS and R can be used together in two ways:
+
+A. Using [R within a GRASS GIS session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#R_within_GRASS), i.e. starting R (or RStudio) from GRASS terminal
+<br>
+
+- type `R` or `rstudio &` in the GRASS GIS terminal
+- load `rgrass` library
+- use `read_VECT()`, `read_RAST()` to read data from GRASS into R
+- access GRASS GIS modules and database through `execGRASS()`
+- write data (back) to GRASS database with `write_VECT()` and `write_RAST()`
+
+
+![](assets/img/studio/grass_terminal_calling_R.png){width="60%" fig-align="center"}
+
+B. Using [GRASS GIS within an R session](https://grasswiki.osgeo.org/wiki/R_statistics/rgrass7#GRASS_within_R), i.e. we connect to GRASS GIS database from within R (or RStudio).
+<br>
+
+- we need to start GRASS GIS with `initGRASS()` from R
+- we access GRASS GIS modules through `execGRASS()`
+- use `read_VECT()`, `read_RAST()`, `write_VECT()` and `write_RAST()` to read data from and to GRASS database
+
+::: {.callout-note}
+`rgrass` was originally intended to apply GRASS functions on data outside GRASS database; hence some prefer to create throw away locations
+:::
+
+![](assets/img/studio/grass_within_rstudio_session.png){width="70%" fig-align="center"}
+
+# SDM workflow
+
+In this part of the Studio we'll be covering the middle and right side of the
+SDM workflow, modeling and predictions.
+
+![](assets/img/lecture/workflow_sdm_other.png)
+
+There are several packages to carry out SDM, in this case we'll be using
+[SDMtune](https://cloud.r-project.org/web/packages/SDMtune/index.html) by @sdmtune. It provides functions covering the whole SDM workflow, from data 
+preparation, to variable selection, optimization and evaluation. Have a look
+at the articles on the package website for further details: <https://consbiol-unibern.github.io/SDMtune/index.html>.
+
+
+# Let's move to R
+
+### Load packages needed
+
+```{r load_libraries, message=FALSE}
+library(rgrass)
+library(sf)
+library(terra)
+library(mapview)
+library(biomod2)
+library(dismo)
+library(usdm)
+library(SDMtune)
+library(zeallot)
+```
+
+### Initialize GRASS
+
+We'll use **option B**, i.e., we'll launch GRASS GIS in a defined location and mapset, from R
+
+```{r}
+#| label: grass_init
+#| message: false
+#| panel: tabset
+
+# path to GRASS binaries (run `grass --config path`)
+grassbin <- "/usr/lib64/grass82"
+# path to GRASS database
+grassdata <- "/home/veroandreo/grass_ncsu_2023/grassdata/"
+# path to location
+location <- "eu_laea"
+# path to mapset
+mapset <- "italy_LST_daily"
+
+# start GRASS GIS from R
+initGRASS(gisBase = grassbin, 
+          home = tempdir(), 
+          gisDbase = grassdata, 
+          location = location, 
+          mapset = mapset, 
+          override = TRUE,
+          remove_GISRC= TRUE)
+```
+
+### Read vector data
+
+Now we read in the occurrence data and the background points hosted in GRASS, convert them to `sf` objects and display them with `mapview`.
+
+```{r}
+#| label: read_vectors
+#| message: false
+#| warning: false
+#| results: hide
+
+# Read vector layers
+presence <- st_as_sf(read_VECT("aedes_albopictus"))
+background <- st_as_sf(read_VECT("background_points"))
+```
+
+```{r ref.label='plot'}
+#| warning: false
+
+# Display vectors
+mapview(presence) + 
+  mapview(background, col.regions="black", cex=2)
+```
+
+#### Read raster data
+
+We read now all the variables that we derived from the daily LST time series.
+
+```{r}
+#| label: read_rasters
+#| message: false
+#| warning: false
+#| results: hide
+
+# List rasters by pattern
+worldclim <- execGRASS("g.list", 
+                       parameters = list(type = "raster", 
+                                         pattern = "worldclim*"))
+avg <- execGRASS("g.list", 
+                 parameters = list(type = "raster", 
+                                   pattern = "avg*"))
+median <- execGRASS("g.list", 
+                    parameters = list(type = "raster", 
+                                      pattern = "median*", 
+                                      exclude = "*[1-5]"))
+
+# Concatenate map lists
+to_import <- c(attributes(worldclim)$resOut, 
+               attributes(avg)$resOut, 
+               attributes(median)$resOut)
+
+# Read raster layers
+predictors <- list()
+for (i in to_import){ 
+  predictors[i] <- read_RAST(i) }
+
+# Stack rasters
+predictors_r <- rast(predictors)
+```
+
+Let's visualize imported maps. Note we convert *terra* object into *raster* 
+because `mapview` does not support terra yet. 
+
+```{r}
+#| label: quick_view
+#| message: false
+#| warning: false
+
+# Quick visualization in mapview
+mapview(raster::raster(predictors_r[['worldclim_bio01']])) + presence
+```
+
+#### Data preparation
+
+Now that we have imported presence records, background points and predictor
+variables derived from LST time series, we need to prepare the data in a
+format called *samples with data* (SWD). This is basically a table with presence
+and background coordinates plus the corresponding values in the predictor
+variables.
+
+```{r}
+#| label: data_prep1
+#| message: false
+#| warning: false
+
+# Variables for models
+sp <- "Aedes albopictus"
+presence_coords <- st_coordinates(presence)
+background <- st_coordinates(background)
+env <- predictors_r
+
+# Prepare data: SWD
+data_sp <- prepareSWD(species = sp, 
+                      p = presence_coords, 
+                      a = background, 
+                      env = env)
+
+data_sp
+```
+
+### Define relevant variables
+
+We define here some of the input values required through the workflow:
+
+```{r}
+seed=49
+perc_test = 0.2
+k = 4
+method="Maxent"
+cor_th=0.7
+perm=10
+imp_th=10
+```
+
+### Create train and test datasets
+
+We will train the model with an 80% of presence samples, and leave the remaining
+20% for evaluation at the end.
+
+```{r}
+# Create training and test sets
+c(train_sp, test_sp) %<-% 
+  trainValTest(data_sp, 
+               test = perc_test,
+               only_presence = TRUE, 
+               seed = seed)
+
+```
+
+```{r}
+train_sp
+```
+
+```{r}
+test_sp
+```
+
+### Create folds for cross-validation
+
+As we will use cross-validation during the model training, we create the folds
+in advance. In this case we use random folds, but other methods exist.
+Since we are limited by the number of presence records, we will create only 
+4 folds. The algorithm will iteratively use 3 folds to train and 1 to validate.
+
+```{r}
+# Create folds 
+ran_folds <- randomFolds(train_sp, 
+                         k = k,
+                         only_presence = TRUE, 
+                         seed = seed)
+```
+
+### Train a default Maxent model with CV
+
+We will first train a so called *full model*, i.e., a model with all predictors,
+and from there we'll remove those that are highly correlated and not so important.
+
+```{r}
+#| message: false
+#| warning: false
+
+# Train a full model
+full_model_sp <- train(method = method,
+                       data = train_sp, 
+                       folds = ran_folds)
+
+full_model_sp
+```
+
+Let's see the predictions of the full model
+
+```{r}
+pred_full_model <- predict(full_model_sp,
+                           data = env,
+                           type = "cloglog")
+
+mapview(raster::raster(pred_full_model))
+```
+
+### Variable selection: remove highly correlated variables 
+
+We proceed then to remove correlated predictors as they provide highly redundant
+information and might affect the performance of models, i.e., as with all 
+models, we want it to be simple and of the highest possible performance. We will
+use the area under the ROC curve (AUC) as the performance metric, and eliminate 
+correlated variables only if AUC decreases if we keep them.
+
+```{r}
+#| warning: false
+
+# Prepare background locations to test correlation
+bg_sp <- prepareSWD(species = sp, 
+                    a = background,
+                    env = env)
+
+# Remove variables with correlation higher than 0.7 
+# while accounting for the AUC
+vs_sp <- varSel(full_model_sp,
+                metric = "auc", 
+                bg4cor = bg_sp, 
+                cor_th = cor_th,
+                permut = perm,
+                interactive = FALSE)
+
+```
+
+Let's explore the output object
+
+```{r}
+vs_sp@data
+```
+
+### Remove less important variables
+
+After discarding correlated variables, we will also remove variables that have a
+percent contribution or importance lower than 10%, again accounting for AUC.
+
+```{r}
+# remove less important variables only if auc does not decrease
+reduc_var_sp <- reduceVar(vs_sp,
+                          th = imp_th, 
+                          metric = "auc", 
+                          test = TRUE, 
+                          permut = perm, 
+                          use_jk = TRUE,
+                          interactive = FALSE)
+```
+
+Let's explore the result
+
+```{r}
+reduc_var_sp
+```
+
+We need now to recreate the SWD object and train/test datasets, but with the 
+selected variables only, in order to run the final model and make predictions.
+
+```{r}
+# Get only relevant variables from the reduced model
+retained_varnames <- names(reduc_var_sp@models[[1]]@data@data)
+
+# Subset stack
+env <- terra::subset(env, retained_varnames)
+
+# SWD with the selected vars
+subset_train_sp <- prepareSWD(species = sp, 
+                              p = presence_coords,
+                              a = background,
+                              env = env)
+
+c(train_sp, test_sp) %<-% 
+  trainValTest(subset_train_sp, 
+               test = perc_test, 
+               only_presence = TRUE, 
+               seed = seed)
+```
+
+### Run the best model and make predictions
+
+Now we train the final model with the full training set, we no longer need
+the folds at this point. Note that we also use the feature classes (fc) and
+regularization (reg) from the best model obtained before. In this case, they 
+are default values only, but if we also do hyper-parameter optimization, they
+might differ.
+
+```{r}
+final_model_sp <- train(method = method, 
+                        data = train_sp,
+                        fc = reduc_var_sp@models[[1]]@model@fc,
+                        reg = reduc_var_sp@models[[1]]@model@reg)
+```
+
+Let's make predictions now and explore the result
+
+```{r}
+map_sp_maxent <- predict(final_model_sp,
+                         data = env, 
+                         type = "cloglog")
+
+mapview(raster::raster(map_sp_maxent))
+```
+
+### Write result back to GRASS 
+
+We can now write the raster with the final model's predictions into the GRASS
+database.
+
+```{r}
+write_RAST(map_sp_maxent, 
+           "Aedes_albopictus_maxent", 
+           flags = c("o","overwrite"))
+```
+
+Check the map is there
+
+```{r}
+execGRASS("g.list", 
+          parameters = list(type="raster",
+                            pattern="Aedes*"))
+```
+
+### Model evaluation
+
+We want to know how good our model is, so in this step we use the test dataset
+that we separated in the beginning. An AUC of 0.5 would mean the model performs
+like flipping a coin. AUC is what we call a threshold independent evaluation
+metric.
+
+```{r}
+# AUC
+auc_maxent <- auc(final_model_sp, test = test_sp)
+auc_maxent
+```
+
+Usually, however, the result of SDM is converted into presence/absence maps. To
+determine which threshold to use we perform threshold dependent evaluations.
+
+```{r}
+# Threshold dependent evaluation
+th_maxent <- thresholds(final_model_sp, 
+                        type = "cloglog", 
+                        test = test_sp)
+
+knitr::kable(th_maxent, format = 'html', digits = 2)
+```
+Let's choose one threshold and create a binary map
+
+```{r}
+p = map_sp_maxent >= 0.5
+a = map_sp_maxent < 0.5
+map_sp_maxent[p] <- 1
+map_sp_maxent[a] <- 0
+
+mapview(raster::raster(map_sp_maxent))
+```
+
+
+### Variable importance
+
+Variable importance is an indicator of variable contribution to prediction.
+
+```{r}
+vi_model_sp <- maxentVarImp(final_model_sp)
+vi_model_sp
+```
+
+```{r}
+plotVarImp(vi_model_sp)
+```
+
+
+### Response curves
+
+Response curves give us an idea of the relationship between predictor variables 
+and probability of occurrence.
+
+```{r}
+my_rp <- function(i){
+  plotResponse(reduc_var_sp, i)
+}
+
+plotlist <- lapply(retained_varnames, my_rp)
+labels <- LETTERS[1:length(retained_varnames)]
+ggpubr::ggarrange(plotlist = plotlist, labels = labels)
+```
+
+We close the mapset and done
+
+```{r}
+# close the mapset
+unlink_.gislock()
+```
+
+
+### Disclaimer
+
+This is only a simple example for doing SDM and only the beginning... 
+There are:
+
+- other models to test
+- hyper-parameter tuning
+- ensemble modeling
+- uncertainty assessment: where we can predict with confidence
+- many other relevant packages: 
+  - [*dismo*](https://cran.r-project.org/web/packages/dismo/index.html), [*sdm*](https://cran.r-project.org/web/packages/sdm/index.html),  [*kuenm*](https://github.com/marlonecobos/kuenm), [*caret*](https://cran.r-project.org/web/packages/caret/index.html), [*CAST*](https://cran.r-project.org/web/packages/CAST/index.html), etc.
+
+## References
+
+:::{#refs}
+
+:::
