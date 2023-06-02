@@ -17,7 +17,7 @@ used to produce research findings. It's also great for teaching, as participants
 do not need to install all software packages required. They only need to register 
 with institutional or personal email and they are ready to go!
 
-**Run the session online:** [Using satellite data for SDM with GRASS GIS and R](https://dashboard.wholetale.org/run/64388157b3b74e434bd8f1ac?tab=metadata)
+**Run the session online:** [Satellite data for SDM with GRASS GIS and R](https://dashboard.wholetale.org/run/647a2d67131e6c800db54dd7?tab=metadata)
 
 
 ## Software 
